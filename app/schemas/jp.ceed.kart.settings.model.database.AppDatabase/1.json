@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ae71aeff254a9799f8a90b6abaa74576",
+    "identityHash": "5c00e2a717e2f7fb81e8ff64c1dfbef6",
     "entities": [
       {
         "tableName": "Track",
@@ -29,12 +29,44 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "Practice",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `trackId` INTEGER NOT NULL, `startDate` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "trackId",
+            "columnName": "trackId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startDate",
+            "columnName": "startDate",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ae71aeff254a9799f8a90b6abaa74576')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5c00e2a717e2f7fb81e8ff64c1dfbef6')"
     ]
   }
 }

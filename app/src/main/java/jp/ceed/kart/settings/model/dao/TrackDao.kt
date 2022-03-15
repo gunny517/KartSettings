@@ -1,4 +1,4 @@
-package jp.ceed.kart.settings.model
+package jp.ceed.kart.settings.model.dao
 
 import androidx.room.Dao
 import androidx.room.Insert

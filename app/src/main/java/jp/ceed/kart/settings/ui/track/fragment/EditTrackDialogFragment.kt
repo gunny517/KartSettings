@@ -33,8 +33,6 @@ class EditTrackDialogFragment(val onInput: (trackName: String) -> Unit): DialogF
 
     companion object {
         const val TAG = "EditTrackDialogFragment"
-        const val REQUEST_CODE = "inputTrackName"
-        const val KEY_TRACK_NAME = "trackName"
     }
 
 }
