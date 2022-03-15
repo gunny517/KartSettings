@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentPracticeListBinding
+import jp.ceed.kart.settings.model.entity.Track
 import jp.ceed.kart.settings.ui.practice.adapter.PracticeListAdapter
 import jp.ceed.kart.settings.ui.practice.viewModel.PracticeListFragmentViewModel
 
@@ -49,7 +50,12 @@ class PracticeListFragment: Fragment() {
     }
 
     private fun onClickFab(){
+        EditPracticeDialogFragment(::createPractice).show(childFragmentManager, EditPracticeDialogFragment.TAG)
+    }
 
+
+    private fun createPractice(track: Track, year: String, month: String, date: String){
+        viewModel.createPractice(track, year, month, date)
     }
 
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="jp.ceed.kart.settings.ui.practice.viewModel.EditPracticeDialogFragmentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_l">
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <EditText
+            android:id="@+id/yearEditText"
+            android:layout_width="80sp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/spinner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/mothEditText"
+            android:inputType="number"
+            android:text="@{viewModel.year}"/>
+
+        <EditText
+            android:id="@+id/mothEditText"
+            android:layout_width="40sp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/spinner"
+            app:layout_constraintStart_toEndOf="@id/yearEditText"
+            app:layout_constraintEnd_toStartOf="@id/dateEditText"
+            android:inputType="number"
+            android:text="@{viewModel.month}"/>
+
+        <EditText
+            android:id="@+id/dateEditText"
+            android:layout_width="40sp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/spinner"
+            app:layout_constraintStart_toEndOf="@id/mothEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="number"
+            android:text="@{viewModel.date}"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
