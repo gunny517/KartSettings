@@ -22,4 +22,10 @@
         android:name="jp.ceed.kart.settings.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_track"
+        android:name="jp.ceed.kart.settings.ui.track.fragment.TrackListFragment"
+        android:label="@string/menu_track_list"
+        tools:layout="@layout/fragment_tack_list"/>
 </navigation>

@@ -19,4 +19,10 @@ class TrackRepository(context: Context, private val dispatcher: CoroutineDispatc
         return list
     }
 
+    suspend fun insertTrack(track: Track) {
+        withContext(dispatcher){
+            trackDao.insert(track)
+        }
+    }
+
 }

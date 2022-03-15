@@ -5,6 +5,9 @@ plugins {
 apply plugin: 'kotlin-kapt'
 
 android {
+    dataBinding {
+        enabled true
+    }
     compileSdk 32
 
     defaultConfig {
