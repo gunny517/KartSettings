@@ -8,8 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentSessionListBinding
+import jp.ceed.kart.settings.ui.session.adapter.SessionListAdapter
 import jp.ceed.kart.settings.ui.session.viewModel.SessionListFragmentViewModel
 
 class SessionListFragment: Fragment() {
@@ -35,7 +38,14 @@ class SessionListFragment: Fragment() {
     }
 
     private fun initLayout(){
-
+        val adapter = SessionListAdapter(requireContext(), childFragmentManager)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.HORIZONTAL))
+        viewModel.sessionList.observe(viewLifecycleOwner){
+            adapter.setItemList(it)
+            adapter.notifyDataSetChanged()
+        }
     }
 
     private fun factoryProducer(): SessionListFragmentViewModel.SessionListFragmentViewModelFactory {

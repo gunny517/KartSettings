@@ -9,9 +9,17 @@
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_edit_practice_dialog.xml" value="0.33559782608695654" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_edit_track_dialog.xml" value="0.34193840579710144" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_practice_list.xml" value="0.215625" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_session.xml" value="0.33695652173913043" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_session_header.xml" value="0.3278985507246377" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_session_list.xml" value="0.33695652173913043" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_settings.xml" value="0.34375" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_tack_list.xml" value="0.25" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/practice_list_item.xml" value="0.34193840579710144" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/session_item.xml" value="0.33695652173913043" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/session_list_item.xml" value="0.35778985507246375" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/settin_item_view.xml" value="0.33695652173913043" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/setting_adapter_item.xml" value="0.35778985507246375" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/setting_item_head.xml" value="0.33695652173913043" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/track_list_item.xml" value="0.34782608695652173" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/track_spinner_item.xml" value="0.31929347826086957" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/menu/activity_main_drawer.xml" value="0.4010416666666667" />

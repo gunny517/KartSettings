@@ -12,6 +12,30 @@
 
     <string name="ok">OK</string>
     <string name="cancel">キャンセル</string>
+    <string name="setting_label_start_time">走行時刻</string>
+    <string name="setting_label_track_condition">路面状態</string>
+    <string name="setting_label_humidity">湿度</string>
+    <string name="setting_label_temperature">気温</string>
+    <string name="setting_label_pressure">気圧</string>
+    <string name="setting_label_track_temperature">路面温度</string>
+    <string name="setting_label_engine">エンジン</string>
+    <string name="setting_label_btdc">点火時期</string>
+    <string name="setting_label_carburetor">キャブ</string>
+    <string name="setting_label_low_needle">ローニードル</string>
+    <string name="setting_label_high_needle">ハイニードル</string>
+    <string name="setting_label_final_ratio">ファイナル</string>
+    <string name="setting_label_ex_joint">ジョイント</string>
+    <string name="setting_label_tire_pressure_f">空気圧F</string>
+    <string name="setting_label_tire_pressure_r">空気圧R</string>
+    <string name="setting_label_tread_f">トレッドF</string>
+    <string name="setting_label_tread_r">トレッドR</string>
+    <string name="setting_label_stabilizer">スタビ</string>
+    <string name="setting_label_axle_shaft">シャフト</string>
+    <string name="setting_label_axle_bearing">ベアリング</string>
+    <string name="setting_label_hub_stopper">ハブスストッパー</string>
+    <string name="setting_label_max_rev">最高回転</string>
+    <string name="setting_label_max_speed">最高速</string>
+    <string name="setting_label_best_time">ベストタイム</string>
 
-    <string name="meg_empty_settings">セッティングがありません。</string>
+    <string name="meg_empty_session">セッションがありません。</string>
 </resources>

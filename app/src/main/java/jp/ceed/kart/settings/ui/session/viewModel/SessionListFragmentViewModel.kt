@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import jp.ceed.kart.settings.domain.repository.SessionRepository
+import jp.ceed.kart.settings.model.dto.SessionListItem
 import jp.ceed.kart.settings.model.entity.Session
 import kotlinx.coroutines.launch
 
@@ -20,17 +21,24 @@ class SessionListFragmentViewModel(context: Context, val practiceId: Int) : View
         }
     }
 
-    private val settingsRepository = SessionRepository(context)
+    private val sessionRepository = SessionRepository(context)
 
-    var sessionList: MutableLiveData<List<Session>> = MutableLiveData()
+    var sessionList: MutableLiveData<List<SessionListItem>> = MutableLiveData()
 
     init {
         loadSessions()
     }
 
+    fun onClickFab(){
+
+    }
+
     fun loadSessions(){
+        val list: ArrayList<SessionListItem> = ArrayList()
+        list.add(sessionRepository.getSessionHeader())
         viewModelScope.launch {
-            sessionList.value = settingsRepository.findByPracticeId(practiceId)
+            list.addAll(sessionRepository.getSessionContentByPracticeId(practiceId))
+            sessionList.value = list
         }
     }
 
