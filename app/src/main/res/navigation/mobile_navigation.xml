@@ -9,11 +9,26 @@
         android:id="@+id/nav_practice"
         android:name="jp.ceed.kart.settings.ui.practice.fragment.PracticeListFragment"
         android:label="@string/menu_practice_list"
-        tools:layout="@layout/fragment_practice_list" />
+        tools:layout="@layout/fragment_practice_list">
+
+        <action
+            android:id="@+id/practiceListFragment_to_SessionListFragment"
+            app:destination="@id/SessionListFragment"/>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_track"
         android:name="jp.ceed.kart.settings.ui.track.fragment.TrackListFragment"
         android:label="@string/menu_track_list"
         tools:layout="@layout/fragment_tack_list"/>
+
+    <fragment
+        android:id="@+id/SessionListFragment"
+        android:name="jp.ceed.kart.settings.ui.settings.fragment.SessionListFragment">
+
+        <argument
+            app:argType="integer"
+            android:name="practiceId"
+            app:nullable="false"/>
+    </fragment>
 </navigation>

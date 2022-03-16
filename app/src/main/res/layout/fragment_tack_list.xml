@@ -28,7 +28,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/fab_margin"
             android:layout_marginBottom="16dp"
-            app:srcCompat="@android:drawable/ic_dialog_email"
+            app:srcCompat="@android:drawable/ic_menu_add"
             android:onClick="@{v -> viewModel.onClickFab()}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

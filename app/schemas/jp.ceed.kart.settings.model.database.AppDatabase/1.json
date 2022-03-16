@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5c00e2a717e2f7fb81e8ff64c1dfbef6",
+    "identityHash": "12b872aa4910d30d2179360ef5a9a950",
     "entities": [
       {
         "tableName": "Track",
@@ -61,12 +61,182 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "Session",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `practiceId` INTEGER NOT NULL, `startTime` TEXT NOT NULL, `trackCondition` TEXT NOT NULL, `humidity` INTEGER NOT NULL, `temperature` REAL NOT NULL, `pressure` INTEGER NOT NULL, `trackTemperature` REAL NOT NULL, `engine` TEXT NOT NULL, `btdc` REAL NOT NULL, `carburetor` TEXT NOT NULL, `lowNeedle` TEXT NOT NULL, `highNeedle` TEXT NOT NULL, `finalRatio` TEXT NOT NULL, `exJoint` TEXT NOT NULL, `tirePressureF` REAL NOT NULL, `tirePressureR` REAL NOT NULL, `treadF` TEXT NOT NULL, `treadR` TEXT NOT NULL, `stabilizerF` TEXT NOT NULL, `axleShaft` TEXT NOT NULL, `axleBearing` TEXT NOT NULL, `hubStopper` TEXT NOT NULL, `maxRev` INTEGER NOT NULL, `maxSpeed` REAL NOT NULL, `bestTime` REAL NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "practiceId",
+            "columnName": "practiceId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startTime",
+            "columnName": "startTime",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "trackCondition",
+            "columnName": "trackCondition",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "humidity",
+            "columnName": "humidity",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "temperature",
+            "columnName": "temperature",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pressure",
+            "columnName": "pressure",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "trackTemperature",
+            "columnName": "trackTemperature",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "engine",
+            "columnName": "engine",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "btdc",
+            "columnName": "btdc",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "carburetor",
+            "columnName": "carburetor",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lowNeedle",
+            "columnName": "lowNeedle",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "highNeedle",
+            "columnName": "highNeedle",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "finalRatio",
+            "columnName": "finalRatio",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "exJoint",
+            "columnName": "exJoint",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tirePressureF",
+            "columnName": "tirePressureF",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tirePressureR",
+            "columnName": "tirePressureR",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "treadF",
+            "columnName": "treadF",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "treadR",
+            "columnName": "treadR",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stabilizerF",
+            "columnName": "stabilizerF",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "axleShaft",
+            "columnName": "axleShaft",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "axleBearing",
+            "columnName": "axleBearing",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hubStopper",
+            "columnName": "hubStopper",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "maxRev",
+            "columnName": "maxRev",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "maxSpeed",
+            "columnName": "maxSpeed",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bestTime",
+            "columnName": "bestTime",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5c00e2a717e2f7fb81e8ff64c1dfbef6')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '12b872aa4910d30d2179360ef5a9a950')"
     ]
   }
 }

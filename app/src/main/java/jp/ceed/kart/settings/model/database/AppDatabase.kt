@@ -5,16 +5,20 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import jp.ceed.kart.settings.model.dao.PracticeDao
+import jp.ceed.kart.settings.model.dao.SessionsDao
 import jp.ceed.kart.settings.model.dao.TrackDao
 import jp.ceed.kart.settings.model.entity.Practice
+import jp.ceed.kart.settings.model.entity.Session
 import jp.ceed.kart.settings.model.entity.Track
 
-@Database(entities = [Track::class, Practice::class], version = 1)
+@Database(entities = [Track::class, Practice::class, Session::class], version = 1)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun trackDao(): TrackDao
 
     abstract fun practiceDao(): PracticeDao
+
+    abstract fun sessionDao(): SessionsDao
 
     companion object {
 

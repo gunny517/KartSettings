@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ceed.kart.settings.R
@@ -36,7 +37,7 @@ class PracticeListFragment: Fragment() {
     }
 
     private fun initLayout(){
-        val adapter = PracticeListAdapter(requireContext())
+        val adapter = PracticeListAdapter(requireContext(), ::onClickPractice)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
@@ -53,9 +54,12 @@ class PracticeListFragment: Fragment() {
         EditPracticeDialogFragment(::createPractice).show(childFragmentManager, EditPracticeDialogFragment.TAG)
     }
 
-
     private fun createPractice(track: Track, year: String, month: String, date: String){
         viewModel.createPractice(track, year, month, date)
     }
 
+    private fun onClickPractice(practiceId: Int){
+        findNavController().navigate(
+            PracticeListFragmentDirections.practiceListFragmentToSessionListFragment(practiceId))
+    }
 }

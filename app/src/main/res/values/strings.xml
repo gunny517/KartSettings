@@ -12,4 +12,6 @@
 
     <string name="ok">OK</string>
     <string name="cancel">キャンセル</string>
+
+    <string name="meg_empty_settings">セッティングがありません。</string>
 </resources>
