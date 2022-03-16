@@ -6,15 +6,15 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="text_size_s">14sp</dimen>
-    <dimen name="text_size_m">16sp</dimen>
-    <dimen name="text_size_l">18sp</dimen>
-    <dimen name="text_size_ll">20sp</dimen>
+    <dimen name="text_size_s">16sp</dimen>
+    <dimen name="text_size_m">18sp</dimen>
+    <dimen name="text_size_l">20sp</dimen>
+    <dimen name="text_size_ll">22sp</dimen>
 
-    <dimen name="padding_s">6sp</dimen>
-    <dimen name="padding_m">10sp</dimen>
+    <dimen name="padding_s">10sp</dimen>
+    <dimen name="padding_m">16sp</dimen>
     <dimen name="padding_l">20sp</dimen>
 
-    <dimen name="setting_item_view_width">60sp</dimen>
-    <dimen name="setting_item_view_height">24sp</dimen>
+    <dimen name="setting_item_view_width">180sp</dimen>
+    <dimen name="setting_item_view_height">36sp</dimen>
 </resources>

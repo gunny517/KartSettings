@@ -21,7 +21,7 @@ class SessionListAdapter(context: Context, private val fragmentManager: Fragment
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val viewDataBinding: ViewDataBinding? = DataBindingUtil.bind(itemView)
+//        val viewDataBinding: ViewDataBinding? = DataBindingUtil.bind(itemView)
     }
 
     private val inflater = LayoutInflater.from(context)
@@ -34,8 +34,9 @@ class SessionListAdapter(context: Context, private val fragmentManager: Fragment
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val sessionListItem: SessionListItem = itemList[position]
         val fragment = if(TYPE_HEADER == getItemViewType(position)){
-            SessionHeaderFragment()
+            SessionHeaderFragment.newInstance(sessionListItem as SessionListItem.SessionHeader)
         }else{
             SessionFragment()
         }

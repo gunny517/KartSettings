@@ -1,6 +1,7 @@
 package jp.ceed.kart.settings.ui.session.fragment
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,10 +24,25 @@ class SessionHeaderFragment: Fragment() {
 
     val binding get() = _binding!!
 
-    companion object {
-        fun newInstance(sessionHeader: SessionListItem.SessionHeader){
+    private lateinit var sessionHeader: SessionListItem.SessionHeader
 
+    companion object {
+
+        const val KEY_HEADER = "headers"
+
+        fun newInstance(sessionHeader: SessionListItem.SessionHeader): SessionHeaderFragment{
+            val fragment = SessionHeaderFragment()
+            val bundle = Bundle()
+            bundle.putParcelable(KEY_HEADER, sessionHeader)
+            fragment.arguments = bundle
+            return fragment
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val parcelable: Parcelable? = arguments?.getParcelable(KEY_HEADER)
+        sessionHeader = parcelable as SessionListItem.SessionHeader
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -42,13 +58,9 @@ class SessionHeaderFragment: Fragment() {
     }
 
     private fun initLayout(){
-        val adapter = SessionHeaderAdapter(requireContext())
+        val adapter = SessionHeaderAdapter(requireContext(), sessionHeader)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
-        viewModel.labelList.observe(viewLifecycleOwner){
-            adapter.setItemList(it)
-            adapter.notifyDataSetChanged()
-        }
     }
 }

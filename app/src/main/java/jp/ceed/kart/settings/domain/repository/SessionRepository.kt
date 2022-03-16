@@ -27,7 +27,7 @@ class SessionRepository(val context: Context, private val dispatcher: CoroutineD
     fun getSessionHeader(): SessionListItem.SessionHeader{
         val list: ArrayList<String> = ArrayList()
         val cls = Session::class.java
-        val fields = cls.fields
+        val fields = cls.declaredFields
         for(field in fields){
             val annotation = field.getAnnotation(SettingLabel::class.java)
             annotation?.let {

@@ -9,6 +9,9 @@
     <TextView
         android:layout_width="@dimen/setting_item_view_width"
         android:layout_height="@dimen/setting_item_view_height"
+        android:paddingStart="@dimen/padding_m"
+        android:paddingEnd="@dimen/padding_m"
+        android:gravity="center_vertical"
         android:textSize="@dimen/text_size_m"
         android:text="@{label}"/>
 </layout>

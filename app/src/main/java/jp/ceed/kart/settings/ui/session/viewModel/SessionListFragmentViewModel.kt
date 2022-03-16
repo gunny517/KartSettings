@@ -42,8 +42,4 @@ class SessionListFragmentViewModel(context: Context, val practiceId: Int) : View
         }
     }
 
-    fun isVisibleSettingList(): Int{
-        return if(sessionList.value?.isEmpty() == false) View.VISIBLE else View.INVISIBLE
-    }
-
 }

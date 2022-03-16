@@ -9,7 +9,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import jp.ceed.kart.settings.BR
 import jp.ceed.kart.settings.R
-import jp.ceed.kart.settings.databinding.SettingAdapterItemBinding
+import jp.ceed.kart.settings.databinding.SessionAdapterItemBinding
 import jp.ceed.kart.settings.model.dto.SettingViewItem
 
 class SessionAdapter(context: Context): RecyclerView.Adapter<SessionAdapter.ViewHolder>() {
@@ -23,7 +23,7 @@ class SessionAdapter(context: Context): RecyclerView.Adapter<SessionAdapter.View
     private val inflater = LayoutInflater.from(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding: SettingAdapterItemBinding = DataBindingUtil.inflate(inflater, R.layout.setting_adapter_item, parent, false)
+        val binding: SessionAdapterItemBinding = DataBindingUtil.inflate(inflater, R.layout.session_adapter_item, parent, false)
         return ViewHolder(binding.root)
     }
 

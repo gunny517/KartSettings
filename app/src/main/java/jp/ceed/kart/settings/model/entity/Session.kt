@@ -1,12 +1,15 @@
 package jp.ceed.kart.settings.model.entity
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.model.SettingLabel
+import kotlinx.parcelize.Parcelize
 
 @Entity
 @Suppress("all")
+@Parcelize
 data class Session(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val practiceId: Int,
@@ -34,4 +37,4 @@ data class Session(
     @SettingLabel(R.string.setting_label_max_rev) val maxRev: Int,
     @SettingLabel(R.string.setting_label_max_speed) val maxSpeed: Float,
     @SettingLabel(R.string.setting_label_best_time) val bestTime: Float
-)
+): Parcelable

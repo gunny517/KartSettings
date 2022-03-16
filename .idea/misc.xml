@@ -15,6 +15,8 @@
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_settings.xml" value="0.34375" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_tack_list.xml" value="0.25" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/practice_list_item.xml" value="0.34193840579710144" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/session_adapter_item.xml" value="0.215625" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/session_header_item.xml" value="0.25" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/session_item.xml" value="0.33695652173913043" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/session_list_item.xml" value="0.35778985507246375" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/settin_item_view.xml" value="0.33695652173913043" />
