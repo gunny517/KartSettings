@@ -1,4 +1,4 @@
-package jp.ceed.kart.settings.ui.settings.viewModel
+package jp.ceed.kart.settings.ui.session.viewModel
 
 import android.content.Context
 import android.view.View

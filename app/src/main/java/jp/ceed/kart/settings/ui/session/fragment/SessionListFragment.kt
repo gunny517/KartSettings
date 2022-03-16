@@ -1,4 +1,4 @@
-package jp.ceed.kart.settings.ui.settings.fragment
+package jp.ceed.kart.settings.ui.session.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentSessionListBinding
-import jp.ceed.kart.settings.ui.settings.viewModel.SessionListFragmentViewModel
+import jp.ceed.kart.settings.ui.session.viewModel.SessionListFragmentViewModel
 
 class SessionListFragment: Fragment() {
 

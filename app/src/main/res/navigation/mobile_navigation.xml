@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/SessionListFragment"
-        android:name="jp.ceed.kart.settings.ui.settings.fragment.SessionListFragment">
+        android:name="jp.ceed.kart.settings.ui.session.fragment.SessionListFragment">
 
         <argument
             app:argType="integer"
