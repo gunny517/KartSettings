@@ -60,6 +60,6 @@ class PracticeListFragment: Fragment() {
 
     private fun onClickPractice(practiceId: Int){
         findNavController().navigate(
-            PracticeListFragmentDirections.practiceListFragmentToSessionListFragment(practiceId))
+            PracticeListFragmentDirections.toPracticeDetail(practiceId))
     }
 }

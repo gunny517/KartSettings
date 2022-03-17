@@ -3,8 +3,8 @@
 
     <data>
         <variable
-            name="session"
-            type="jp.ceed.kart.settings.model.entity.Session" />
+            name="viewModel"
+            type="jp.ceed.kart.settings.ui.practice.viewModel.PracticeDetailFragmentViewModel" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -12,8 +12,9 @@
         tools:layout="@layout/fragment_practice_list">
 
         <action
-            android:id="@+id/practiceListFragment_to_SessionListFragment"
-            app:destination="@id/SessionListFragment"/>
+            android:id="@+id/toPracticeDetail"
+            app:destination="@id/PracticeDetailFragment"/>
+
     </fragment>
 
     <fragment
@@ -23,12 +24,12 @@
         tools:layout="@layout/fragment_tack_list"/>
 
     <fragment
-        android:id="@+id/SessionListFragment"
-        android:name="jp.ceed.kart.settings.ui.session.fragment.SessionListFragment">
+        android:id="@+id/PracticeDetailFragment"
+        android:name="jp.ceed.kart.settings.ui.practice.fragment.PracticeDetailFragment">
 
         <argument
             app:argType="integer"
-            android:name="practiceId"
-            app:nullable="false"/>
+            android:name="practiceId"/>
     </fragment>
+
 </navigation>
