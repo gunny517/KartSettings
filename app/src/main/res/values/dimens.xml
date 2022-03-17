@@ -16,9 +16,9 @@
     <dimen name="padding_l">20sp</dimen>
 
     <dimen name="setting_item_view_width">180sp</dimen>
-    <dimen name="setting_item_view_height">36sp</dimen>
+    <dimen name="setting_item_view_height">48sp</dimen>
     <dimen name="setting_item_edit_text_width">150sp</dimen>
-    <dimen name="setting_item_edit_text_height">28sp</dimen>
+    <dimen name="setting_item_edit_text_height">44sp</dimen>
     <dimen name="setting_item_text_view_width">160sp</dimen>
-    <dimen name="setting_item_text_view_height">28sp</dimen>
+    <dimen name="setting_item_text_view_height">48sp</dimen>
 </resources>

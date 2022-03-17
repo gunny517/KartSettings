@@ -16,6 +16,12 @@ class SessionRepository(val context: Context, private val dispatcher: CoroutineD
 
     private val sessionsDao = AppDatabase.getInstance(context).sessionDao()
 
+    suspend fun insert(session: Session){
+        withContext(dispatcher){
+            sessionsDao.insert(session)
+        }
+    }
+
     suspend fun getPracticeRowList(practiceId: Int): List<PracticeRowItem> {
         var practiceRowList: List<PracticeRowItem>
         withContext(dispatcher){
@@ -31,6 +37,7 @@ class SessionRepository(val context: Context, private val dispatcher: CoroutineD
         val fields = cls.declaredFields
         val resultList: ArrayList<PracticeRowItem> = ArrayList()
         for(field in fields){
+            field.isAccessible = true
             val annotation = field.getAnnotation(SettingLabel::class.java) ?: continue
             val label = context.getString(annotation.label)
             val index = annotation.index

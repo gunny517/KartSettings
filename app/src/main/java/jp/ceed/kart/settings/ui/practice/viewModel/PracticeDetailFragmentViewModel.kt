@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import jp.ceed.kart.settings.domain.repository.SessionRepository
 import jp.ceed.kart.settings.model.dto.PracticeRowItem
+import jp.ceed.kart.settings.model.entity.Session
+import jp.ceed.kart.settings.ui.Event
+import jp.ceed.kart.settings.ui.EventState
 import kotlinx.coroutines.launch
 
 class PracticeDetailFragmentViewModel(context: Context, private val practiceId: Int): ViewModel() {
@@ -23,6 +26,7 @@ class PracticeDetailFragmentViewModel(context: Context, private val practiceId: 
 
     var rowList: MutableLiveData<List<PracticeRowItem>> = MutableLiveData()
 
+
     init {
         loadPracticeRowList()
     }
@@ -31,5 +35,12 @@ class PracticeDetailFragmentViewModel(context: Context, private val practiceId: 
         viewModelScope.launch {
             rowList.value = sessionRepository.getPracticeRowList(practiceId)
         }
+    }
+
+    fun onClickFab() {
+        viewModelScope.launch {
+            sessionRepository.insert(Session(practiceId = practiceId))
+        }
+        loadPracticeRowList()
     }
 }

@@ -14,6 +14,7 @@
         <TextView
             android:layout_width="@dimen/setting_item_text_view_width"
             android:layout_height="@dimen/setting_item_text_view_height"
+            android:gravity="center_vertical"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -15,5 +15,11 @@
             tools:targetApi="l">?attr/colorPrimaryVariant
         </item>
         <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/text_default</item>
+        <item name="android:editTextStyle">@style/App_EditTextStyle</item>
+    </style>
+
+    <style name="App_EditTextStyle" parent="@android:style/Widget.EditText">
+        <item name="android:textColor">@color/text_default</item>
     </style>
 </resources>
