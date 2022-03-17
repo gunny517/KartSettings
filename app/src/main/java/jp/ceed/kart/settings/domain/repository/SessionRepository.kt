@@ -25,13 +25,22 @@ class SessionRepository(val context: Context, private val dispatcher: CoroutineD
     }
 
     fun getSessionHeader(): SessionListItem.SessionHeader{
-        val list: ArrayList<String> = ArrayList()
         val cls = Session::class.java
         val fields = cls.declaredFields
+        val map: HashMap<Int, String> = HashMap()
         for(field in fields){
             val annotation = field.getAnnotation(SettingLabel::class.java)
             annotation?.let {
-                list.add(context.getString(annotation.name))
+                val index = annotation.index
+                val label = context.getString(annotation.label)
+                map.put(index, label)
+            }
+        }
+        val list: ArrayList<String> = ArrayList()
+        for(i in 0..map.size){
+            val value = map[i]
+            value?.let {
+                list.add(value)
             }
         }
         return SessionListItem.SessionHeader(list)
