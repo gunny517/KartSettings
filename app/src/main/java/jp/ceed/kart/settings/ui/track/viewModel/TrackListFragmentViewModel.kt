@@ -10,6 +10,7 @@ import jp.ceed.kart.settings.domain.repository.TrackRepository
 import jp.ceed.kart.settings.model.entity.Track
 import jp.ceed.kart.settings.ui.Event
 import jp.ceed.kart.settings.ui.EventState
+import jp.ceed.kart.settings.ui.util.UiUtil
 import kotlinx.coroutines.launch
 
 class TrackListFragmentViewModel(application: Application) : AndroidViewModel(application) {
@@ -21,6 +22,8 @@ class TrackListFragmentViewModel(application: Application) : AndroidViewModel(ap
     var editTrackLayoutVisibility: MutableLiveData<Int> = MutableLiveData(View.GONE)
 
     private val trackName: MutableLiveData<String> = MutableLiveData()
+
+    val editTrackLayoutEvent: MutableLiveData<Event<EventState>> = MutableLiveData()
 
 
     init {
@@ -39,6 +42,10 @@ class TrackListFragmentViewModel(application: Application) : AndroidViewModel(ap
 
     fun onClickOk(){
         saveTrack()
+        toggleEditLayoutVisibility()
+    }
+
+    fun onClickCancel(){
         toggleEditLayoutVisibility()
     }
 
@@ -62,6 +69,7 @@ class TrackListFragmentViewModel(application: Application) : AndroidViewModel(ap
         }else{
             View.VISIBLE
         }
+        editTrackLayoutEvent.value = Event(EventState.CLICKED)
     }
 
 }

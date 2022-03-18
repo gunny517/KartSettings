@@ -16,7 +16,7 @@ interface PracticeDao {
     @Update
     fun update(practice: Practice)
 
-    @Query("SELECT p.id, p.startDate, t.name FROM Practice p, Track t WHERE p.trackId = t.id")
+    @Query("SELECT p.id, p.startDate, t.name FROM Practice p, Track t WHERE p.trackId = t.id ORDER BY p.startDate DESC")
     fun findAll(): List<PracticeTrack>
 
     @Query("SELECT p.id, p.startDate, t.name FROM Practice p, Track t WHERE p.trackId = t.id AND trackId = (:trackId)")

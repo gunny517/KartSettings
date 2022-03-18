@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,9 +13,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentPracticeListBinding
-import jp.ceed.kart.settings.model.entity.Track
 import jp.ceed.kart.settings.ui.practice.adapter.PracticeListAdapter
 import jp.ceed.kart.settings.ui.practice.viewModel.PracticeListFragmentViewModel
+import jp.ceed.kart.settings.ui.util.UiUtil
 
 class PracticeListFragment: Fragment() {
 
@@ -45,21 +46,16 @@ class PracticeListFragment: Fragment() {
             adapter.setItemList(it)
             adapter.notifyDataSetChanged()
         }
-        viewModel.fabClickEvent.observe(viewLifecycleOwner){
-            onClickFab()
+        viewModel.labelList.observe(viewLifecycleOwner){
+            val spinnerAdapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, it ?: mutableListOf())
+            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinner.adapter = spinnerAdapter
         }
-    }
-
-    private fun onClickFab(){
-        EditPracticeDialogFragment(::createPractice).show(childFragmentManager, EditPracticeDialogFragment.TAG)
-    }
-
-    private fun createPractice(track: Track, year: String, month: String, date: String){
-        viewModel.createPractice(track, year, month, date)
     }
 
     private fun onClickPractice(practiceId: Int, titleLabel: String){
         findNavController().navigate(
             PracticeListFragmentDirections.toPracticeDetail(practiceId, titleLabel))
     }
+
 }

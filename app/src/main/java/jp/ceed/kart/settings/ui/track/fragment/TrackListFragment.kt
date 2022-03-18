@@ -15,6 +15,7 @@ import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentTackListBinding
 import jp.ceed.kart.settings.ui.track.adapter.TrackListAdapter
 import jp.ceed.kart.settings.ui.track.viewModel.TrackListFragmentViewModel
+import jp.ceed.kart.settings.ui.util.UiUtil
 
 class TrackListFragment: Fragment() {
 
@@ -46,5 +47,12 @@ class TrackListFragment: Fragment() {
             adapter.setItemList(it)
             adapter.notifyDataSetChanged()
         }
+        viewModel.editTrackLayoutEvent.observe(viewLifecycleOwner){
+            closeKeyboard()
+        }
+    }
+
+    private fun closeKeyboard(){
+        UiUtil(requireContext()).hideKeyboard(binding.root)
     }
 }

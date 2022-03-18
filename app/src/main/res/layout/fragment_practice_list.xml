@@ -1,33 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="viewModel"
             type="jp.ceed.kart.settings.ui.practice.viewModel.PracticeListFragmentViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:layout_height="match_parent"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_gravity="bottom|end"
             android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/fab_margin"
             app:srcCompat="@android:drawable/ic_menu_add"
             android:onClick="@{v -> viewModel.onClickFab()}"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/editPracticeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:background="@color/tint"
+            tools:visibility="@{viewModel.editPracticeLayoutVisibility}"
+            android:onClick="@{v -> viewModel.onClickDialogBackground()}">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="@dimen/dialog_view_horizontal_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dialog_view_vertical_margin"
+                android:padding="@dimen/padding_l"
+                android:background="@color/white"
+                android:clickable="true">
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:selectedItemPosition="@={viewModel.selectedItemPosition}"/>
+
+                <EditText
+                    android:id="@+id/yearEditText"
+                    android:layout_width="80sp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/spinner"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/mothEditText"
+                    android:inputType="number"
+                    android:text="@={viewModel.year}"/>
+
+                <EditText
+                    android:id="@+id/mothEditText"
+                    android:layout_width="40sp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/spinner"
+                    app:layout_constraintStart_toEndOf="@id/yearEditText"
+                    app:layout_constraintEnd_toStartOf="@id/dateEditText"
+                    android:inputType="number"
+                    android:text="@={viewModel.month}"/>
+
+                <EditText
+                    android:id="@+id/dateEditText"
+                    android:layout_width="40sp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/spinner"
+                    app:layout_constraintStart_toEndOf="@id/mothEditText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:inputType="number"
+                    android:text="@={viewModel.date}"/>
+
+                <TextView
+                    android:id="@+id/okTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/yearEditText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:padding="@dimen/padding_l"
+                    android:textSize="@dimen/text_size_m"
+                    android:textColor="?attr/colorPrimary"
+                    android:text="@string/ok"
+                    android:onClick="@{v -> viewModel.onClickOk()}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/yearEditText"
+                    app:layout_constraintEnd_toStartOf="@id/okTextView"
+                    android:padding="@dimen/padding_l"
+                    android:textSize="@dimen/text_size_m"
+                    android:textColor="?attr/colorPrimary"
+                    android:text="@string/cancel"
+                    android:onClick="@{v -> viewModel.onClickCancel()}"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </FrameLayout>
 </layout>
