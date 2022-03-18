@@ -58,8 +58,8 @@ class PracticeListFragment: Fragment() {
         viewModel.createPractice(track, year, month, date)
     }
 
-    private fun onClickPractice(practiceId: Int){
+    private fun onClickPractice(practiceId: Int, titleLabel: String){
         findNavController().navigate(
-            PracticeListFragmentDirections.toPracticeDetail(practiceId))
+            PracticeListFragmentDirections.toPracticeDetail(practiceId, titleLabel))
     }
 }

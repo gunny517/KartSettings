@@ -12,7 +12,7 @@ import jp.ceed.kart.settings.databinding.PracticeListItemBinding
 import jp.ceed.kart.settings.model.entity.PracticeTrack
 import jp.ceed.kart.settings.BR
 
-class PracticeListAdapter(context: Context, val onClick: (practiceId: Int) -> Unit): RecyclerView.Adapter<PracticeListAdapter.ViewHolder>() {
+class PracticeListAdapter(context: Context, val onClick: (Int, String) -> Unit): RecyclerView.Adapter<PracticeListAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var viewDataBinding: ViewDataBinding? = DataBindingUtil.bind(itemView)
@@ -30,7 +30,7 @@ class PracticeListAdapter(context: Context, val onClick: (practiceId: Int) -> Un
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = itemList[position]
         holder.viewDataBinding?.setVariable(BR.practiceTrack, item)
-        holder.itemView.setOnClickListener { onClick(item.id) }
+        holder.itemView.setOnClickListener { onClick(item.id, "${item.startDate} ／ ${item.trackName}") }
     }
 
     override fun getItemCount(): Int {

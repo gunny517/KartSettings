@@ -25,11 +25,16 @@
 
     <fragment
         android:id="@+id/PracticeDetailFragment"
-        android:name="jp.ceed.kart.settings.ui.practice.fragment.PracticeDetailFragment">
+        android:name="jp.ceed.kart.settings.ui.practice.fragment.PracticeDetailFragment"
+        android:label="{titleLabel}">
 
         <argument
             app:argType="integer"
             android:name="practiceId"/>
+
+        <argument
+            app:argType="string"
+            android:name="titleLabel"/>
     </fragment>
 
 </navigation>

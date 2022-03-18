@@ -40,7 +40,7 @@ class PracticeDetailFragmentViewModel(context: Context, private val practiceId: 
     fun onClickFab() {
         viewModelScope.launch {
             sessionRepository.insert(Session(practiceId = practiceId))
+            rowList.value = sessionRepository.getPracticeRowList(practiceId)
         }
-        loadPracticeRowList()
     }
 }

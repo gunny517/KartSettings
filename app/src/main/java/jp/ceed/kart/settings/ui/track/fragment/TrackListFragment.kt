@@ -46,18 +46,5 @@ class TrackListFragment: Fragment() {
             adapter.setItemList(it)
             adapter.notifyDataSetChanged()
         }
-        viewModel.fabClickEvent.observe(viewLifecycleOwner){
-            onClickFab()
-        }
     }
-
-    private fun onClickFab(){
-        EditTrackDialogFragment(::onTrackNameInput).show(childFragmentManager, EditTrackDialogFragment.TAG)
-    }
-
-    private fun onTrackNameInput(trackName: String){
-        viewModel.saveTrack(trackName)
-    }
-
-
 }

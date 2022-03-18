@@ -1,6 +1,7 @@
 package jp.ceed.kart.settings.ui.track.viewModel
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,26 +18,49 @@ class TrackListFragmentViewModel(application: Application) : AndroidViewModel(ap
 
     var trackList: MutableLiveData<List<Track>> = MutableLiveData()
 
-    var fabClickEvent: MutableLiveData<Event<EventState>> = MutableLiveData()
+    var editTrackLayoutVisibility: MutableLiveData<Int> = MutableLiveData(View.GONE)
+
+    private val trackName: MutableLiveData<String> = MutableLiveData()
+
 
     init {
         loadTrackList()
     }
 
-    fun loadTrackList(){
+    private fun loadTrackList(){
         viewModelScope.launch {
             trackList.value = trackRepository.getTrackList()
         }
     }
 
     fun onClickFab(){
-        fabClickEvent.value = Event(EventState.CLICKED)
+        toggleEditLayoutVisibility()
     }
 
-    fun saveTrack(trackName: String){
-        viewModelScope.launch {
-            trackRepository.insertTrack(Track(0, trackName))
-            loadTrackList()
+    fun onClickOk(){
+        saveTrack()
+        toggleEditLayoutVisibility()
+    }
+
+    fun onClickDialogBackground(){
+        toggleEditLayoutVisibility()
+    }
+
+
+    private fun saveTrack(){
+        trackName.value?.let {
+            viewModelScope.launch {
+                trackRepository.insertTrack(Track(0, it))
+                loadTrackList()
+            }
+        }
+    }
+
+    private fun toggleEditLayoutVisibility(){
+        editTrackLayoutVisibility.value = if(editTrackLayoutVisibility.value == View.VISIBLE){
+            View.GONE
+        }else{
+            View.VISIBLE
         }
     }
 
