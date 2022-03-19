@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="controlItem"
+            type="jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem.PracticeControlItem" />
+        <variable
+            name="rowControlListener"
+            type="jp.ceed.kart.settings.ui.common.RowControlListener" />
+    </data>
+
+    <jp.ceed.kart.settings.ui.practice.view.PracticeControlRowView
+        android:id="@+id/PracticeControlRowView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:controlItem="@{controlItem}"
+        app:rowControlListener="@{rowControlListener}"/>
+</layout>

@@ -9,7 +9,7 @@ data class SettingItem(
     val sessionId: Int,
     val fieldName: String,
     val value: String,
-    val isEditable: Boolean = false
+    var isEditable: Boolean = false
 ): Parcelable{
 
     constructor(_practiceId: Int, _fieldName: String, _value: Int): this(

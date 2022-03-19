@@ -3,7 +3,7 @@ package jp.ceed.kart.settings.domain.repository
 import android.content.Context
 import jp.ceed.kart.settings.model.SettingLabel
 import jp.ceed.kart.settings.model.database.AppDatabase
-import jp.ceed.kart.settings.model.dto.PracticeRowItem
+import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
 import jp.ceed.kart.settings.model.dto.SettingItem
 import jp.ceed.kart.settings.model.entity.Session
 import kotlinx.coroutines.CoroutineDispatcher
@@ -22,20 +22,29 @@ class SessionRepository(val context: Context, private val dispatcher: CoroutineD
         }
     }
 
-    suspend fun getPracticeRowList(practiceId: Int): List<PracticeRowItem> {
-        var practiceRowList: List<PracticeRowItem>
+    suspend fun getPracticeRowList(practiceId: Int): List<PracticeDetailAdapterItem> {
+        var practiceRowList: ArrayList<PracticeDetailAdapterItem> = ArrayList()
         withContext(dispatcher){
             val sessionList = sessionsDao.findAByPracticeId(practiceId)
-            practiceRowList = createPracticeRowList(sessionList)
+            practiceRowList.add(createControlItem(sessionList))
+            practiceRowList.addAll(createPracticeRowList(sessionList))
         }
         return practiceRowList
     }
 
+    private fun createControlItem(sessionList: List<Session>): PracticeDetailAdapterItem{
+        val list: ArrayList<Int> = ArrayList()
+        for(session in sessionList){
+            list.add(session.id)
+        }
+        return PracticeDetailAdapterItem.PracticeControlItem(list)
+    }
 
-    private fun createPracticeRowList(sessionList: List<Session>): List<PracticeRowItem>{
+
+    private fun createPracticeRowList(sessionList: List<Session>): List<PracticeDetailAdapterItem.PracticeRowItem>{
         val cls = Session::class.java
         val fields = cls.declaredFields
-        val resultList: ArrayList<PracticeRowItem> = ArrayList()
+        val resultList: ArrayList<PracticeDetailAdapterItem.PracticeRowItem> = ArrayList()
         for(field in fields){
             field.isAccessible = true
             val annotation = field.getAnnotation(SettingLabel::class.java) ?: continue
@@ -47,7 +56,7 @@ class SessionRepository(val context: Context, private val dispatcher: CoroutineD
                 val value = field.get(session)
                 list.add(createSettingItem(session.id, name, value))
             }
-            resultList.add(PracticeRowItem(index, label, list))
+            resultList.add(PracticeDetailAdapterItem.PracticeRowItem(index, label, list))
         }
         Collections.sort(resultList, PracticeRowComparator())
         return resultList
@@ -70,9 +79,9 @@ class SessionRepository(val context: Context, private val dispatcher: CoroutineD
         }
     }
 
-    class PracticeRowComparator: Comparator<PracticeRowItem> {
+    class PracticeRowComparator: Comparator<PracticeDetailAdapterItem.PracticeRowItem> {
 
-        override fun compare(p0: PracticeRowItem?, p1: PracticeRowItem?): Int {
+        override fun compare(p0: PracticeDetailAdapterItem.PracticeRowItem?, p1: PracticeDetailAdapterItem.PracticeRowItem?): Int {
             val f = p0?.index ?: 0
             val r = p1?.index ?: 0
             return when {

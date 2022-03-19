@@ -1,31 +1,43 @@
-package jp.ceed.kart.settings.ui.practice
+package jp.ceed.kart.settings.ui.practice.view
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import jp.ceed.kart.settings.BR
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.SettingItemViewBinding
 import jp.ceed.kart.settings.databinding.SettingLabelViewBinding
-import jp.ceed.kart.settings.model.dto.PracticeRowItem
+import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
 import jp.ceed.kart.settings.model.dto.SettingItem
 
-class PracticeRowView(context: Context, attr: AttributeSet): LinearLayout(context, attr) {
+class PracticeSettingRowView(context: Context, attr: AttributeSet): LinearLayout(context, attr) {
 
     private val inflater = LayoutInflater.from(context)
 
-    private var practiceRowItem: PracticeRowItem? = null
+    private var practiceRowItem: MutableLiveData<PracticeDetailAdapterItem.PracticeRowItem> = MutableLiveData()
 
 
-    fun setPracticeRowItem(_practiceRowItem: PracticeRowItem){
-        practiceRowItem = _practiceRowItem
+    fun setPracticeRowItem(_practiceRowItem: PracticeDetailAdapterItem.PracticeRowItem){
+        practiceRowItem.value = _practiceRowItem
         resetView()
     }
 
+    fun toggleEditable(sessionId: Int){
+        practiceRowItem.value?.let {
+            for(settingItem in it.values){
+                if(settingItem.sessionId == sessionId){
+                    settingItem.isEditable = settingItem.isEditable.not()
+                    break
+                }
+            }
+        }
+    }
+
     private fun resetView(){
-        practiceRowItem?.let {
+        practiceRowItem.value?.let {
             removeAllViews()
             setLabelView(it.label)
             setValueViews(it.values)

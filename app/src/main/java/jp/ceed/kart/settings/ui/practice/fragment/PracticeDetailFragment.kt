@@ -12,10 +12,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentPracticeDetailBinding
+import jp.ceed.kart.settings.ui.common.RowControlListener
 import jp.ceed.kart.settings.ui.practice.adapter.PracticeDetailAdapter
 import jp.ceed.kart.settings.ui.practice.viewModel.PracticeDetailFragmentViewModel
 
-class PracticeDetailFragment: Fragment() {
+class PracticeDetailFragment: Fragment(), RowControlListener {
 
     private val args: PracticeDetailFragmentArgs by navArgs()
 
@@ -42,14 +43,19 @@ class PracticeDetailFragment: Fragment() {
     }
 
     private fun initLayout(){
-        val adapter = PracticeDetailAdapter(requireContext())
+        val adapter = PracticeDetailAdapter(requireContext(), this)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
-        viewModel.rowList.observe(viewLifecycleOwner){
+        viewModel.practiceRowList.observe(viewLifecycleOwner){
             adapter.setRowList(it)
             adapter.notifyDataSetChanged()
         }
     }
+
+    override fun onClickControl(command: RowControlListener.RowControlCommand, sessionId: Int) {
+        viewModel.onClickControl(command, sessionId)
+    }
+
 
 }
