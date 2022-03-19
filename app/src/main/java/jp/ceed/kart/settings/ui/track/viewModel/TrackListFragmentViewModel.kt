@@ -21,7 +21,7 @@ class TrackListFragmentViewModel(application: Application) : AndroidViewModel(ap
 
     var editTrackLayoutVisibility: MutableLiveData<Int> = MutableLiveData(View.GONE)
 
-    private val trackName: MutableLiveData<String> = MutableLiveData()
+    val trackName: MutableLiveData<String> = MutableLiveData()
 
     val editTrackLayoutEvent: MutableLiveData<Event<EventState>> = MutableLiveData()
 
@@ -53,7 +53,6 @@ class TrackListFragmentViewModel(application: Application) : AndroidViewModel(ap
         toggleEditLayoutVisibility()
     }
 
-
     private fun saveTrack(){
         trackName.value?.let {
             viewModelScope.launch {
@@ -71,5 +70,4 @@ class TrackListFragmentViewModel(application: Application) : AndroidViewModel(ap
         }
         editTrackLayoutEvent.value = Event(EventState.CLICKED)
     }
-
 }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import jp.ceed.kart.settings.BR
 import jp.ceed.kart.settings.R
@@ -26,7 +27,7 @@ class PracticeDetailAdapter(context: Context, private val rowControlListener: Ro
         val viewDataBinding: ViewDataBinding? = DataBindingUtil.bind(itemView)
     }
 
-    private var rowList: List<PracticeDetailAdapterItem> = mutableListOf()
+    private var rowList: MutableLiveData<List<PracticeDetailAdapterItem>> = MutableLiveData()
 
     private val inflater = LayoutInflater.from(context)
 
@@ -42,29 +43,33 @@ class PracticeDetailAdapter(context: Context, private val rowControlListener: Ro
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(TYPE_CONTROL == getItemViewType(position)){
-            holder.viewDataBinding?.setVariable(BR.controlItem, rowList[position])
+            holder.viewDataBinding?.setVariable(BR.controlItem, getItem(position))
             holder.viewDataBinding?.setVariable(BR.rowControlListener, rowControlListener)
         }else {
-            holder.viewDataBinding?.setVariable(BR.practiceRowItem, rowList[position])
+            holder.viewDataBinding?.setVariable(BR.practiceRowItem, getItem(position))
         }
     }
 
     override fun getItemCount(): Int {
-        return rowList.size
+        return rowList.value?.size ?: 0
     }
 
     fun setRowList(_rowList: List<PracticeDetailAdapterItem>){
-        rowList = _rowList
+        rowList.value = _rowList
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(rowList[position]){
+        return when(getItem(position)){
             is PracticeDetailAdapterItem.PracticeControlItem -> {
                TYPE_CONTROL
             }else -> {
                 TYPE_DATA_ROW
             }
         }
+    }
+
+    private fun getItem(position: Int): PracticeDetailAdapterItem? {
+        return rowList.value?.get(position)
     }
 
 }

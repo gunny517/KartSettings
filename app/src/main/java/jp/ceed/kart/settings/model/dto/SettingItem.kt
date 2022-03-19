@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 data class SettingItem(
     val sessionId: Int,
     val fieldName: String,
-    val value: String,
+    var value: String,
     var isEditable: Boolean = false
 ): Parcelable{
 

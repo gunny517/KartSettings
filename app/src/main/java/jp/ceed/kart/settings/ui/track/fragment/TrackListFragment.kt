@@ -48,11 +48,7 @@ class TrackListFragment: Fragment() {
             adapter.notifyDataSetChanged()
         }
         viewModel.editTrackLayoutEvent.observe(viewLifecycleOwner){
-            closeKeyboard()
+            UiUtil(requireContext()).hideKeyboard(binding.root)
         }
-    }
-
-    private fun closeKeyboard(){
-        UiUtil(requireContext()).hideKeyboard(binding.root)
     }
 }

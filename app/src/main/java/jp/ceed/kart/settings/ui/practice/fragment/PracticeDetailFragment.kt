@@ -15,6 +15,7 @@ import jp.ceed.kart.settings.databinding.FragmentPracticeDetailBinding
 import jp.ceed.kart.settings.ui.common.RowControlListener
 import jp.ceed.kart.settings.ui.practice.adapter.PracticeDetailAdapter
 import jp.ceed.kart.settings.ui.practice.viewModel.PracticeDetailFragmentViewModel
+import jp.ceed.kart.settings.ui.util.UiUtil
 
 class PracticeDetailFragment: Fragment(), RowControlListener {
 
@@ -25,6 +26,8 @@ class PracticeDetailFragment: Fragment(), RowControlListener {
     private var _binding: FragmentPracticeDetailBinding? = null
 
     private val binding get() = _binding!!
+
+    private lateinit var adapter: PracticeDetailAdapter
 
     private fun factoryProducer(): PracticeDetailFragmentViewModel.Factory {
         return PracticeDetailFragmentViewModel.Factory(requireContext(), args.practiceId)
@@ -43,7 +46,7 @@ class PracticeDetailFragment: Fragment(), RowControlListener {
     }
 
     private fun initLayout(){
-        val adapter = PracticeDetailAdapter(requireContext(), this)
+        adapter = PracticeDetailAdapter(requireContext(), this)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
@@ -55,6 +58,8 @@ class PracticeDetailFragment: Fragment(), RowControlListener {
 
     override fun onClickControl(command: RowControlListener.RowControlCommand, sessionId: Int) {
         viewModel.onClickControl(command, sessionId)
+        adapter.notifyDataSetChanged()
+        UiUtil(requireContext()).hideKeyboard(binding.root)
     }
 
 

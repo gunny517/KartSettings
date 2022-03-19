@@ -53,7 +53,8 @@
                     android:layout_marginTop="@dimen/padding_m"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@={viewModel.trackName}"/>
 
                 <TextView
                     android:id="@+id/okTextView"
