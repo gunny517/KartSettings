@@ -3,14 +3,12 @@ package jp.ceed.kart.settings.ui.track.viewModel
 import android.app.Application
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import jp.ceed.kart.settings.domain.repository.TrackRepository
 import jp.ceed.kart.settings.model.entity.Track
 import jp.ceed.kart.settings.ui.Event
 import jp.ceed.kart.settings.ui.EventState
-import jp.ceed.kart.settings.ui.util.UiUtil
 import kotlinx.coroutines.launch
 
 class TrackListFragmentViewModel(application: Application) : AndroidViewModel(application) {
@@ -53,10 +51,17 @@ class TrackListFragmentViewModel(application: Application) : AndroidViewModel(ap
         toggleEditLayoutVisibility()
     }
 
+    fun onSaveCommand(track: Track){
+        viewModelScope.launch {
+            trackRepository.update(track)
+            loadTrackList()
+        }
+    }
+
     private fun saveTrack(){
         trackName.value?.let {
             viewModelScope.launch {
-                trackRepository.insertTrack(Track(0, it))
+                trackRepository.insert(Track(0, it))
                 loadTrackList()
             }
         }

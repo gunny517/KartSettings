@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import jp.ceed.kart.settings.BR
 import jp.ceed.kart.settings.R
@@ -19,10 +20,18 @@ class PracticeSettingRowView(context: Context, attr: AttributeSet): LinearLayout
 
     private var practiceRowItem: MutableLiveData<PracticeDetailAdapterItem.PracticeRowItem> = MutableLiveData()
 
+    private var lifecycleOwner: LifecycleOwner? = null
 
-    fun setPracticeRowItem(_practiceRowItem: PracticeDetailAdapterItem.PracticeRowItem){
-        practiceRowItem.value = _practiceRowItem
-        resetView()
+
+    fun setPracticeRowItem(_practiceRowItem: PracticeDetailAdapterItem.PracticeRowItem?){
+        _practiceRowItem?.let {
+            practiceRowItem.value = it
+            resetView()
+        }
+    }
+
+    fun setLifecycleOwner(_lifecycleOwner: LifecycleOwner){
+        lifecycleOwner = _lifecycleOwner
     }
 
     fun toggleEditable(sessionId: Int){
@@ -46,7 +55,7 @@ class PracticeSettingRowView(context: Context, attr: AttributeSet): LinearLayout
 
     private fun setLabelView(label: String){
         val binding: SettingLabelViewBinding = DataBindingUtil.inflate(inflater, R.layout.setting_label_view, this, true)
-        binding.setVariable(BR.label, label)
+        binding.label = label
     }
 
     private fun setValueViews(settingItems: List<SettingItem>){
@@ -57,7 +66,8 @@ class PracticeSettingRowView(context: Context, attr: AttributeSet): LinearLayout
 
     private fun addValueView(settingItem: SettingItem){
         val binding: SettingItemViewBinding = DataBindingUtil.inflate(inflater, R.layout.setting_item_view, this, true)
-        binding.setVariable(BR.settingItem, settingItem)
+        binding.lifecycleOwner = lifecycleOwner
+        binding.settingItem = settingItem
     }
 
 }

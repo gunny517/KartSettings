@@ -2,6 +2,7 @@ package jp.ceed.kart.settings.ui.track.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentTackListBinding
+import jp.ceed.kart.settings.model.entity.Track
 import jp.ceed.kart.settings.ui.track.adapter.TrackListAdapter
 import jp.ceed.kart.settings.ui.track.viewModel.TrackListFragmentViewModel
 import jp.ceed.kart.settings.ui.util.UiUtil
@@ -24,6 +26,18 @@ class TrackListFragment: Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: TrackListFragmentViewModel by viewModels()
+
+    private lateinit var adapter: TrackListAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        adapter.notifyDataSetChanged()
+        return super.onOptionsItemSelected(item)
+    }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -39,7 +53,7 @@ class TrackListFragment: Fragment() {
     }
 
     private fun init(){
-        val adapter = TrackListAdapter(requireContext())
+        adapter = TrackListAdapter(requireContext(), viewLifecycleOwner, ::onSaveCommand)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
@@ -50,5 +64,9 @@ class TrackListFragment: Fragment() {
         viewModel.editTrackLayoutEvent.observe(viewLifecycleOwner){
             UiUtil(requireContext()).hideKeyboard(binding.root)
         }
+    }
+
+    private fun onSaveCommand(track: Track){
+        viewModel.onSaveCommand(track)
     }
 }

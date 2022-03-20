@@ -10,19 +10,19 @@ object BindingAdapter {
 
     @BindingAdapter("practiceRowItem")
     @JvmStatic
-    fun setPracticeRowItem(view: PracticeSettingRowView, practiceRowItem: PracticeDetailAdapterItem.PracticeRowItem){
+    fun setPracticeRowItem(view: PracticeSettingRowView, practiceRowItem: PracticeDetailAdapterItem.PracticeRowItem?){
         view.setPracticeRowItem(practiceRowItem)
     }
 
     @BindingAdapter("controlItem")
     @JvmStatic
-    fun setControlItem(view: PracticeControlRowView, controlItem: PracticeDetailAdapterItem.PracticeControlItem){
+    fun setControlItem(view: PracticeControlRowView, controlItem: PracticeDetailAdapterItem.PracticeControlItem?){
         view.setControlItem(controlItem)
     }
 
     @BindingAdapter("rowControlListener")
     @JvmStatic
-    fun setRowControlListener(view: PracticeControlRowView, listener: RowControlListener){
+    fun setRowControlListener(view: PracticeControlRowView, listener: RowControlListener?){
         view.setRowControlListener(listener)
     }
 }

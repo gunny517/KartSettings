@@ -6,5 +6,5 @@ import androidx.room.PrimaryKey
 @Entity
 data class Track(
     @PrimaryKey(autoGenerate = true) val id: Int,
-    val name: String
+    var name: String
 )

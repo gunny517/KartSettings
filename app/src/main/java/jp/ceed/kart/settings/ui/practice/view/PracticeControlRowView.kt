@@ -20,12 +20,12 @@ class PracticeControlRowView(context: Context, attr: AttributeSet): LinearLayout
 
     private var rowControlListener: RowControlListener? = null
 
-    fun setControlItem(_controlItem: PracticeDetailAdapterItem.PracticeControlItem){
+    fun setControlItem(_controlItem: PracticeDetailAdapterItem.PracticeControlItem?){
         controlItem = _controlItem
         resetView()
     }
 
-    fun setRowControlListener(_rowControlListener: RowControlListener){
+    fun setRowControlListener(_rowControlListener: RowControlListener?){
         rowControlListener = _rowControlListener
     }
 

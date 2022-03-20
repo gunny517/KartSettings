@@ -46,7 +46,7 @@ class PracticeDetailFragment: Fragment(), RowControlListener {
     }
 
     private fun initLayout(){
-        adapter = PracticeDetailAdapter(requireContext(), this)
+        adapter = PracticeDetailAdapter(requireContext(), viewLifecycleOwner, this)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
@@ -58,9 +58,6 @@ class PracticeDetailFragment: Fragment(), RowControlListener {
 
     override fun onClickControl(command: RowControlListener.RowControlCommand, sessionId: Int) {
         viewModel.onClickControl(command, sessionId)
-        adapter.notifyDataSetChanged()
         UiUtil(requireContext()).hideKeyboard(binding.root)
     }
-
-
 }
