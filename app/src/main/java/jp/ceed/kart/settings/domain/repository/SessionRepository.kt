@@ -22,6 +22,23 @@ class SessionRepository(val context: Context, private val dispatcher: CoroutineD
         }
     }
 
+    /**
+     * 新しいセッションデータ作成用のエンティティを生成して返す。
+     * 指定したプラクティスIDと同じセッションがあればその最終値を、無い場合はすべてのセッションの最終地をコピーする。
+     * それもない場合はデフォルト値のエンティティを生成する。
+     * IDは常に０が代入される。
+     */
+    suspend fun getNewEntityForInsert(practiceId: Int): Session{
+        var session: Session?
+        withContext(dispatcher){
+            session = sessionsDao.getLatestByPracticeId(practiceId)
+            if(session == null){
+                session = sessionsDao.getLatest()
+            }
+        }
+        return Session.createCopyAsZeroId(session ?: Session(practiceId = practiceId) , practiceId)
+    }
+
     suspend fun getPracticeRowList(practiceId: Int): List<PracticeDetailAdapterItem> {
         val practiceRowList: ArrayList<PracticeDetailAdapterItem> = ArrayList()
         withContext(dispatcher){

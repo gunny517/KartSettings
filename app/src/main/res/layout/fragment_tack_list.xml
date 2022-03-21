@@ -46,15 +46,27 @@
                 android:background="@color/white"
                 android:clickable="true">
 
+                <TextView
+                    android:id="@+id/titleTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/padding_m"
+                    android:textSize="@dimen/text_size_l"
+                    android:text="@string/title_create_track"/>
+
                 <EditText
                     android:id="@+id/trackNameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/padding_m"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/titleTextView"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:text="@={viewModel.trackName}"/>
+                    android:text="@={viewModel.trackName}"
+                    android:hint="@string/hint_track_edit_text"/>
 
                 <TextView
                     android:id="@+id/okTextView"

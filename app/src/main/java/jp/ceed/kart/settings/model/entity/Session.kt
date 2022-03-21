@@ -7,7 +7,6 @@ import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.model.SettingLabel
 import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
 import kotlinx.parcelize.Parcelize
-import java.lang.reflect.Field
 import java.util.HashMap
 
 @Entity
@@ -26,17 +25,17 @@ data class Session(
     @SettingLabel(label = R.string.setting_label_track_condition, index = 1)
     val trackCondition: String = "",
 
-    @SettingLabel(label = R.string.setting_label_humidity, index = 2)
-    val humidity: String = "20",
+    @SettingLabel(label = R.string.setting_label_temperature, index = 2)
+    val temperature: String = "20.0",
 
-    @SettingLabel(label = R.string.setting_label_temperature, index = 3)
-    val temperature: String = "10.0",
+    @SettingLabel(label = R.string.setting_label_humidity, index = 3)
+    val humidity: String = "50",
 
     @SettingLabel(label = R.string.setting_label_pressure, index = 4)
-    val pressure: String = "1000",
+    val pressure: String = "980",
 
     @SettingLabel(label = R.string.setting_label_track_temperature, index = 5)
-    val trackTemperature: String = "10.0",
+    val trackTemperature: String = "20.0",
 
     @SettingLabel(label = R.string.setting_label_engine, index = 6)
     val engine: String = "#00",
@@ -116,6 +115,18 @@ data class Session(
                 }
             }
             return session
+        }
+
+        fun createCopyAsZeroId(session: Session, practiceId: Int): Session {
+            val copy = session.copy()
+            val cls = copy.javaClass
+            val idField = cls.getDeclaredField("id")
+            idField.isAccessible = true
+            idField.set(copy, 0)
+            val practiceIdField =  cls.getDeclaredField("practiceId")
+            practiceIdField.isAccessible = true
+            practiceIdField.set(copy, practiceId)
+            return copy
         }
     }
 }

@@ -14,11 +14,13 @@
     <string name="cancel">キャンセル</string>
     <string name="edit">編集</string>
     <string name="save">保存</string>
+    <string name="title_create_track">サーキットを作成</string>
+    <string name="hint_track_edit_text">サーキット名</string>
 
     <string name="setting_label_start_time">走行時刻</string>
     <string name="setting_label_track_condition">路面状態</string>
-    <string name="setting_label_humidity">湿度</string>
     <string name="setting_label_temperature">気温</string>
+    <string name="setting_label_humidity">湿度</string>
     <string name="setting_label_pressure">気圧</string>
     <string name="setting_label_track_temperature">路面温度</string>
     <string name="setting_label_engine">エンジン</string>

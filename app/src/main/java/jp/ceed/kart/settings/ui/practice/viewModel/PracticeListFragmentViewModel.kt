@@ -41,7 +41,19 @@ class PracticeListFragmentViewModel(application: Application) : AndroidViewModel
         initEditLayout()
     }
 
-    fun loadPracticeList(){
+    fun initEditLayout(){
+        viewModelScope.launch {
+            val trackList = trackRepository.getTrackList()
+            labelList.value = createTrackLabels(trackList)
+            this@PracticeListFragmentViewModel.trackList.value = trackList
+        }
+        val cal = Calendar.getInstance()
+        year.value = cal.get(Calendar.YEAR).toString()
+        month.value = (cal.get(Calendar.MONTH) + 1).toString()
+        date.value = cal.get(Calendar.DAY_OF_MONTH).toString()
+    }
+
+    private fun loadPracticeList(){
         viewModelScope.launch {
             practiceList.value = practiceRepository.findAll()
         }
@@ -63,18 +75,6 @@ class PracticeListFragmentViewModel(application: Application) : AndroidViewModel
             ))
             loadPracticeList()
         }
-    }
-
-    private fun initEditLayout(){
-        viewModelScope.launch {
-            val trackList = trackRepository.getTrackList()
-            labelList.value = createTrackLabels(trackList)
-            this@PracticeListFragmentViewModel.trackList.value = trackList
-        }
-        val cal = Calendar.getInstance()
-        year.value = cal.get(Calendar.YEAR).toString()
-        month.value = (cal.get(Calendar.MONTH) + 1).toString()
-        date.value = cal.get(Calendar.DAY_OF_MONTH).toString()
     }
 
     private fun createTrackLabels(trackList: List<Track>): List<String> {

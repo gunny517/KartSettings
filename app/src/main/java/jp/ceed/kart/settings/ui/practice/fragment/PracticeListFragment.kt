@@ -37,6 +37,11 @@ class PracticeListFragment: Fragment() {
         initLayout()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.initEditLayout()
+    }
+
     private fun initLayout(){
         val adapter = PracticeListAdapter(requireContext(), ::onClickPractice)
         binding.recyclerView.adapter = adapter
@@ -50,9 +55,6 @@ class PracticeListFragment: Fragment() {
             val spinnerAdapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, it ?: mutableListOf())
             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinner.adapter = spinnerAdapter
-        }
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            viewModel.loadPracticeList()
         }
     }
 

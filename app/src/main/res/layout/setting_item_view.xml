@@ -19,7 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:inputType="number"
+            android:inputType="text"
             android:textSize="@dimen/padding_m"
             android:textColor="@color/text_default"
             android:text="@={settingItem.value}"

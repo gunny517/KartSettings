@@ -18,4 +18,10 @@ interface SessionsDao {
     @Update
     fun update(session: Session)
 
+    @Query("SELECT * FROM Session ORDER BY id DESC LIMIT 1")
+    fun getLatest(): Session?
+
+    @Query("SELECT * FROM Session WHERE practiceId = (:practiceId) ORDER BY id DESC LIMIT 1")
+    fun getLatestByPracticeId(practiceId: Int): Session?
+
 }
