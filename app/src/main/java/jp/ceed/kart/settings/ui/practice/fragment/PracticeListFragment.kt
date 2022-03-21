@@ -51,6 +51,9 @@ class PracticeListFragment: Fragment() {
             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinner.adapter = spinnerAdapter
         }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.loadPracticeList()
+        }
     }
 
     private fun onClickPractice(practiceId: Int, titleLabel: String){

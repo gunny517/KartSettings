@@ -5,7 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.model.SettingLabel
+import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
 import kotlinx.parcelize.Parcelize
+import java.lang.reflect.Field
+import java.util.HashMap
 
 @Entity
 @Suppress("all")
@@ -24,22 +27,22 @@ data class Session(
     val trackCondition: String = "",
 
     @SettingLabel(label = R.string.setting_label_humidity, index = 2)
-    val humidity: Int = 20,
+    val humidity: String = "20",
 
     @SettingLabel(label = R.string.setting_label_temperature, index = 3)
-    val temperature: Float = 10.0F,
+    val temperature: String = "10.0",
 
     @SettingLabel(label = R.string.setting_label_pressure, index = 4)
-    val pressure: Int = 1000,
+    val pressure: String = "1000",
 
     @SettingLabel(label = R.string.setting_label_track_temperature, index = 5)
-    val trackTemperature: Float = 10.0F,
+    val trackTemperature: String = "10.0",
 
     @SettingLabel(label = R.string.setting_label_engine, index = 6)
     val engine: String = "#00",
 
     @SettingLabel(label = R.string.setting_label_btdc, index = 7)
-    val btdc: Float = 3.0F,
+    val btdc: String = "3.0",
 
     @SettingLabel(label = R.string.setting_label_carburetor, index = 8)
     val carburetor: String = "#1",
@@ -57,10 +60,10 @@ data class Session(
     val exJoint: String = "50",
 
     @SettingLabel(label = R.string.setting_label_tire_pressure_f, index = 13)
-    val tirePressureF: Float = 0.6F,
+    val tirePressureF: String = "0.6",
 
     @SettingLabel(label = R.string.setting_label_tire_pressure_r, index = 14)
-    val tirePressureR: Float = 0.6F,
+    val tirePressureR: String = "0.6",
 
     @SettingLabel(label = R.string.setting_label_tread_f, index = 15)
     val treadF: String = "15",
@@ -81,11 +84,38 @@ data class Session(
     val hubStopper: String = "",
 
     @SettingLabel(label = R.string.setting_label_max_rev, index = 21)
-    val maxRev: Int = 13000,
+    val maxRev: String = "13000",
 
     @SettingLabel(label = R.string.setting_label_max_speed, index = 22)
-    val maxSpeed: Float = 100.0F,
+    val maxSpeed: String = "100.0",
 
     @SettingLabel(label = R.string.setting_label_best_time, index = 23)
-    val bestTime: Float = 42.0F
-): Parcelable
+    val bestTime: String = "42.0"
+): Parcelable {
+
+    companion object {
+
+        fun fromPracticeRowItemList(rowItemList: List<PracticeDetailAdapterItem>, sessionId: Int, practiceId: Int): Session{
+            val map = HashMap<String,String>()
+            for(row in rowItemList){
+                when(row){
+                    is PracticeDetailAdapterItem.PracticeRowItem -> {
+                        for(settingItem in row.values){
+                            map[settingItem.fieldName] = settingItem.value
+                        }
+                    } else -> {}
+                }
+            }
+            val session = Session(sessionId, practiceId)
+            val fields = Session::class.java.declaredFields
+            for(field in fields){
+                val value = map[field.name]
+                value?.let {
+                    field.isAccessible = true
+                    field.set(session, value)
+                }
+            }
+            return session
+        }
+    }
+}

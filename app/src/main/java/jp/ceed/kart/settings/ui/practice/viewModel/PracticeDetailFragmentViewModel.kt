@@ -44,8 +44,20 @@ class PracticeDetailFragmentViewModel(context: Context, private val practiceId: 
     }
 
     fun onClickControl(controlCommand: RowControlListener.RowControlCommand, sessionId: Int){
+        if(RowControlListener.RowControlCommand.SAVE == controlCommand){
+            practiceRowList.value?.let {
+                viewModelScope.launch {
+                    sessionRepository.saveSession(it, sessionId, practiceId)
+                }
+            }
+        }
+        changeEditState(sessionId)
+    }
+
+    private fun changeEditState(sessionId: Int){
         practiceRowList.value?.let {
-            for(entry in it){
+            val copyList = it.toList()
+            for(entry in copyList){
                 when(entry){
                     is PracticeDetailAdapterItem.PracticeRowItem -> {
                         for(session in entry.values){
@@ -55,11 +67,8 @@ class PracticeDetailFragmentViewModel(context: Context, private val practiceId: 
                         }
                     }else -> {}
                 }
-
             }
-        }
-        if(RowControlListener.RowControlCommand.SAVE == controlCommand){
-
+            practiceRowList.value = copyList
         }
     }
 }

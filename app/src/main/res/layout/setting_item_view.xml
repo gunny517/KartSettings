@@ -22,7 +22,7 @@
             android:inputType="number"
             android:textSize="@dimen/padding_m"
             android:textColor="@color/text_default"
-            android:text="@{settingItem.value}"
+            android:text="@={settingItem.value}"
             android:enabled="@{settingItem.isEditable}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -8,7 +8,7 @@ sealed class PracticeDetailAdapterItem {
     @Parcelize
     data class PracticeRowItem(
         val index: Int,
-        val label: String,
+        var label: String,
         val values: List<SettingItem>
     ): PracticeDetailAdapterItem(), Parcelable
 

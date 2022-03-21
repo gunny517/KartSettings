@@ -23,13 +23,20 @@ class SessionRepository(val context: Context, private val dispatcher: CoroutineD
     }
 
     suspend fun getPracticeRowList(practiceId: Int): List<PracticeDetailAdapterItem> {
-        var practiceRowList: ArrayList<PracticeDetailAdapterItem> = ArrayList()
+        val practiceRowList: ArrayList<PracticeDetailAdapterItem> = ArrayList()
         withContext(dispatcher){
             val sessionList = sessionsDao.findAByPracticeId(practiceId)
             practiceRowList.add(createControlItem(sessionList))
             practiceRowList.addAll(createPracticeRowList(sessionList))
         }
         return practiceRowList
+    }
+
+    suspend fun saveSession(practiceRowList: List<PracticeDetailAdapterItem>, sessionId: Int, practiceId: Int){
+        val session = Session.fromPracticeRowItemList(practiceRowList, sessionId, practiceId)
+        withContext(dispatcher){
+            sessionsDao.update(session)
+        }
     }
 
     private fun createControlItem(sessionList: List<Session>): PracticeDetailAdapterItem{

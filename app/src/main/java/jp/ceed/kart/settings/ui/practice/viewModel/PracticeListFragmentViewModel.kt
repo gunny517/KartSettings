@@ -41,7 +41,7 @@ class PracticeListFragmentViewModel(application: Application) : AndroidViewModel
         initEditLayout()
     }
 
-    private fun loadPracticeList(){
+    fun loadPracticeList(){
         viewModelScope.launch {
             practiceList.value = practiceRepository.findAll()
         }

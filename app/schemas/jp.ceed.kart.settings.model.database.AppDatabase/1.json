@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "12b872aa4910d30d2179360ef5a9a950",
+    "identityHash": "40af07467eab54a19d14f9853d9ae20b",
     "entities": [
       {
         "tableName": "Track",
@@ -64,7 +64,7 @@
       },
       {
         "tableName": "Session",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `practiceId` INTEGER NOT NULL, `startTime` TEXT NOT NULL, `trackCondition` TEXT NOT NULL, `humidity` INTEGER NOT NULL, `temperature` REAL NOT NULL, `pressure` INTEGER NOT NULL, `trackTemperature` REAL NOT NULL, `engine` TEXT NOT NULL, `btdc` REAL NOT NULL, `carburetor` TEXT NOT NULL, `lowNeedle` TEXT NOT NULL, `highNeedle` TEXT NOT NULL, `finalRatio` TEXT NOT NULL, `exJoint` TEXT NOT NULL, `tirePressureF` REAL NOT NULL, `tirePressureR` REAL NOT NULL, `treadF` TEXT NOT NULL, `treadR` TEXT NOT NULL, `stabilizerF` TEXT NOT NULL, `axleShaft` TEXT NOT NULL, `axleBearing` TEXT NOT NULL, `hubStopper` TEXT NOT NULL, `maxRev` INTEGER NOT NULL, `maxSpeed` REAL NOT NULL, `bestTime` REAL NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `practiceId` INTEGER NOT NULL, `startTime` TEXT NOT NULL, `trackCondition` TEXT NOT NULL, `humidity` TEXT NOT NULL, `temperature` TEXT NOT NULL, `pressure` TEXT NOT NULL, `trackTemperature` TEXT NOT NULL, `engine` TEXT NOT NULL, `btdc` TEXT NOT NULL, `carburetor` TEXT NOT NULL, `lowNeedle` TEXT NOT NULL, `highNeedle` TEXT NOT NULL, `finalRatio` TEXT NOT NULL, `exJoint` TEXT NOT NULL, `tirePressureF` TEXT NOT NULL, `tirePressureR` TEXT NOT NULL, `treadF` TEXT NOT NULL, `treadR` TEXT NOT NULL, `stabilizerF` TEXT NOT NULL, `axleShaft` TEXT NOT NULL, `axleBearing` TEXT NOT NULL, `hubStopper` TEXT NOT NULL, `maxRev` TEXT NOT NULL, `maxSpeed` TEXT NOT NULL, `bestTime` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -93,25 +93,25 @@
           {
             "fieldPath": "humidity",
             "columnName": "humidity",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
             "fieldPath": "temperature",
             "columnName": "temperature",
-            "affinity": "REAL",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
             "fieldPath": "pressure",
             "columnName": "pressure",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
             "fieldPath": "trackTemperature",
             "columnName": "trackTemperature",
-            "affinity": "REAL",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -123,7 +123,7 @@
           {
             "fieldPath": "btdc",
             "columnName": "btdc",
-            "affinity": "REAL",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -159,13 +159,13 @@
           {
             "fieldPath": "tirePressureF",
             "columnName": "tirePressureF",
-            "affinity": "REAL",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
             "fieldPath": "tirePressureR",
             "columnName": "tirePressureR",
-            "affinity": "REAL",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -207,19 +207,19 @@
           {
             "fieldPath": "maxRev",
             "columnName": "maxRev",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
             "fieldPath": "maxSpeed",
             "columnName": "maxSpeed",
-            "affinity": "REAL",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
             "fieldPath": "bestTime",
             "columnName": "bestTime",
-            "affinity": "REAL",
+            "affinity": "TEXT",
             "notNull": true
           }
         ],
@@ -236,7 +236,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '12b872aa4910d30d2179360ef5a9a950')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '40af07467eab54a19d14f9853d9ae20b')"
     ]
   }
 }
