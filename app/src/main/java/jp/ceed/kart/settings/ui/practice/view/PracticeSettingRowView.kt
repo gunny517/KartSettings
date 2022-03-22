@@ -7,12 +7,11 @@ import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import jp.ceed.kart.settings.BR
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.SettingItemViewBinding
 import jp.ceed.kart.settings.databinding.SettingLabelViewBinding
 import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
-import jp.ceed.kart.settings.model.dto.SettingItem
+import jp.ceed.kart.settings.ui.practice.viewModel.PracticeSettingItemViewModel
 
 class PracticeSettingRowView(context: Context, attr: AttributeSet): LinearLayout(context, attr) {
 
@@ -58,16 +57,16 @@ class PracticeSettingRowView(context: Context, attr: AttributeSet): LinearLayout
         binding.label = label
     }
 
-    private fun setValueViews(settingItems: List<SettingItem>){
+    private fun setValueViews(settingItems: List<PracticeSettingItemViewModel>){
         for(entry in settingItems){
             addValueView(entry)
         }
     }
 
-    private fun addValueView(settingItem: SettingItem){
+    private fun addValueView(item: PracticeSettingItemViewModel){
         val binding: SettingItemViewBinding = DataBindingUtil.inflate(inflater, R.layout.setting_item_view, this, true)
         binding.lifecycleOwner = lifecycleOwner
-        binding.settingItem = settingItem
+        binding.item = item
     }
 
 }

@@ -6,11 +6,17 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
+import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import jp.ceed.kart.settings.BR
 import jp.ceed.kart.settings.R
+import jp.ceed.kart.settings.databinding.ControlItemViewBinding
 import jp.ceed.kart.settings.databinding.SettingLabelViewBinding
 import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
 import jp.ceed.kart.settings.ui.common.RowControlListener
+import jp.ceed.kart.settings.ui.practice.viewModel.PracticeControlItemViewModel
 
 class PracticeControlRowView(context: Context, attr: AttributeSet): LinearLayout(context, attr) {
 
@@ -42,19 +48,15 @@ class PracticeControlRowView(context: Context, attr: AttributeSet): LinearLayout
 
     private fun setControlViews(){
         controlItem?.let { ctrlItem ->
-            for(sessionId in ctrlItem.sessionIdList){
-                val view = inflater.inflate(R.layout.control_item_view, this, false)
-                view.findViewById<TextView>(R.id.editButton).setOnClickListener{
-                    rowControlListener?.let {
-                        it.onClickControl(RowControlListener.RowControlCommand.EDIT, sessionId)
-                    }
+            for(controlItem in ctrlItem.controlItems){
+                val binding: ControlItemViewBinding = DataBindingUtil.inflate(inflater, R.layout.control_item_view, this, false)
+                val viewModelStoreOwner = findViewTreeViewModelStoreOwner()
+                viewModelStoreOwner?.let {
+                    val factory = PracticeControlItemViewModel.Factory(controlItem.sessionId, rowControlListener)
+                    val viewModel = ViewModelProvider(it, factory).get(PracticeControlItemViewModel::class.java)
+                    binding.viewModel = viewModel
                 }
-                view.findViewById<TextView>(R.id.saveButton).setOnClickListener{
-                    rowControlListener?.let {
-                        it.onClickControl(RowControlListener.RowControlCommand.SAVE, sessionId)
-                    }
-                }
-                addView(view)
+                addView(binding.root)
             }
         }
     }

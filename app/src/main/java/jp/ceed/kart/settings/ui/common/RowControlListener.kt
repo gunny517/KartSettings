@@ -6,6 +6,7 @@ interface RowControlListener {
 
     enum class RowControlCommand {
         EDIT,
-        SAVE
+        SAVE,
+        DELETE
     }
 }

@@ -17,7 +17,7 @@ import jp.ceed.kart.settings.ui.practice.adapter.PracticeDetailAdapter
 import jp.ceed.kart.settings.ui.practice.viewModel.PracticeDetailFragmentViewModel
 import jp.ceed.kart.settings.ui.util.UiUtil
 
-class PracticeDetailFragment: Fragment(), RowControlListener {
+class PracticeDetailFragment: Fragment() {
 
     private val args: PracticeDetailFragmentArgs by navArgs()
 
@@ -30,7 +30,7 @@ class PracticeDetailFragment: Fragment(), RowControlListener {
     private lateinit var adapter: PracticeDetailAdapter
 
     private fun factoryProducer(): PracticeDetailFragmentViewModel.Factory {
-        return PracticeDetailFragmentViewModel.Factory(requireContext(), args.practiceId)
+        return PracticeDetailFragmentViewModel.Factory(this, requireContext(), args.practiceId)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -46,7 +46,7 @@ class PracticeDetailFragment: Fragment(), RowControlListener {
     }
 
     private fun initLayout(){
-        adapter = PracticeDetailAdapter(requireContext(), viewLifecycleOwner, this)
+        adapter = PracticeDetailAdapter(requireContext(), viewLifecycleOwner, )
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
@@ -56,8 +56,4 @@ class PracticeDetailFragment: Fragment(), RowControlListener {
         }
     }
 
-    override fun onClickControl(command: RowControlListener.RowControlCommand, sessionId: Int) {
-        viewModel.onClickControl(command, sessionId)
-        UiUtil(requireContext()).hideKeyboard(binding.root)
-    }
 }

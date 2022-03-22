@@ -4,8 +4,8 @@
 
     <data>
         <variable
-            name="settingItem"
-            type="jp.ceed.kart.settings.model.dto.SettingItem" />
+            name="item"
+            type="jp.ceed.kart.settings.ui.practice.viewModel.PracticeSettingItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +22,7 @@
             android:inputType="text"
             android:textSize="@dimen/padding_m"
             android:textColor="@color/text_default"
-            android:text="@={settingItem.value}"
-            android:enabled="@{settingItem.isEditable}"/>
+            android:text="@={item.value}"
+            android:enabled="@{item.isEditable}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -3,6 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="jp.ceed.kart.settings.ui.practice.viewModel.PracticeControlItemViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/setting_item_view_width"
         android:layout_height="@dimen/setting_item_view_height">
@@ -15,16 +22,31 @@
             app:layout_constraintStart_toStartOf="parent"
             android:gravity="center"
             android:textSize="@dimen/text_size_m"
-            android:text="@string/edit"/>
+            android:text="@string/edit"
+            android:onClick="@{v -> viewModel.onClickEdit()}"
+            android:visibility="@{viewModel.isEditable ? View.INVISIBLE : View.VISIBLE}"/>
 
         <TextView
             android:id="@+id/saveButton"
             android:layout_width="@dimen/control_item_view_width"
             android:layout_height="@dimen/control_item_view_height"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_m"
+            android:text="@string/save"
+            android:onClick="@{v -> viewModel.onClickSave()}"
+            android:visibility="@{viewModel.isEditable ? View.VISIBLE : View.INVISIBLE}"/>
+
+        <TextView
+            android:id="@+id/deleteButton"
+            android:layout_width="@dimen/control_item_view_width"
+            android:layout_height="@dimen/control_item_view_height"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:gravity="center"
             android:textSize="@dimen/text_size_m"
-            android:text="@string/save"/>
+            android:text="@string/delete"
+            android:onClick="@{v -> viewModel.onClickDelete()}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

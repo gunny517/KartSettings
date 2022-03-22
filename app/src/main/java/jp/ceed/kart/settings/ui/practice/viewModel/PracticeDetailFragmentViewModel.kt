@@ -1,23 +1,25 @@
 package jp.ceed.kart.settings.ui.practice.viewModel
 
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import jp.ceed.kart.settings.domain.repository.SessionRepository
+import jp.ceed.kart.settings.model.SettingLabel
 import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
 import jp.ceed.kart.settings.model.entity.Session
 import jp.ceed.kart.settings.ui.common.RowControlListener
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
-class PracticeDetailFragmentViewModel(context: Context, private val practiceId: Int): ViewModel() {
+class PracticeDetailFragmentViewModel(
+    private val viewStoreOwner: ViewModelStoreOwner, val context: Context, private val practiceId: Int)
+    : ViewModel(), RowControlListener {
 
-    class Factory(val context: Context, private val practiceId: Int): ViewModelProvider.Factory {
+    class Factory(private val viewStoreOwner: ViewModelStoreOwner, val context: Context, private val practiceId: Int): ViewModelProvider.Factory {
 
         @Suppress("unchecked_cast")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return PracticeDetailFragmentViewModel(context, practiceId) as T
+            return PracticeDetailFragmentViewModel(viewStoreOwner, context, practiceId) as T
         }
     }
 
@@ -28,23 +30,63 @@ class PracticeDetailFragmentViewModel(context: Context, private val practiceId: 
 
     init {
         loadPracticeRowList()
+
     }
 
     private fun loadPracticeRowList(){
         viewModelScope.launch {
-            practiceRowList.value = sessionRepository.getPracticeRowList(practiceId)
+            val list: ArrayList<PracticeDetailAdapterItem> = ArrayList()
+            val sessionList = sessionRepository.getSessionList(practiceId)
+            list.add(createControlItem(sessionList))
+            list.addAll(createPracticeRowList(sessionList))
+            practiceRowList.value = list
         }
     }
+
+    private fun createControlItem(sessionList: List<Session>): PracticeDetailAdapterItem{
+        val list: ArrayList<PracticeControlItemViewModel> = ArrayList()
+        for(session in sessionList){
+            val factory = PracticeControlItemViewModel.Factory(session.id, this)
+            val viewModel = ViewModelProvider(viewStoreOwner, factory).get(PracticeControlItemViewModel::class.java)
+            list.add(viewModel)
+        }
+        return PracticeDetailAdapterItem.PracticeControlItem(list)
+    }
+
+    private fun createPracticeRowList(sessionList: List<Session>): List<PracticeDetailAdapterItem.PracticeRowItem>{
+        val cls = Session::class.java
+        val fields = cls.declaredFields
+        val resultList: ArrayList<PracticeDetailAdapterItem.PracticeRowItem> = ArrayList()
+        for(field in fields){
+            field.isAccessible = true
+            val annotation = field.getAnnotation(SettingLabel::class.java) ?: continue
+            val label = context.getString(annotation.label)
+            val index = annotation.index
+            val name = field.name
+            val list: ArrayList<PracticeSettingItemViewModel> = ArrayList()
+            for(session in sessionList){
+                val value = field.get(session) as String
+                val factory = PracticeSettingItemViewModel.Factory(session.id, name, value)
+                val key: String = "${index}-${session.id}"
+                val viewModel = ViewModelProvider(viewStoreOwner, factory).get(key, PracticeSettingItemViewModel::class.java)
+                list.add(viewModel)
+            }
+            resultList.add(PracticeDetailAdapterItem.PracticeRowItem(index, label, list))
+        }
+        Collections.sort(resultList, SessionRepository.PracticeRowComparator())
+        return resultList
+    }
+
 
     fun onClickFab() {
         viewModelScope.launch {
             val newEntity = sessionRepository.getNewEntityForInsert(practiceId)
             sessionRepository.insert(newEntity)
-            practiceRowList.value = sessionRepository.getPracticeRowList(practiceId)
+            loadPracticeRowList()
         }
     }
 
-    fun onClickControl(controlCommand: RowControlListener.RowControlCommand, sessionId: Int){
+    override fun onClickControl(controlCommand: RowControlListener.RowControlCommand, sessionId: Int){
         if(RowControlListener.RowControlCommand.SAVE == controlCommand){
             practiceRowList.value?.let {
                 viewModelScope.launch {
@@ -66,7 +108,14 @@ class PracticeDetailFragmentViewModel(context: Context, private val practiceId: 
                                 session.isEditable = session.isEditable.not()
                             }
                         }
-                    }else -> {}
+                    }
+                    is PracticeDetailAdapterItem.PracticeControlItem -> {
+                        for(controlItem in entry.controlItems){
+                            if(sessionId == controlItem.sessionId){
+                                controlItem.isEditable = controlItem.isEditable.not()
+                            }
+                        }
+                    }
                 }
             }
             practiceRowList.value = copyList

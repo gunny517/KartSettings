@@ -12,9 +12,8 @@ import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.PracticeDetailControlItemBinding
 import jp.ceed.kart.settings.databinding.PracticeDetailSettingItemBinding
 import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
-import jp.ceed.kart.settings.ui.common.RowControlListener
 
-class PracticeDetailAdapter(context: Context, private val lifecycleOwner: LifecycleOwner, private val rowControlListener: RowControlListener)
+class PracticeDetailAdapter(context: Context, private val lifecycleOwner: LifecycleOwner)
     : RecyclerView.Adapter<PracticeDetailAdapter.ViewHolder>() {
 
     companion object {
@@ -49,7 +48,6 @@ class PracticeDetailAdapter(context: Context, private val lifecycleOwner: Lifecy
         when(holder) {
             is ViewHolder.ControlViewHolder -> {
                 holder.binding.controlItem = getItem(position) as PracticeDetailAdapterItem.PracticeControlItem
-                holder.binding.rowControlListener = rowControlListener
             }
             is ViewHolder.SettingItemViewHolder -> {
                 holder.binding.practiceRowItem = getItem(position) as PracticeDetailAdapterItem.PracticeRowItem

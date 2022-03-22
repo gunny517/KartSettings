@@ -1,16 +1,13 @@
 package jp.ceed.kart.settings.domain.repository
 
 import android.content.Context
-import jp.ceed.kart.settings.model.SettingLabel
 import jp.ceed.kart.settings.model.database.AppDatabase
 import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
-import jp.ceed.kart.settings.model.dto.SettingItem
 import jp.ceed.kart.settings.model.entity.Session
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.*
-import kotlin.collections.ArrayList
 
 class SessionRepository(val context: Context, private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
 
@@ -39,67 +36,18 @@ class SessionRepository(val context: Context, private val dispatcher: CoroutineD
         return Session.createCopyAsZeroId(session ?: Session(practiceId = practiceId) , practiceId)
     }
 
-    suspend fun getPracticeRowList(practiceId: Int): List<PracticeDetailAdapterItem> {
-        val practiceRowList: ArrayList<PracticeDetailAdapterItem> = ArrayList()
+    suspend fun getSessionList(practiceId: Int): List<Session> {
+        var list: List<Session>
         withContext(dispatcher){
-            val sessionList = sessionsDao.findAByPracticeId(practiceId)
-            practiceRowList.add(createControlItem(sessionList))
-            practiceRowList.addAll(createPracticeRowList(sessionList))
+            list = sessionsDao.findAByPracticeId(practiceId)
         }
-        return practiceRowList
+        return list
     }
 
     suspend fun saveSession(practiceRowList: List<PracticeDetailAdapterItem>, sessionId: Int, practiceId: Int){
         val session = Session.fromPracticeRowItemList(practiceRowList, sessionId, practiceId)
         withContext(dispatcher){
             sessionsDao.update(session)
-        }
-    }
-
-    private fun createControlItem(sessionList: List<Session>): PracticeDetailAdapterItem{
-        val list: ArrayList<Int> = ArrayList()
-        for(session in sessionList){
-            list.add(session.id)
-        }
-        return PracticeDetailAdapterItem.PracticeControlItem(list)
-    }
-
-
-    private fun createPracticeRowList(sessionList: List<Session>): List<PracticeDetailAdapterItem.PracticeRowItem>{
-        val cls = Session::class.java
-        val fields = cls.declaredFields
-        val resultList: ArrayList<PracticeDetailAdapterItem.PracticeRowItem> = ArrayList()
-        for(field in fields){
-            field.isAccessible = true
-            val annotation = field.getAnnotation(SettingLabel::class.java) ?: continue
-            val label = context.getString(annotation.label)
-            val index = annotation.index
-            val name = field.name
-            val list: ArrayList<SettingItem> = ArrayList()
-            for(session in sessionList){
-                val value = field.get(session)
-                list.add(createSettingItem(session.id, name, value))
-            }
-            resultList.add(PracticeDetailAdapterItem.PracticeRowItem(index, label, list))
-        }
-        Collections.sort(resultList, PracticeRowComparator())
-        return resultList
-    }
-
-    private fun createSettingItem(sessionId: Int, name: String, value: Any?): SettingItem{
-        if(value == null){
-            return SettingItem(sessionId, name, "")
-        }
-        return when(value){
-            is Int -> {
-                SettingItem(sessionId, name, value as Int)
-            }
-            is Float -> {
-                SettingItem(sessionId, name, value as Float)
-            }
-            else -> {
-                SettingItem(sessionId, name, value as String)
-            }
         }
     }
 

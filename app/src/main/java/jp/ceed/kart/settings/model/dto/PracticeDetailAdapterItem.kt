@@ -1,6 +1,8 @@
 package jp.ceed.kart.settings.model.dto
 
 import android.os.Parcelable
+import jp.ceed.kart.settings.ui.practice.viewModel.PracticeControlItemViewModel
+import jp.ceed.kart.settings.ui.practice.viewModel.PracticeSettingItemViewModel
 import kotlinx.parcelize.Parcelize
 
 sealed class PracticeDetailAdapterItem {
@@ -9,10 +11,10 @@ sealed class PracticeDetailAdapterItem {
     data class PracticeRowItem(
         val index: Int,
         var label: String,
-        val values: List<SettingItem>
+        val values: List<PracticeSettingItemViewModel>
     ): PracticeDetailAdapterItem(), Parcelable
 
     data class PracticeControlItem(
-        val sessionIdList: List<Int>
+        val controlItems: List<PracticeControlItemViewModel>
     ): PracticeDetailAdapterItem()
 }
