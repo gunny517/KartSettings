@@ -9,5 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="text_default">#FF333333</color>
     <color name="tint">#99000000</color>
-    <color name="dialog_background">#ffffff</color>
+    <color name="window_back_ground">#ffffff</color>
+    <color name="dialog_background">@color/window_back_ground</color>
+    <color name="bg_edit_text">@color/window_back_ground</color>
+    <color name="bg_edit_text_enabled">#efefef</color>
+    <color name="divider">#cccccc</color>
 </resources>

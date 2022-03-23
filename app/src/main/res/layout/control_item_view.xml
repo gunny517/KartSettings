@@ -12,7 +12,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/setting_item_view_width"
-        android:layout_height="@dimen/setting_item_view_height">
+        android:layout_height="@dimen/setting_item_view_height"
+        android:background="@drawable/bg_setting_item">
 
         <TextView
             android:id="@+id/editButton"

@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/bg_edit_text.xml" value="0.162" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/bg_setting_item.xml" value="0.162" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/activity_main.xml" value="0.34193840579710144" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/app_bar_main.xml" value="0.34193840579710144" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/content_main.xml" value="0.3632246376811594" />
@@ -28,7 +30,7 @@
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/settin_item_view.xml" value="0.33695652173913043" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/setting_adapter_item.xml" value="0.35778985507246375" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/setting_item_head.xml" value="0.33695652173913043" />
-        <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/setting_item_view.xml" value="0.215625" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/setting_item_view.xml" value="0.33" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/setting_label_view.xml" value="0.3482789855072464" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/track_list_item.xml" value="0.34782608695652173" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/track_spinner_item.xml" value="0.31929347826086957" />

@@ -19,6 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:padding="@dimen/padding_s"
             android:textSize="@dimen/text_size_s"
             android:text="@{label}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
