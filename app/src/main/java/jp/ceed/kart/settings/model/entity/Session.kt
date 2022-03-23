@@ -100,7 +100,9 @@ data class Session(
                 when(row){
                     is PracticeDetailAdapterItem.PracticeRowItem -> {
                         for(settingItem in row.values){
-                            map[settingItem.fieldName] = settingItem.value
+                            if(sessionId == settingItem.sessionId){
+                                map[settingItem.fieldName] = settingItem.value
+                            }
                         }
                     } else -> {}
                 }

@@ -19,6 +19,12 @@ class SessionRepository(val context: Context, private val dispatcher: CoroutineD
         }
     }
 
+    suspend fun deleteBySessionId(sessionId: Int){
+        withContext(dispatcher){
+            sessionsDao.deleteById(sessionId)
+        }
+    }
+
     /**
      * 新しいセッションデータ作成用のエンティティを生成して返す。
      * 指定したプラクティスIDと同じセッションがあればその最終値を、無い場合はすべてのセッションの最終地をコピーする。

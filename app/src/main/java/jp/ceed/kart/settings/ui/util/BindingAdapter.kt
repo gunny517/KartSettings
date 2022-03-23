@@ -19,10 +19,4 @@ object BindingAdapter {
     fun setControlItem(view: PracticeControlRowView, controlItem: PracticeDetailAdapterItem.PracticeControlItem?){
         view.setControlItem(controlItem)
     }
-
-    @BindingAdapter("rowControlListener")
-    @JvmStatic
-    fun setRowControlListener(view: PracticeControlRowView, listener: RowControlListener?){
-        view.setRowControlListener(listener)
-    }
 }

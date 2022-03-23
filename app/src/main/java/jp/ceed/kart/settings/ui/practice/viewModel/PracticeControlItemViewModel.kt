@@ -6,25 +6,25 @@ import jp.ceed.kart.settings.ui.common.RowControlListener
 
 class PracticeControlItemViewModel(
     val sessionId: Int,
-    val rowControlListener: RowControlListener?,
+    val rowControlListener: RowControlListener,
     var isEditable: Boolean = false): ViewModel() {
 
     fun onClickEdit(){
-        rowControlListener?.onClickControl(RowControlListener.RowControlCommand.EDIT, sessionId)
+        rowControlListener.onClickControl(RowControlListener.RowControlCommand.EDIT, sessionId)
     }
 
     fun onClickSave(){
-        rowControlListener?.onClickControl(RowControlListener.RowControlCommand.SAVE, sessionId)
+        rowControlListener.onClickControl(RowControlListener.RowControlCommand.SAVE, sessionId)
     }
 
     fun onClickDelete(){
-        rowControlListener?.onClickControl(RowControlListener.RowControlCommand.DELETE, sessionId)
+        rowControlListener.onClickControl(RowControlListener.RowControlCommand.DELETE, sessionId)
     }
 
-    class Factory(private val sessionId: Int, val rowControlListener: RowControlListener?): ViewModelProvider.Factory {
+    class Factory(private val sessionId: Int, val rowControlListener: RowControlListener): ViewModelProvider.KeyedFactory() {
 
         @Suppress("unchecked_cast")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(key:String, modelClass: Class<T>): T {
             return PracticeControlItemViewModel(sessionId, rowControlListener) as T
         }
 

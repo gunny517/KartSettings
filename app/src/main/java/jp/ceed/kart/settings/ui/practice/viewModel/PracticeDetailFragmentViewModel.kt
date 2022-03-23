@@ -2,10 +2,12 @@ package jp.ceed.kart.settings.ui.practice.viewModel
 
 import android.content.Context
 import androidx.lifecycle.*
+import jp.ceed.kart.settings.AbsEventContent
 import jp.ceed.kart.settings.domain.repository.SessionRepository
 import jp.ceed.kart.settings.model.SettingLabel
 import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
 import jp.ceed.kart.settings.model.entity.Session
+import jp.ceed.kart.settings.ui.Event
 import jp.ceed.kart.settings.ui.common.RowControlListener
 import kotlinx.coroutines.launch
 import java.util.*
@@ -23,14 +25,19 @@ class PracticeDetailFragmentViewModel(
         }
     }
 
+    enum class EventType{ DELETE_DIALOG_CLICK }
+
+    class EventContent(eventType: EventType, value: Int): AbsEventContent<PracticeDetailFragmentViewModel.EventType>(eventType, value)
+
     private val sessionRepository = SessionRepository(context)
 
     var practiceRowList: MutableLiveData<List<PracticeDetailAdapterItem>> = MutableLiveData()
 
+    var event: MutableLiveData<Event<EventContent>> = MutableLiveData()
+
 
     init {
         loadPracticeRowList()
-
     }
 
     private fun loadPracticeRowList(){
@@ -43,11 +50,18 @@ class PracticeDetailFragmentViewModel(
         }
     }
 
+    fun deleteSession(sessionId: Int){
+        viewModelScope.launch {
+            sessionRepository.deleteBySessionId(sessionId)
+            loadPracticeRowList()
+        }
+    }
+
     private fun createControlItem(sessionList: List<Session>): PracticeDetailAdapterItem{
         val list: ArrayList<PracticeControlItemViewModel> = ArrayList()
         for(session in sessionList){
             val factory = PracticeControlItemViewModel.Factory(session.id, this)
-            val viewModel = ViewModelProvider(viewStoreOwner, factory).get(PracticeControlItemViewModel::class.java)
+            val viewModel = ViewModelProvider(viewStoreOwner, factory).get(session.id.toString(), PracticeControlItemViewModel::class.java)
             list.add(viewModel)
         }
         return PracticeDetailAdapterItem.PracticeControlItem(list)
@@ -67,7 +81,7 @@ class PracticeDetailFragmentViewModel(
             for(session in sessionList){
                 val value = field.get(session) as String
                 val factory = PracticeSettingItemViewModel.Factory(session.id, name, value)
-                val key: String = "${index}-${session.id}"
+                val key = "${index}-${session.id}"
                 val viewModel = ViewModelProvider(viewStoreOwner, factory).get(key, PracticeSettingItemViewModel::class.java)
                 list.add(viewModel)
             }
@@ -87,14 +101,22 @@ class PracticeDetailFragmentViewModel(
     }
 
     override fun onClickControl(controlCommand: RowControlListener.RowControlCommand, sessionId: Int){
-        if(RowControlListener.RowControlCommand.SAVE == controlCommand){
-            practiceRowList.value?.let {
-                viewModelScope.launch {
-                    sessionRepository.saveSession(it, sessionId, practiceId)
+        when(controlCommand){
+            RowControlListener.RowControlCommand.SAVE -> {
+                practiceRowList.value?.let {
+                    viewModelScope.launch {
+                        sessionRepository.saveSession(it, sessionId, practiceId)
+                        changeEditState(sessionId)
+                    }
                 }
             }
+            RowControlListener.RowControlCommand.DELETE -> {
+                event.value = Event(EventContent(EventType.DELETE_DIALOG_CLICK, sessionId))
+            }
+            RowControlListener.RowControlCommand.EDIT -> {
+                changeEditState(sessionId)
+            }
         }
-        changeEditState(sessionId)
     }
 
     private fun changeEditState(sessionId: Int){
@@ -121,4 +143,5 @@ class PracticeDetailFragmentViewModel(
             practiceRowList.value = copyList
         }
     }
+
 }

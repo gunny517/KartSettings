@@ -7,9 +7,6 @@
         <variable
             name="controlItem"
             type="jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem.PracticeControlItem" />
-        <variable
-            name="rowControlListener"
-            type="jp.ceed.kart.settings.ui.common.RowControlListener" />
     </data>
 
     <jp.ceed.kart.settings.ui.practice.view.PracticeControlRowView
@@ -17,6 +14,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:controlItem="@{controlItem}"
-        app:rowControlListener="@{rowControlListener}"/>
+        app:controlItem="@{controlItem}"/>
 </layout>

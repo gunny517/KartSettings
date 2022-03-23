@@ -44,4 +44,5 @@
     <string name="setting_label_best_time">ベストタイム</string>
 
     <string name="meg_empty_session">セッションがありません。</string>
+    <string name="msg_delete_session">セッションを削除しますか？</string>
 </resources>

@@ -1,5 +1,6 @@
 package jp.ceed.kart.settings.ui.practice.fragment
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +13,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentPracticeDetailBinding
-import jp.ceed.kart.settings.ui.common.RowControlListener
 import jp.ceed.kart.settings.ui.practice.adapter.PracticeDetailAdapter
 import jp.ceed.kart.settings.ui.practice.viewModel.PracticeDetailFragmentViewModel
-import jp.ceed.kart.settings.ui.util.UiUtil
 
 class PracticeDetailFragment: Fragment() {
 
@@ -53,6 +52,24 @@ class PracticeDetailFragment: Fragment() {
         viewModel.practiceRowList.observe(viewLifecycleOwner){
             adapter.setRowList(it)
             adapter.notifyDataSetChanged()
+        }
+        viewModel.event.observe(viewLifecycleOwner){
+            onViewModelEvent(it.getContentIfNotHandled() as PracticeDetailFragmentViewModel.EventContent)
+        }
+    }
+
+    private fun onViewModelEvent(eventContent: PracticeDetailFragmentViewModel.EventContent){
+        when(eventContent.eventType){
+            PracticeDetailFragmentViewModel.EventType.DELETE_DIALOG_CLICK -> {
+                DeleteSessionDialogFragment(){ button ->
+                    when(button){
+                        DialogInterface.BUTTON_POSITIVE -> {
+                            viewModel.deleteSession(eventContent.value)
+                        }else -> {}
+                    }
+                }.show(childFragmentManager, DeleteSessionDialogFragment.TAG)
+
+            }
         }
     }
 
