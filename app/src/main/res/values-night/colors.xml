@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="text_default">#FFFFFFFF</color>
     <color name="tint">#99000000</color>
+    <color name="dialog_background">#333333</color>
 </resources>

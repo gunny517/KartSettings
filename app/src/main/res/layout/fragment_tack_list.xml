@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dialog_view_vertical_margin"
                 android:padding="@dimen/padding_l"
-                android:background="@color/white"
+                android:background="@color/dialog_background"
                 android:clickable="true">
 
                 <TextView
