@@ -25,7 +25,7 @@ class PracticeDetailFragmentViewModel(
         }
     }
 
-    enum class EventType{ DELETE_DIALOG_CLICK }
+    enum class EventType{ CLICK_DELETE_DIALOG, CLICK_CREATE_DIALOG, EDIT_MODE_COMPLETED,  }
 
     class EventContent(eventType: EventType, value: Int): AbsEventContent<PracticeDetailFragmentViewModel.EventType>(eventType, value)
 
@@ -93,6 +93,10 @@ class PracticeDetailFragmentViewModel(
 
 
     fun onClickFab() {
+        event.value = Event(EventContent(EventType.CLICK_CREATE_DIALOG, 0))
+    }
+
+    fun createSessionAndReload(){
         viewModelScope.launch {
             val newEntity = sessionRepository.getNewEntityForInsert(practiceId)
             sessionRepository.insert(newEntity)
@@ -111,7 +115,7 @@ class PracticeDetailFragmentViewModel(
                 }
             }
             RowControlListener.RowControlCommand.DELETE -> {
-                event.value = Event(EventContent(EventType.DELETE_DIALOG_CLICK, sessionId))
+                event.value = Event(EventContent(EventType.CLICK_DELETE_DIALOG, sessionId))
             }
             RowControlListener.RowControlCommand.EDIT -> {
                 changeEditState(sessionId)
@@ -121,6 +125,7 @@ class PracticeDetailFragmentViewModel(
 
     private fun changeEditState(sessionId: Int){
         practiceRowList.value?.let {
+            var isEditMode: Boolean = true
             val copyList = it.toList()
             for(entry in copyList){
                 when(entry){
@@ -135,12 +140,16 @@ class PracticeDetailFragmentViewModel(
                         for(controlItem in entry.controlItems){
                             if(sessionId == controlItem.sessionId){
                                 controlItem.isEditable = controlItem.isEditable.not()
+                                isEditMode = controlItem.isEditable
                             }
                         }
                     }
                 }
             }
             practiceRowList.value = copyList
+            if(!isEditMode){
+                event.value = Event(EventContent((EventType.EDIT_MODE_COMPLETED), 0))
+            }
         }
     }
 

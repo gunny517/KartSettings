@@ -15,6 +15,7 @@ import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentPracticeDetailBinding
 import jp.ceed.kart.settings.ui.practice.adapter.PracticeDetailAdapter
 import jp.ceed.kart.settings.ui.practice.viewModel.PracticeDetailFragmentViewModel
+import jp.ceed.kart.settings.ui.util.UiUtil
 
 class PracticeDetailFragment: Fragment() {
 
@@ -60,17 +61,27 @@ class PracticeDetailFragment: Fragment() {
 
     private fun onViewModelEvent(eventContent: PracticeDetailFragmentViewModel.EventContent){
         when(eventContent.eventType){
-            PracticeDetailFragmentViewModel.EventType.DELETE_DIALOG_CLICK -> {
-                DeleteSessionDialogFragment(){ button ->
+            PracticeDetailFragmentViewModel.EventType.CLICK_DELETE_DIALOG -> {
+                DeleteSessionDialogFragment { button ->
                     when(button){
                         DialogInterface.BUTTON_POSITIVE -> {
                             viewModel.deleteSession(eventContent.value)
                         }else -> {}
                     }
                 }.show(childFragmentManager, DeleteSessionDialogFragment.TAG)
-
+            }
+            PracticeDetailFragmentViewModel.EventType.EDIT_MODE_COMPLETED -> {
+                UiUtil(requireContext()).hideKeyboard(binding.root)
+            }
+            PracticeDetailFragmentViewModel.EventType.CLICK_CREATE_DIALOG -> {
+                CreateSessionDialogFragment { button ->
+                    when(button){
+                        DialogInterface.BUTTON_POSITIVE -> {
+                            viewModel.createSessionAndReload()
+                        } else -> {}
+                    }
+                }.show(childFragmentManager, CreateSessionDialogFragment.TAG)
             }
         }
     }
-
 }

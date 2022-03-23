@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.model.SettingLabel
 import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
+import jp.ceed.kart.settings.ui.util.CommonUtil
 import kotlinx.parcelize.Parcelize
 import java.util.HashMap
 
@@ -128,6 +129,9 @@ data class Session(
             val practiceIdField =  cls.getDeclaredField("practiceId")
             practiceIdField.isAccessible = true
             practiceIdField.set(copy, practiceId)
+            val startTimeField = cls.getDeclaredField("startTime")
+            startTimeField.isAccessible = true
+            startTimeField.set(copy, CommonUtil().getOneHourPastTime(copy.startTime))
             return copy
         }
     }

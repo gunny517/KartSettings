@@ -45,4 +45,5 @@
 
     <string name="meg_empty_session">セッションがありません。</string>
     <string name="msg_delete_session">セッションを削除しますか？</string>
+    <string name="msg_create_session">新しいセッションを作成します</string>
 </resources>
