@@ -4,16 +4,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.TrackListItemBinding
 import jp.ceed.kart.settings.model.entity.Track
 
-class TrackListAdapter(context: Context, private val lifecycleOwner: LifecycleOwner, val onSaveCommand: (Track) -> Unit)
+class TrackListAdapter(context: Context, private val lifecycleOwner: LifecycleOwner, val onEditClick: (Track) -> Unit)
     : RecyclerView.Adapter<TrackListAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: TrackListItemBinding) : RecyclerView.ViewHolder(binding.root)
@@ -30,8 +28,9 @@ class TrackListAdapter(context: Context, private val lifecycleOwner: LifecycleOw
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.track = itemList[position]
-        holder.binding.trackListOperator = TrackListOperator(this, itemList[position])
+        val track = itemList[position]
+        holder.binding.track = track
+        holder.binding.editButton.setOnClickListener { onEditClick(track) }
     }
 
     override fun getItemCount(): Int {
@@ -42,17 +41,5 @@ class TrackListAdapter(context: Context, private val lifecycleOwner: LifecycleOw
         itemList = _itemList
     }
 
-    class TrackListOperator(private val adapter: TrackListAdapter, val track: Track) {
 
-        var isEditable: MutableLiveData<Boolean> = MutableLiveData(false)
-
-        fun onClickSave() {
-            adapter.onSaveCommand(track)
-            isEditable.value = false
-        }
-
-        fun onClickEdit(){
-            isEditable.value = isEditable.value?.not()
-        }
-    }
 }

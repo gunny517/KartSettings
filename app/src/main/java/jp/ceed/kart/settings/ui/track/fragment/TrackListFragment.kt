@@ -53,7 +53,7 @@ class TrackListFragment: Fragment() {
     }
 
     private fun init(){
-        adapter = TrackListAdapter(requireContext(), viewLifecycleOwner, ::onSaveCommand)
+        adapter = TrackListAdapter(requireContext(), viewLifecycleOwner, ::onClickEdit)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
@@ -66,7 +66,7 @@ class TrackListFragment: Fragment() {
         }
     }
 
-    private fun onSaveCommand(track: Track){
-        viewModel.onSaveCommand(track)
+    private fun onClickEdit(track: Track){
+        viewModel.onClickEdit(track)
     }
 }

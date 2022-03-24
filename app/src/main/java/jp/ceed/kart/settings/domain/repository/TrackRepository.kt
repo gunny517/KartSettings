@@ -19,9 +19,9 @@ class TrackRepository(context: Context, private val dispatcher: CoroutineDispatc
         return list
     }
 
-    suspend fun insert(track: Track) {
+    suspend fun save(track: Track) {
         withContext(dispatcher){
-            trackDao.insert(track)
+            trackDao.save(track)
         }
     }
 
