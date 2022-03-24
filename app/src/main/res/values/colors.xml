@@ -15,4 +15,5 @@
     <color name="bg_edit_text">@color/window_back_ground</color>
     <color name="bg_edit_text_enabled">#efefef</color>
     <color name="divider">#cccccc</color>
+    <color name="pressed">#cccccc</color>
 </resources>

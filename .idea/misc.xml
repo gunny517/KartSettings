@@ -4,14 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2635" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/bg_control_button.xml" value="0.2585" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/bg_control_button_pressed.xml" value="0.2585" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/bg_edit_text.xml" value="0.162" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/bg_setting_item.xml" value="0.162" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/ic_launcher_background.xml" value="0.268" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/selector_bg_control_button.xml" value="0.2585" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/side_nav_bar.xml" value="0.2715" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/app_bar_main.xml" value="0.34193840579710144" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/content_main.xml" value="0.3632246376811594" />
-        <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/control_item_view.xml" value="0.25" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/control_item_view.xml" value="0.5" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_edit_practice_dialog.xml" value="0.32117920868890615" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_edit_track_dialog.xml" value="0.34193840579710144" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_practice_detail.xml" value="0.3496376811594203" />

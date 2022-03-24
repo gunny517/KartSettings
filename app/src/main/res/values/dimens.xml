@@ -5,6 +5,7 @@
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="divider_width">1dp</dimen>
 
     <dimen name="text_size_s">16sp</dimen>
     <dimen name="text_size_m">18sp</dimen>
@@ -17,8 +18,9 @@
 
     <dimen name="setting_item_view_width">160sp</dimen>
     <dimen name="setting_item_view_height">48sp</dimen>
-    <dimen name="control_item_view_width">80sp</dimen>
-    <dimen name="control_item_view_height">48sp</dimen>
+    <dimen name="control_item_view_width">70sp</dimen>
+    <dimen name="control_item_view_height">38sp</dimen>
+    <dimen name="control_item_view_margin">7sp</dimen>
     <dimen name="setting_item_edit_text_width">158sp</dimen>
     <dimen name="setting_item_edit_text_height">48sp</dimen>
     <dimen name="setting_item_text_view_width">158sp</dimen>

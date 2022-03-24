@@ -15,4 +15,5 @@
     <color name="bg_edit_text">@color/window_back_ground</color>
     <color name="bg_edit_text_enabled">#282828</color>
     <color name="divider">#333333</color>
+    <color name="pressed">#333333</color>
 </resources>

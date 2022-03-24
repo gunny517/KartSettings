@@ -18,6 +18,7 @@
         <item name="android:textColor">@color/text_default</item>
         <item name="android:editTextStyle">@style/App_EditTextStyle</item>
         <item name="android:windowBackground">@color/window_back_ground</item>
+        <item name="dividerColor">@color/divider</item>
     </style>
 
     <style name="App_EditTextStyle" parent="@android:style/Widget.EditText">

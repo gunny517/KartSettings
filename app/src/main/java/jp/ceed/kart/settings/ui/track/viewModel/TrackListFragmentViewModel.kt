@@ -74,5 +74,6 @@ class TrackListFragmentViewModel(application: Application) : AndroidViewModel(ap
             View.VISIBLE
         }
         editTrackLayoutEvent.value = Event(EventState.CLICKED)
+        trackName.value = ""
     }
 }
