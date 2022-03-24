@@ -33,13 +33,15 @@ class SessionRepository(val context: Context, private val dispatcher: CoroutineD
      */
     suspend fun getNewEntityForInsert(practiceId: Int): Session{
         var session: Session?
+        var isSamePractice = true
         withContext(dispatcher){
             session = sessionsDao.getLatestByPracticeId(practiceId)
             if(session == null){
+                isSamePractice = false
                 session = sessionsDao.getLatest()
             }
         }
-        return Session.createCopyAsZeroId(session ?: Session(practiceId = practiceId) , practiceId)
+        return Session.createCopyAsZeroId(session ?: Session(practiceId = practiceId) , practiceId, isSamePractice)
     }
 
     suspend fun getSessionList(practiceId: Int): List<Session> {

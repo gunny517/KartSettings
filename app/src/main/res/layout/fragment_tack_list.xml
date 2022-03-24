@@ -76,7 +76,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:padding="@dimen/padding_l"
                     android:textSize="@dimen/text_size_m"
-                    android:textColor="?attr/colorPrimary"
+                    android:textColor="?attr/colorOnSecondary"
                     android:text="@string/ok"
                     android:onClick="@{v -> viewModel.onClickOk()}"/>
 
@@ -87,7 +87,7 @@
                     app:layout_constraintEnd_toStartOf="@id/okTextView"
                     android:padding="@dimen/padding_l"
                     android:textSize="@dimen/text_size_m"
-                    android:textColor="?attr/colorPrimary"
+                    android:textColor="?attr/colorOnSecondary"
                     android:text="@string/cancel"
                     android:onClick="@{v -> viewModel.onClickCancel()}"/>
             </androidx.constraintlayout.widget.ConstraintLayout>

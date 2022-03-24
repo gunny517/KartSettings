@@ -2,8 +2,8 @@
     <string name="app_name">KartSettings</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Setting log for racing kart.</string>
+    <string name="nav_header_subtitle">www.ceed.jp</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -17,6 +17,7 @@
     <string name="delete">削除</string>
     <string name="title_create_track">サーキットを作成</string>
     <string name="hint_track_edit_text">サーキット名</string>
+    <string name="title_create_practice">走行日を作成</string>
 
     <string name="setting_label_start_time">走行時刻</string>
     <string name="setting_label_track_condition">路面状態</string>

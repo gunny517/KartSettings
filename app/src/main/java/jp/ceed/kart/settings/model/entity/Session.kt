@@ -21,7 +21,7 @@ data class Session(
     val practiceId: Int,
 
     @SettingLabel(label = R.string.setting_label_start_time, index = 0)
-    val startTime: String = "09:00",
+    val startTime: String = DEFAULT_START_TIME,
 
     @SettingLabel(label = R.string.setting_label_track_condition, index = 1)
     val trackCondition: String = "",
@@ -95,6 +95,8 @@ data class Session(
 
     companion object {
 
+        const val DEFAULT_START_TIME = "09:00"
+
         fun fromPracticeRowItemList(rowItemList: List<PracticeDetailAdapterItem>, sessionId: Int, practiceId: Int): Session{
             val map = HashMap<String,String>()
             for(row in rowItemList){
@@ -120,7 +122,7 @@ data class Session(
             return session
         }
 
-        fun createCopyAsZeroId(session: Session, practiceId: Int): Session {
+        fun createCopyAsZeroId(session: Session, practiceId: Int, isSamePractice: Boolean): Session {
             val copy = session.copy()
             val cls = copy.javaClass
             val idField = cls.getDeclaredField("id")
@@ -129,9 +131,14 @@ data class Session(
             val practiceIdField =  cls.getDeclaredField("practiceId")
             practiceIdField.isAccessible = true
             practiceIdField.set(copy, practiceId)
+            val startTime = if(isSamePractice){
+                CommonUtil().getOneHourPastTime(copy.startTime)
+            }else{
+                DEFAULT_START_TIME
+            }
             val startTimeField = cls.getDeclaredField("startTime")
             startTimeField.isAccessible = true
-            startTimeField.set(copy, CommonUtil().getOneHourPastTime(copy.startTime))
+            startTimeField.set(copy, startTime)
             return copy
         }
     }
