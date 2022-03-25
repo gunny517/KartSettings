@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:padding="@dimen/padding_s"
-            android:inputType="text"
+            android:inputType="@{item.inputType}"
             android:textSize="@dimen/padding_m"
             android:textColor="@color/text_default"
             android:background="@drawable/bg_edit_text"

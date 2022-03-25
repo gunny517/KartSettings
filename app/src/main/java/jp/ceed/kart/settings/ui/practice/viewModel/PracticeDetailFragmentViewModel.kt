@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.*
 import jp.ceed.kart.settings.AbsEventContent
 import jp.ceed.kart.settings.domain.repository.SessionRepository
-import jp.ceed.kart.settings.model.SettingLabel
+import jp.ceed.kart.settings.model.SettingElement
 import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
 import jp.ceed.kart.settings.model.entity.Session
 import jp.ceed.kart.settings.ui.Event
@@ -73,14 +73,15 @@ class PracticeDetailFragmentViewModel(
         val resultList: ArrayList<PracticeDetailAdapterItem.PracticeRowItem> = ArrayList()
         for(field in fields){
             field.isAccessible = true
-            val annotation = field.getAnnotation(SettingLabel::class.java) ?: continue
+            val annotation = field.getAnnotation(SettingElement::class.java) ?: continue
             val label = context.getString(annotation.label)
             val index = annotation.index
             val name = field.name
+            val inputType = annotation.inputType
             val list: ArrayList<PracticeSettingItemViewModel> = ArrayList()
             for(session in sessionList){
                 val value = field.get(session) as String
-                val factory = PracticeSettingItemViewModel.Factory(session.id, name, value)
+                val factory = PracticeSettingItemViewModel.Factory(session.id, name, value, inputType)
                 val key = "${index}-${session.id}"
                 val viewModel = ViewModelProvider(viewStoreOwner, factory).get(key, PracticeSettingItemViewModel::class.java)
                 list.add(viewModel)
