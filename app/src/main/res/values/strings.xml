@@ -15,7 +15,6 @@
     <string name="edit">編集</string>
     <string name="save">保存</string>
     <string name="delete">削除</string>
-    <string name="title_create_track">サーキットを作成</string>
     <string name="hint_track_edit_text">サーキット名</string>
     <string name="title_create_practice">走行日を作成</string>
 

@@ -1,7 +1,6 @@
 package jp.ceed.kart.settings.ui.practice.viewModel
 
 import android.app.Application
-import android.text.TextUtils
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -11,6 +10,7 @@ import jp.ceed.kart.settings.domain.repository.TrackRepository
 import jp.ceed.kart.settings.model.entity.Practice
 import jp.ceed.kart.settings.model.entity.PracticeTrack
 import jp.ceed.kart.settings.model.entity.Track
+import jp.ceed.kart.settings.ui.util.UiUtil
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -28,18 +28,18 @@ class PracticeListFragmentViewModel(application: Application) : AndroidViewModel
 
     var labelList: MutableLiveData<List<String>> = MutableLiveData()
 
-    var year: MutableLiveData<String> = MutableLiveData()
-
-    var month: MutableLiveData<String> = MutableLiveData()
-
-    var date: MutableLiveData<String> = MutableLiveData()
-
     var selectedItemPosition: MutableLiveData<Int> = MutableLiveData(0)
 
-    init {
-        loadPracticeList()
-        initEditLayout()
-    }
+    val calendar = Calendar.getInstance()
+
+    var year: MutableLiveData<Int> = MutableLiveData(calendar.get(Calendar.YEAR))
+
+    var month: MutableLiveData<Int> = MutableLiveData(calendar.get(Calendar.MONTH))
+
+    var day: MutableLiveData<Int> = MutableLiveData(calendar.get(Calendar.DAY_OF_MONTH))
+
+    val uiUtil = UiUtil(application.applicationContext)
+
 
     fun initEditLayout(){
         viewModelScope.launch {
@@ -47,13 +47,9 @@ class PracticeListFragmentViewModel(application: Application) : AndroidViewModel
             labelList.value = createTrackLabels(trackList)
             this@PracticeListFragmentViewModel.trackList.value = trackList
         }
-        val cal = Calendar.getInstance()
-        year.value = cal.get(Calendar.YEAR).toString()
-        month.value = (cal.get(Calendar.MONTH) + 1).toString()
-        date.value = cal.get(Calendar.DAY_OF_MONTH).toString()
     }
 
-    private fun loadPracticeList(){
+    fun loadPracticeList(){
         viewModelScope.launch {
             practiceList.value = practiceRepository.findAll()
         }
@@ -63,16 +59,19 @@ class PracticeListFragmentViewModel(application: Application) : AndroidViewModel
         toggleEditLayoutVisibility()
     }
 
-    private fun savePractice(track: Track, year: String?, month: String?, date: String?){
-        if(TextUtils.isEmpty(year) || TextUtils.isEmpty(month) || TextUtils.isEmpty(date)){
-            return
+    private fun savePractice(track: Track){
+        year.value?.let {
+            calendar.set(Calendar.YEAR, it)
         }
+        month.value?.let {
+            calendar.set(Calendar.MONTH, it)
+        }
+        day.value?.let {
+            calendar.set(Calendar.DAY_OF_MONTH, it)
+        }
+        val startDate = uiUtil.toYmdString(calendar.time)
         viewModelScope.launch {
-            practiceRepository.insert(Practice(
-                0,
-                track.id,
-                "$year-$month-$date"
-            ))
+            practiceRepository.insert(Practice(0, track.id, startDate))
             loadPracticeList()
         }
     }
@@ -91,7 +90,7 @@ class PracticeListFragmentViewModel(application: Application) : AndroidViewModel
 
     fun onClickOk(){
         val track: Track = trackList.value?.get(selectedItemPosition.value ?: 0) as Track
-        savePractice(track, year.value, month.value, date.value)
+        savePractice(track)
         toggleEditLayoutVisibility()
     }
 

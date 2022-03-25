@@ -52,7 +52,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="@dimen/padding_m"
-                    android:textSize="@dimen/text_size_l"
+                    android:textSize="@dimen/text_size_m"
                     android:text="@string/title_create_practice"/>
 
                 <Spinner
@@ -65,44 +65,27 @@
                     android:layout_marginTop="@dimen/padding_m"
                     android:selectedItemPosition="@={viewModel.selectedItemPosition}"/>
 
-                <EditText
-                    android:id="@+id/yearEditText"
-                    android:layout_width="80sp"
-                    android:layout_height="wrap_content"
+                <DatePicker
+                    android:id="@+id/datePicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:datePickerMode="calendar"
+                    android:year="@={viewModel.year}"
+                    android:month="@={viewModel.month}"
+                    android:day="@={viewModel.day}"
                     app:layout_constraintTop_toBottomOf="@id/spinner"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/mothEditText"
-                    android:inputType="number"
-                    android:text="@={viewModel.year}"/>
-
-                <EditText
-                    android:id="@+id/mothEditText"
-                    android:layout_width="40sp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/spinner"
-                    app:layout_constraintStart_toEndOf="@id/yearEditText"
-                    app:layout_constraintEnd_toStartOf="@id/dateEditText"
-                    android:inputType="number"
-                    android:text="@={viewModel.month}"/>
-
-                <EditText
-                    android:id="@+id/dateEditText"
-                    android:layout_width="40sp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/spinner"
-                    app:layout_constraintStart_toEndOf="@id/mothEditText"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:inputType="number"
-                    android:text="@={viewModel.date}"/>
+                    android:layout_marginTop="@dimen/padding_l"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
                 <TextView
                     android:id="@+id/okTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/yearEditText"
+                    app:layout_constraintTop_toBottomOf="@id/datePicker"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:padding="@dimen/padding_l"
-                    android:textSize="@dimen/text_size_m"
+                    android:textSize="@dimen/text_size_s"
                     android:textColor="?attr/colorOnSecondary"
                     android:text="@string/ok"
                     android:onClick="@{v -> viewModel.onClickOk()}"/>
@@ -110,10 +93,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/yearEditText"
+                    app:layout_constraintTop_toBottomOf="@id/datePicker"
                     app:layout_constraintEnd_toStartOf="@id/okTextView"
                     android:padding="@dimen/padding_l"
-                    android:textSize="@dimen/text_size_m"
+                    android:textSize="@dimen/text_size_s"
                     android:textColor="?attr/colorOnSecondary"
                     android:text="@string/cancel"
                     android:onClick="@{v -> viewModel.onClickCancel()}"/>

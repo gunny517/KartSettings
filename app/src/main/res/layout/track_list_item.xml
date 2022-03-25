@@ -29,7 +29,12 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="@dimen/text_size_m"
+            android:paddingStart="@dimen/padding_m"
+            android:paddingEnd="@dimen/padding_m"
+            android:paddingTop="@dimen/padding_s"
+            android:paddingBottom="@dimen/padding_s"
+            android:background="@drawable/selector_bg_control_button"
+            android:textSize="@dimen/text_size_s"
             android:text="@string/edit"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

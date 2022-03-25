@@ -39,6 +39,7 @@ class PracticeListFragment: Fragment() {
 
     override fun onResume() {
         super.onResume()
+        viewModel.loadPracticeList()
         viewModel.initEditLayout()
     }
 
