@@ -53,7 +53,9 @@ class PracticeListFragmentViewModel(val context: Context, private val viewModelS
 
     private val uiUtil = UiUtil(context)
 
-    var event: MutableLiveData<Event<PracticeListItemViewModel>> = MutableLiveData()
+    var itemClickEvent: MutableLiveData<Event<PracticeListItemViewModel>> = MutableLiveData()
+
+    var deleteButtonEvent: MutableLiveData<Event<PracticeListItemViewModel>> = MutableLiveData()
 
 
     fun initEditLayout(){
@@ -87,8 +89,11 @@ class PracticeListFragmentViewModel(val context: Context, private val viewModelS
                 applyPracticeDataToEditLayout(practiceListItemViewModel)
                 toggleEditLayoutVisibility()
             }
+            R.id.deleteButton -> {
+                deleteButtonEvent.value = Event(practiceListItemViewModel)
+            }
             R.id.practiceListItemLayout -> {
-                event.value = Event(practiceListItemViewModel)
+                itemClickEvent.value = Event(practiceListItemViewModel)
             }
         }
     }
@@ -161,6 +166,13 @@ class PracticeListFragmentViewModel(val context: Context, private val viewModelS
             View.GONE
         }else{
             View.VISIBLE
+        }
+    }
+
+    fun deletePractice(practiceId: Int){
+        viewModelScope.launch {
+            practiceRepository.deleteById(practiceId)
+            loadPracticeList()
         }
     }
 }

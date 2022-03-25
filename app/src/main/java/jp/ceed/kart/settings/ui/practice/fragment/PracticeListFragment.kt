@@ -1,5 +1,6 @@
 package jp.ceed.kart.settings.ui.practice.fragment
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentPracticeListBinding
+import jp.ceed.kart.settings.ui.common.fragment.DeleteConfirmDialogFragment
 import jp.ceed.kart.settings.ui.practice.adapter.PracticeListAdapter
 import jp.ceed.kart.settings.ui.practice.viewModel.PracticeListFragmentViewModel
 
@@ -56,12 +58,30 @@ class PracticeListFragment: Fragment() {
             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinner.adapter = spinnerAdapter
         }
-        viewModel.event.observe(viewLifecycleOwner){
+        viewModel.itemClickEvent.observe(viewLifecycleOwner){
             val itemViewModel = it.getContentIfNotHandled()
             itemViewModel?.let { item ->
                 onClickPractice(item.id, "${item.startDate} / ${item.trackName}")
             }
         }
+        viewModel.deleteButtonEvent.observe(viewLifecycleOwner){
+            activity?.let { activity ->
+                val content = it.getContentIfNotHandled()
+                content?.let { practiceListItemViewModel ->
+                    DeleteConfirmDialogFragment { dialog, button -> onClickDialogButton(practiceListItemViewModel.id, dialog, button)
+                    }.show(activity.supportFragmentManager, DeleteConfirmDialogFragment.TAG)
+                }
+            }
+        }
+    }
+
+    private fun onClickDialogButton(practiceId: Int, dialog: DialogInterface, button: Int){
+        when (button){
+            DialogInterface.BUTTON_POSITIVE -> {
+                viewModel.deletePractice(practiceId)
+            }else -> {}
+        }
+        dialog.dismiss()
     }
 
     private fun onClickPractice(practiceId: Int, titleLabel: String){

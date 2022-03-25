@@ -12,6 +12,8 @@ class PracticeRepository(context: Context, private val dispatcher: CoroutineDisp
 
     private val practiceDao = AppDatabase.getInstance(context).practiceDao()
 
+    private val sessionDao = AppDatabase.getInstance(context).sessionDao()
+
     suspend fun findAll(): List<PracticeTrack> {
         val list: List<PracticeTrack>
         withContext(dispatcher){
@@ -23,6 +25,13 @@ class PracticeRepository(context: Context, private val dispatcher: CoroutineDisp
     suspend fun save(practice: Practice){
         withContext(dispatcher){
             practiceDao.save(practice)
+        }
+    }
+
+    suspend fun deleteById(id: Int){
+        withContext(dispatcher){
+            practiceDao.deleteById(id)
+            sessionDao.deleteByPracticeId(id)
         }
     }
 

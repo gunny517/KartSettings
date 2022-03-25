@@ -24,7 +24,10 @@ interface SessionsDao {
     @Query("SELECT * FROM Session WHERE practiceId = (:practiceId) ORDER BY id DESC LIMIT 1")
     fun getLatestByPracticeId(practiceId: Int): Session?
 
-    @Query("DELETE FROM session WHERE id = (:id)")
+    @Query("DELETE FROM Session WHERE id = (:id)")
     fun deleteById(id: Int)
+
+    @Query("DELETE FROM Session WHERE practiceId = (:practiceId)")
+    fun deleteByPracticeId(practiceId: Int)
 
 }

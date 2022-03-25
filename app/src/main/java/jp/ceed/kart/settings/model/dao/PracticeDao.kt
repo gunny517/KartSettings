@@ -25,4 +25,8 @@ interface PracticeDao {
 
     @Query("SELECT p.id, p.startDate, p.description, t.name FROM Practice p, Track t WHERE p.trackId = t.id AND trackId = (:trackId)")
     fun findByTrackId(trackId: Int): List<PracticeTrack>
+
+    @Query("DELETE FROM Practice WHERE id = (:id)")
+    fun deleteById(id: Int)
+
 }
