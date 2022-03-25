@@ -15,7 +15,6 @@ import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentPracticeListBinding
 import jp.ceed.kart.settings.ui.practice.adapter.PracticeListAdapter
 import jp.ceed.kart.settings.ui.practice.viewModel.PracticeListFragmentViewModel
-import jp.ceed.kart.settings.ui.util.UiUtil
 
 class PracticeListFragment: Fragment() {
 
@@ -23,7 +22,7 @@ class PracticeListFragment: Fragment() {
 
     val binding get() = _binding!!
 
-    val viewModel: PracticeListFragmentViewModel by viewModels()
+    val viewModel: PracticeListFragmentViewModel by viewModels(factoryProducer = ::factoryProducer)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_practice_list, container, false)
@@ -44,11 +43,11 @@ class PracticeListFragment: Fragment() {
     }
 
     private fun initLayout(){
-        val adapter = PracticeListAdapter(requireContext(), ::onClickPractice)
+        val adapter = PracticeListAdapter(requireContext())
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
-        viewModel.practiceList.observe(viewLifecycleOwner){
+        viewModel.practiceViewModelList.observe(viewLifecycleOwner){
             adapter.setItemList(it)
             adapter.notifyDataSetChanged()
         }
@@ -57,11 +56,21 @@ class PracticeListFragment: Fragment() {
             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinner.adapter = spinnerAdapter
         }
+        viewModel.event.observe(viewLifecycleOwner){
+            val itemViewModel = it.getContentIfNotHandled()
+            itemViewModel?.let { item ->
+                onClickPractice(item.id, "${item.startDate} / ${item.trackName}")
+            }
+        }
     }
 
     private fun onClickPractice(practiceId: Int, titleLabel: String){
         findNavController().navigate(
             PracticeListFragmentDirections.toPracticeDetail(practiceId, titleLabel))
+    }
+
+    private fun factoryProducer(): PracticeListFragmentViewModel.Factory {
+        return PracticeListFragmentViewModel.Factory(requireContext(), this)
     }
 
 }

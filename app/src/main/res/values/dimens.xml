@@ -25,6 +25,6 @@
     <dimen name="setting_item_edit_text_height">48sp</dimen>
     <dimen name="setting_item_text_view_width">158sp</dimen>
     <dimen name="setting_item_text_view_height">48sp</dimen>
-    <dimen name="dialog_view_vertical_margin">80dp</dimen>
+    <dimen name="dialog_view_vertical_margin">60dp</dimen>
     <dimen name="dialog_view_horizontal_width">500dp</dimen>
 </resources>

@@ -39,7 +39,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="@dimen/dialog_view_horizontal_width"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dialog_view_vertical_margin"
+                android:layout_gravity="center"
                 android:padding="@dimen/padding_l"
                 android:background="@color/dialog_background"
                 android:clickable="true">
@@ -78,11 +78,25 @@
                     android:layout_marginTop="@dimen/padding_l"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
+                <EditText
+                    android:id="@+id/descriptionEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toBottomOf="@id/datePicker"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/padding_m"
+                    android:inputType="text"
+                    android:imeOptions="actionDone"
+                    android:lines="1"
+                    android:hint="@string/hint_practice_description"
+                    android:text="@={viewModel.description}"/>
+
                 <TextView
                     android:id="@+id/okTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/datePicker"
+                    app:layout_constraintTop_toBottomOf="@id/descriptionEditText"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:padding="@dimen/padding_l"
                     android:textSize="@dimen/text_size_s"
@@ -93,7 +107,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/datePicker"
+                    app:layout_constraintTop_toBottomOf="@id/descriptionEditText"
                     app:layout_constraintEnd_toStartOf="@id/okTextView"
                     android:padding="@dimen/padding_l"
                     android:textSize="@dimen/text_size_s"

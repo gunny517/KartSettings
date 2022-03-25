@@ -27,7 +27,7 @@ class PracticeDetailFragmentViewModel(
 
     enum class EventType{ CLICK_DELETE_DIALOG, CLICK_CREATE_DIALOG, EDIT_MODE_COMPLETED,  }
 
-    class EventContent(eventType: EventType, value: Int): AbsEventContent<PracticeDetailFragmentViewModel.EventType>(eventType, value)
+    class EventContent(eventType: EventType, value: Int): AbsEventContent<EventType>(eventType, value)
 
     private val sessionRepository = SessionRepository(context)
 
@@ -80,7 +80,7 @@ class PracticeDetailFragmentViewModel(
             val inputType = annotation.inputType
             val list: ArrayList<PracticeSettingItemViewModel> = ArrayList()
             for(session in sessionList){
-                val value = field.get(session) as String
+                val value = field.get(session) as String?
                 val factory = PracticeSettingItemViewModel.Factory(session.id, name, value, inputType)
                 val key = "${index}-${session.id}"
                 val viewModel = ViewModelProvider(viewStoreOwner, factory).get(key, PracticeSettingItemViewModel::class.java)

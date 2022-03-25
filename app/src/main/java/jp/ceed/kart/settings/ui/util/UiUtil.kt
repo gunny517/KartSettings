@@ -17,6 +17,15 @@ class UiUtil(val context: Context) {
         return dateFormat.format(date)
     }
 
+    fun fromYmdString(ymd: String): Calendar{
+        val calendar = Calendar.getInstance()
+        val date = dateFormat.parse(ymd)
+        date?.let {
+            calendar.time = it
+        }
+        return  calendar
+    }
+
     companion object {
         private const val DATE_FORMAT = "yyyy-MM-dd"
         val dateFormat = SimpleDateFormat(DATE_FORMAT, Locale.JAPANESE)

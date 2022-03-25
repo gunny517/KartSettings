@@ -24,73 +24,73 @@ data class Session(
     val startTime: String = DEFAULT_START_TIME,
 
     @SettingElement(label = R.string.setting_label_track_condition, index = 1, inputType = TYPE_TEXT)
-    val trackCondition: String = "",
+    val trackCondition: String? = null,
 
     @SettingElement(label = R.string.setting_label_temperature, index = 2, inputType = TYPE_NUMBER)
-    val temperature: String = "20.0",
+    val temperature: String? = null,
 
     @SettingElement(label = R.string.setting_label_humidity, index = 3, inputType = TYPE_NUMBER)
-    val humidity: String = "50",
+    val humidity: String? = null,
 
     @SettingElement(label = R.string.setting_label_pressure, index = 4, inputType = TYPE_NUMBER)
-    val pressure: String = "980",
+    val pressure: String? = null,
 
-    @SettingElement(label = R.string.setting_label_track_temperature, index = 5, inputType = TYPE_TEXT)
-    val trackTemperature: String = "20.0",
+    @SettingElement(label = R.string.setting_label_track_temperature, index = 5, inputType = TYPE_NUMBER)
+    val trackTemperature: String? = null,
 
     @SettingElement(label = R.string.setting_label_engine, index = 6, inputType = TYPE_TEXT)
-    val engine: String = "#00",
+    val engine: String? = null,
 
     @SettingElement(label = R.string.setting_label_btdc, index = 7, inputType = TYPE_NUMBER)
-    val btdc: String = "3.0",
+    val btdc: String? = null,
 
     @SettingElement(label = R.string.setting_label_carburetor, index = 8, inputType = TYPE_TEXT)
-    val carburetor: String = "#1",
+    val carburetor: String? = null,
 
     @SettingElement(label = R.string.setting_label_low_needle, index = 9, inputType = TYPE_NUMBER)
-    val lowNeedle: String = "2:00",
+    val lowNeedle: String? = null,
 
     @SettingElement(label = R.string.setting_label_high_needle, index = 10, inputType = TYPE_NUMBER)
-    val highNeedle: String = "15",
+    val highNeedle: String? = null,
 
     @SettingElement(label = R.string.setting_label_final_ratio, index = 11, inputType = TYPE_TEXT)
-    val finalRatio: String = "12x84",
+    val finalRatio: String? = null,
 
     @SettingElement(label = R.string.setting_label_ex_joint, index = 12, inputType = TYPE_NUMBER)
-    val exJoint: String = "50",
+    val exJoint: String? = null,
 
     @SettingElement(label = R.string.setting_label_tire_pressure_f, index = 13, inputType = TYPE_NUMBER)
-    val tirePressureF: String = "0.6",
+    val tirePressureF: String? = null,
 
     @SettingElement(label = R.string.setting_label_tire_pressure_r, index = 14, inputType = TYPE_NUMBER)
-    val tirePressureR: String = "0.6",
+    val tirePressureR: String? = null,
 
     @SettingElement(label = R.string.setting_label_tread_f, index = 15, inputType = TYPE_NUMBER)
-    val treadF: String = "15",
+    val treadF: String? = null,
 
     @SettingElement(label = R.string.setting_label_tread_r, index = 16, inputType = TYPE_NUMBER)
-    val treadR: String = "1400",
+    val treadR: String? = null,
 
     @SettingElement(label = R.string.setting_label_stabilizer, index = 17, inputType = TYPE_TEXT)
-    val stabilizerF: String = "F",
+    val stabilizerF: String? = null,
 
     @SettingElement(label = R.string.setting_label_axle_shaft, index = 18, inputType = TYPE_TEXT)
-    val axleShaft: String = "N",
+    val axleShaft: String? = null,
 
     @SettingElement(label = R.string.setting_label_axle_bearing, index = 19, inputType = TYPE_TEXT)
-    val axleBearing: String = "2",
+    val axleBearing: String? = null,
 
     @SettingElement(label = R.string.setting_label_hub_stopper, index = 20, inputType = TYPE_TEXT)
-    val hubStopper: String = "",
+    val hubStopper: String? = null,
 
     @SettingElement(label = R.string.setting_label_max_rev, index = 21, inputType = TYPE_NUMBER)
-    val maxRev: String = "13000",
+    val maxRev: String? = null,
 
     @SettingElement(label = R.string.setting_label_max_speed, index = 22, inputType = TYPE_NUMBER)
-    val maxSpeed: String = "100.0",
+    val maxSpeed: String? = null,
 
     @SettingElement(label = R.string.setting_label_best_time, index = 23, inputType = TYPE_NUMBER)
-    val bestTime: String = "42.0"
+    val bestTime: String? = null
 ): Parcelable {
 
     companion object {
@@ -102,7 +102,7 @@ data class Session(
         const val TYPE_TEXT: Int = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_NORMAL
 
         fun fromPracticeRowItemList(rowItemList: List<PracticeDetailAdapterItem>, sessionId: Int, practiceId: Int): Session{
-            val map = HashMap<String,String>()
+            val map = HashMap<String,String?>()
             for(row in rowItemList){
                 when(row){
                     is PracticeDetailAdapterItem.PracticeRowItem -> {

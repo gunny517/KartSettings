@@ -4,34 +4,61 @@
 
     <data>
         <variable
-            name="practiceTrack"
-            type="jp.ceed.kart.settings.model.entity.PracticeTrack" />
+            name="practiceListItem"
+            type="jp.ceed.kart.settings.ui.practice.viewModel.PracticeListItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/practiceListItemLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/text_size_m">
+        android:padding="@dimen/text_size_m"
+        android:onClick="@{practiceListItem.onClick}">
 
         <TextView
             android:id="@+id/startDateTextView"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="@dimen/text_size_l"
-            android:text="@{practiceTrack.startDate}"/>
+            android:textSize="@dimen/text_size_m"
+            android:text="@{practiceListItem.startDate}"/>
 
         <TextView
             android:id="@+id/trackNameTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/startDateTextView"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/startDateTextView"
+            android:textSize="@dimen/text_size_m"
+            android:text="@{practiceListItem.trackName}"/>
+
+        <TextView
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="end"
-            android:textSize="@dimen/text_size_l"
-            android:text="@{practiceTrack.trackName}"/>
+            android:paddingStart="@dimen/padding_m"
+            android:paddingEnd="@dimen/padding_m"
+            android:paddingTop="@dimen/padding_s"
+            android:paddingBottom="@dimen/padding_s"
+            android:background="@drawable/selector_bg_control_button"
+            android:textSize="@dimen/text_size_s"
+            android:text="@string/edit"
+            android:onClick="@{practiceListItem.onClick}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/editButton"
+            android:layout_marginEnd="@dimen/padding_l"
+            android:textSize="@dimen/text_size_m"
+            android:text="@{practiceListItem.description}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

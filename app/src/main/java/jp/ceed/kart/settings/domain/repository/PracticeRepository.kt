@@ -20,9 +20,9 @@ class PracticeRepository(context: Context, private val dispatcher: CoroutineDisp
         return list
     }
 
-    suspend fun insert(practice: Practice){
+    suspend fun save(practice: Practice){
         withContext(dispatcher){
-            practiceDao.insert(practice)
+            practiceDao.save(practice)
         }
     }
 

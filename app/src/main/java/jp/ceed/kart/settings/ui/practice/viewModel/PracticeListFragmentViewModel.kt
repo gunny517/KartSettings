@@ -1,26 +1,35 @@
 package jp.ceed.kart.settings.ui.practice.viewModel
 
-import android.app.Application
+import android.content.Context
 import android.view.View
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.domain.repository.PracticeRepository
 import jp.ceed.kart.settings.domain.repository.TrackRepository
 import jp.ceed.kart.settings.model.entity.Practice
 import jp.ceed.kart.settings.model.entity.PracticeTrack
 import jp.ceed.kart.settings.model.entity.Track
+import jp.ceed.kart.settings.ui.Event
 import jp.ceed.kart.settings.ui.util.UiUtil
 import kotlinx.coroutines.launch
 import java.util.*
 
-class PracticeListFragmentViewModel(application: Application) : AndroidViewModel(application) {
+class PracticeListFragmentViewModel(val context: Context, private val viewModelStoreOwner: ViewModelStoreOwner) : ViewModel() {
 
-    private val practiceRepository = PracticeRepository(application.applicationContext)
+    class Factory(private val context: Context, private val viewModelStoreOwner: ViewModelStoreOwner): ViewModelProvider.Factory {
 
-    private val trackRepository = TrackRepository(application.applicationContext)
+        @Suppress("unchecked_cast")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return PracticeListFragmentViewModel(context, viewModelStoreOwner) as T
+        }
+    }
 
-    val practiceList: MutableLiveData<List<PracticeTrack>> = MutableLiveData()
+
+    private val practiceRepository = PracticeRepository(context)
+
+    private val trackRepository = TrackRepository(context)
+
+    val practiceViewModelList: MutableLiveData<List<PracticeListItemViewModel>> = MutableLiveData()
 
     var editPracticeLayoutVisibility: MutableLiveData<Int> = MutableLiveData(View.GONE)
 
@@ -30,7 +39,7 @@ class PracticeListFragmentViewModel(application: Application) : AndroidViewModel
 
     var selectedItemPosition: MutableLiveData<Int> = MutableLiveData(0)
 
-    val calendar = Calendar.getInstance()
+    private var calendar = Calendar.getInstance()
 
     var year: MutableLiveData<Int> = MutableLiveData(calendar.get(Calendar.YEAR))
 
@@ -38,7 +47,13 @@ class PracticeListFragmentViewModel(application: Application) : AndroidViewModel
 
     var day: MutableLiveData<Int> = MutableLiveData(calendar.get(Calendar.DAY_OF_MONTH))
 
-    val uiUtil = UiUtil(application.applicationContext)
+    var practiceId: Int = 0
+
+    var description: MutableLiveData<String> = MutableLiveData()
+
+    private val uiUtil = UiUtil(context)
+
+    var event: MutableLiveData<Event<PracticeListItemViewModel>> = MutableLiveData()
 
 
     fun initEditLayout(){
@@ -51,12 +66,55 @@ class PracticeListFragmentViewModel(application: Application) : AndroidViewModel
 
     fun loadPracticeList(){
         viewModelScope.launch {
-            practiceList.value = practiceRepository.findAll()
+            val list = practiceRepository.findAll()
+            practiceViewModelList.value = createPracticeListItemViewModels(list)
         }
     }
 
+    private fun createPracticeListItemViewModels(practiceList: List<PracticeTrack>): List<PracticeListItemViewModel> {
+        val list: ArrayList<PracticeListItemViewModel> = ArrayList()
+        for(entry in practiceList){
+            val factory = PracticeListItemViewModel.Factory(entry, ::onClick)
+            val key = Random().nextInt().toString() // 同じキーにならないように乱数をキーにする（他に良いやり方検討したい）
+            list.add(ViewModelProvider(viewModelStoreOwner, factory).get(key, PracticeListItemViewModel::class.java))
+        }
+        return list
+    }
+
+    private fun onClick(viewId: Int, practiceListItemViewModel: PracticeListItemViewModel){
+        when(viewId){
+            R.id.editButton -> {
+                applyPracticeDataToEditLayout(practiceListItemViewModel)
+                toggleEditLayoutVisibility()
+            }
+            R.id.practiceListItemLayout -> {
+                event.value = Event(practiceListItemViewModel)
+            }
+        }
+    }
+
+    private fun applyPracticeDataToEditLayout(itemViewModel: PracticeListItemViewModel){
+        practiceId = itemViewModel.id
+        calendar = uiUtil.fromYmdString(itemViewModel.startDate)
+        year.value = calendar.get(Calendar.YEAR)
+        month.value = calendar.get(Calendar.MONTH)
+        day.value = calendar.get(Calendar.DAY_OF_MONTH)
+        description.value = itemViewModel.description ?: ""
+
+    }
+
     fun onClickFab(){
+        resetEditPracticeLayout()
         toggleEditLayoutVisibility()
+    }
+
+    private fun resetEditPracticeLayout(){
+        practiceId = 0
+        calendar =  Calendar.getInstance()
+        year.value = calendar.get(Calendar.YEAR)
+        month.value = calendar.get(Calendar.MONTH)
+        day.value = calendar.get(Calendar.DAY_OF_MONTH)
+        description = MutableLiveData()
     }
 
     private fun savePractice(track: Track){
@@ -71,7 +129,7 @@ class PracticeListFragmentViewModel(application: Application) : AndroidViewModel
         }
         val startDate = uiUtil.toYmdString(calendar.time)
         viewModelScope.launch {
-            practiceRepository.insert(Practice(0, track.id, startDate))
+            practiceRepository.save(Practice(practiceId, track.id, startDate, description.value))
             loadPracticeList()
         }
     }

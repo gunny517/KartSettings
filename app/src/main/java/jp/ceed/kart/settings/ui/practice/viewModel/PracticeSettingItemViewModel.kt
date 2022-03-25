@@ -10,7 +10,7 @@ import kotlinx.parcelize.Parcelize
 data class PracticeSettingItemViewModel(
     val sessionId: Int,
     val fieldName: String,
-    var value: String,
+    var value: String?,
     var inputType: Int,
     var isEditable: Boolean = false
 ): ViewModel(), Parcelable {
@@ -18,7 +18,7 @@ data class PracticeSettingItemViewModel(
     class Factory(
         private val sessionId: Int,
         private val fieldName: String,
-        var value: String,
+        var value: String?,
         private val inputType: Int
         ): ViewModelProvider.KeyedFactory() {
 

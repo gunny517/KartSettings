@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class Practice(
     @PrimaryKey(autoGenerate = true) val id: Int,
-    val trackId: Int,
-    val startDate: String,
+    var trackId: Int,
+    var startDate: String,
+    var description: String? = null
 )

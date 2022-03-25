@@ -16,6 +16,7 @@
     <string name="save">保存</string>
     <string name="delete">削除</string>
     <string name="hint_track_edit_text">サーキット名</string>
+    <string name="hint_practice_description">備考・イベント名など</string>
     <string name="title_create_practice">走行日を作成</string>
 
     <string name="setting_label_start_time">走行時刻</string>
