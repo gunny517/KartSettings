@@ -7,17 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentTackListBinding
 import jp.ceed.kart.settings.model.entity.Track
+import jp.ceed.kart.settings.ui.practice.fragment.EditTrackDialogFragment
 import jp.ceed.kart.settings.ui.track.adapter.TrackListAdapter
+import jp.ceed.kart.settings.ui.track.viewModel.EditTrackDialogFragmentViewModel
 import jp.ceed.kart.settings.ui.track.viewModel.TrackListFragmentViewModel
-import jp.ceed.kart.settings.ui.util.UiUtil
 
 class TrackListFragment: Fragment() {
 
@@ -34,12 +33,6 @@ class TrackListFragment: Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        adapter.notifyDataSetChanged()
-        return super.onOptionsItemSelected(item)
-    }
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tack_list, container, false)
         binding.viewModel = viewModel
@@ -52,8 +45,13 @@ class TrackListFragment: Fragment() {
         init()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadTrackList()
+    }
+
     private fun init(){
-        adapter = TrackListAdapter(requireContext(), viewLifecycleOwner, ::onClickEdit)
+        adapter = TrackListAdapter(requireContext(), viewLifecycleOwner, ::showEditDialog)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
@@ -61,12 +59,18 @@ class TrackListFragment: Fragment() {
             adapter.setItemList(it)
             adapter.notifyDataSetChanged()
         }
-        viewModel.editTrackLayoutEvent.observe(viewLifecycleOwner){
-            UiUtil(requireContext()).hideKeyboard(binding.root)
+        viewModel.editEvent.observe(viewLifecycleOwner){
+            when(it.getContentIfNotHandled()){
+                TrackListFragmentViewModel.EventState.CREATE -> {
+                    showEditDialog(Track(0))
+                }else -> {}
+            }
         }
     }
 
-    private fun onClickEdit(track: Track){
-        viewModel.onClickEdit(track)
+    private fun showEditDialog(track: Track){
+        activity?.let {
+            EditTrackDialogFragment(track).show(it.supportFragmentManager, EditTrackDialogFragment.TAG)
+        }
     }
 }

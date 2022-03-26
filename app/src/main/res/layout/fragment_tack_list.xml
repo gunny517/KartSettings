@@ -27,59 +27,5 @@
             android:layout_marginBottom="@dimen/fab_margin"
             app:srcCompat="@android:drawable/ic_menu_add"
             android:onClick="@{v -> viewModel.onClickFab()}"/>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/editTrackLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:background="@color/tint"
-            android:visibility="@{viewModel.editTrackLayoutVisibility}"
-            android:onClick="@{v -> viewModel.onClickDialogBackground()}"
-            tools:visibility="visible">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="@dimen/dialog_view_horizontal_width"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dialog_view_vertical_margin"
-                android:padding="@dimen/padding_l"
-                android:background="@color/dialog_background"
-                android:clickable="true">
-
-                <EditText
-                    android:id="@+id/trackNameEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding_m"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:text="@={viewModel.track.name}"
-                    android:hint="@string/hint_track_edit_text"/>
-
-                <TextView
-                    android:id="@+id/okTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/trackNameEditText"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:padding="@dimen/padding_l"
-                    android:textSize="@dimen/text_size_m"
-                    android:textColor="?attr/colorOnSecondary"
-                    android:text="@string/ok"
-                    android:onClick="@{v -> viewModel.onClickOk()}"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/trackNameEditText"
-                    app:layout_constraintEnd_toStartOf="@id/okTextView"
-                    android:padding="@dimen/padding_l"
-                    android:textSize="@dimen/text_size_m"
-                    android:textColor="?attr/colorOnSecondary"
-                    android:text="@string/cancel"
-                    android:onClick="@{v -> viewModel.onClickCancel()}"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.appcompat.widget.LinearLayoutCompat>
     </FrameLayout>
 </layout>

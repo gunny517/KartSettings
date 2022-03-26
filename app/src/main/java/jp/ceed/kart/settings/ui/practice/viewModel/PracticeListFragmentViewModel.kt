@@ -35,7 +35,7 @@ class PracticeListFragmentViewModel(val context: Context, private val viewModelS
 
     var trackList: MutableLiveData<List<Track>> = MutableLiveData()
 
-    var labelList: MutableLiveData<List<String>> = MutableLiveData()
+    var labelList: MutableLiveData<List<String?>> = MutableLiveData()
 
     var selectedItemPosition: MutableLiveData<Int> = MutableLiveData(0)
 
@@ -139,8 +139,8 @@ class PracticeListFragmentViewModel(val context: Context, private val viewModelS
         }
     }
 
-    private fun createTrackLabels(trackList: List<Track>): List<String> {
-        val list: ArrayList<String> = ArrayList()
+    private fun createTrackLabels(trackList: List<Track>): List<String?> {
+        val list: ArrayList<String?> = ArrayList()
         for(entry in trackList){
             list.add(entry.name)
         }

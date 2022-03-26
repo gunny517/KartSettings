@@ -40,6 +40,4 @@ class TrackListAdapter(context: Context, private val lifecycleOwner: LifecycleOw
     fun setItemList(_itemList: List<Track>){
         itemList = _itemList
     }
-
-
 }
