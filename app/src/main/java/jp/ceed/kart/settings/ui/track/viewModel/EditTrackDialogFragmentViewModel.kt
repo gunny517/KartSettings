@@ -9,24 +9,39 @@ import jp.ceed.kart.settings.domain.repository.TrackRepository
 import jp.ceed.kart.settings.model.entity.Track
 import kotlinx.coroutines.launch
 
-class EditTrackDialogFragmentViewModel(context: Context, private val track: Track): ViewModel() {
+class EditTrackDialogFragmentViewModel(context: Context, private val trackId: Int): ViewModel() {
 
     private val trackRepository = TrackRepository(context)
 
-    val trackName: MutableLiveData<String> = MutableLiveData(track.name)
+    var trackName: MutableLiveData<String> = MutableLiveData()
 
-    fun saveTrack(track: Track){
+    var track: Track = Track(0)
+
+    init{
+        if(trackId != 0){
+            loadTrack()
+        }
+    }
+
+    private fun loadTrack(){
+        viewModelScope.launch {
+            track = trackRepository.findById(trackId)
+            trackName.value = track.name ?: ""
+        }
+    }
+
+    fun saveTrack(){
         track.name = trackName.value
         viewModelScope.launch {
             trackRepository.save(track)
         }
     }
 
-    class Factory(private val context: Context, private val track: Track): ViewModelProvider.Factory {
+    class Factory(private val context: Context, private val trackId: Int): ViewModelProvider.Factory {
 
         @Suppress("unchecked_cast")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return EditTrackDialogFragmentViewModel(context, track) as T
+            return EditTrackDialogFragmentViewModel(context, trackId) as T
         }
 
     }

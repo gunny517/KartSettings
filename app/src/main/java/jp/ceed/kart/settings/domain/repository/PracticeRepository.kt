@@ -22,6 +22,14 @@ class PracticeRepository(context: Context, private val dispatcher: CoroutineDisp
         return list
     }
 
+    suspend fun findPracticeTrackByPracticeId(id: Int): PracticeTrack {
+        val practiceTrack: PracticeTrack
+        withContext(dispatcher){
+            practiceTrack = practiceDao.findPracticeTrackByPracticeId(id)
+        }
+        return practiceTrack
+    }
+
     suspend fun save(practice: Practice){
         withContext(dispatcher){
             practiceDao.save(practice)

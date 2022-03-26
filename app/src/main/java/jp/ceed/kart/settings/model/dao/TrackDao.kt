@@ -9,6 +9,9 @@ interface TrackDao {
     @Query("SELECT * FROM Track")
     fun findAll(): List<Track>
 
+    @Query("SELECT * FROM Track WHERE id = (:id)")
+    fun findById(id: Int): Track
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertIgnore(track: Track): Long
 

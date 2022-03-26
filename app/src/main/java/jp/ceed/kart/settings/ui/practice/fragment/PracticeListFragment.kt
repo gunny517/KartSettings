@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -41,7 +40,6 @@ class PracticeListFragment: Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.loadPracticeList()
-        viewModel.initEditLayout()
     }
 
     private fun initLayout(){
@@ -52,11 +50,6 @@ class PracticeListFragment: Fragment() {
         viewModel.practiceViewModelList.observe(viewLifecycleOwner){
             adapter.setItemList(it)
             adapter.notifyDataSetChanged()
-        }
-        viewModel.labelList.observe(viewLifecycleOwner){
-            val spinnerAdapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, it ?: mutableListOf())
-            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.spinner.adapter = spinnerAdapter
         }
         viewModel.itemClickEvent.observe(viewLifecycleOwner){
             val itemViewModel = it.getContentIfNotHandled()
@@ -72,6 +65,10 @@ class PracticeListFragment: Fragment() {
                     }.show(activity.supportFragmentManager, DeleteConfirmDialogFragment.TAG)
                 }
             }
+        }
+        viewModel.editEvent.observe(viewLifecycleOwner){
+            val practiceId = it.getContentIfNotHandled() ?: 0
+            showEditDialog(practiceId)
         }
     }
 
@@ -91,6 +88,12 @@ class PracticeListFragment: Fragment() {
 
     private fun factoryProducer(): PracticeListFragmentViewModel.Factory {
         return PracticeListFragmentViewModel.Factory(requireContext(), this)
+    }
+
+    private fun showEditDialog(practiceId: Int){
+        activity?.let {
+            EditPracticeDialogFragment.newInstance(practiceId).show(it.supportFragmentManager, EditPracticeDialogFragment.TAG)
+        }
     }
 
 }

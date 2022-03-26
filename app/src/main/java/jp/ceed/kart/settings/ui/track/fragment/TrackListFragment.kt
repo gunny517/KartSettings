@@ -2,7 +2,6 @@ package jp.ceed.kart.settings.ui.track.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -13,9 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentTackListBinding
 import jp.ceed.kart.settings.model.entity.Track
-import jp.ceed.kart.settings.ui.practice.fragment.EditTrackDialogFragment
 import jp.ceed.kart.settings.ui.track.adapter.TrackListAdapter
-import jp.ceed.kart.settings.ui.track.viewModel.EditTrackDialogFragmentViewModel
 import jp.ceed.kart.settings.ui.track.viewModel.TrackListFragmentViewModel
 
 class TrackListFragment: Fragment() {
@@ -62,15 +59,15 @@ class TrackListFragment: Fragment() {
         viewModel.editEvent.observe(viewLifecycleOwner){
             when(it.getContentIfNotHandled()){
                 TrackListFragmentViewModel.EventState.CREATE -> {
-                    showEditDialog(Track(0))
+                    showEditDialog(0)
                 }else -> {}
             }
         }
     }
 
-    private fun showEditDialog(track: Track){
+    private fun showEditDialog(trackId: Int){
         activity?.let {
-            EditTrackDialogFragment(track).show(it.supportFragmentManager, EditTrackDialogFragment.TAG)
+            EditTrackDialogFragment.newInstance(trackId).show(it.supportFragmentManager, EditTrackDialogFragment.TAG)
         }
     }
 }

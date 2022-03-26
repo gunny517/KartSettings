@@ -1,4 +1,4 @@
-package jp.ceed.kart.settings.ui.practice.fragment
+package jp.ceed.kart.settings.ui.track.fragment
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -14,12 +14,32 @@ import jp.ceed.kart.settings.databinding.FragmentEditTrackDialogBinding
 import jp.ceed.kart.settings.model.entity.Track
 import jp.ceed.kart.settings.ui.track.viewModel.EditTrackDialogFragmentViewModel
 
-class EditTrackDialogFragment(private val track: Track)
-    : DialogFragment(), DialogInterface.OnClickListener {
+class EditTrackDialogFragment(): DialogFragment(), DialogInterface.OnClickListener {
+
+    companion object {
+        const val TAG = "EditTrackDialogFragment"
+        const val KEY_TRACK_ID = "KEY_TRACK_ID"
+
+        fun newInstance(trackId: Int): EditTrackDialogFragment {
+            val fragment = EditTrackDialogFragment()
+            val bundle = Bundle()
+            bundle.putInt(KEY_TRACK_ID, trackId)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 
     val viewModel: EditTrackDialogFragmentViewModel by viewModels(factoryProducer = ::factoryProducer)
 
     private var activity: Activity? = null
+
+    private var trackId: Int = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        trackId = arguments?.getInt(KEY_TRACK_ID, 0) ?: 0
+    }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -30,6 +50,7 @@ class EditTrackDialogFragment(private val track: Track)
         val binding: FragmentEditTrackDialogBinding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_edit_track_dialog, null, false)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         return AlertDialog.Builder(requireContext())
             .setView(binding.root)
             .setPositiveButton(R.string.ok, this)
@@ -37,20 +58,16 @@ class EditTrackDialogFragment(private val track: Track)
             .create()
     }
 
-    companion object {
-        const val TAG = "EditTrackDialogFragment"
-    }
-
     override fun onClick(dialog: DialogInterface?, button: Int) {
         when(button){
             DialogInterface.BUTTON_POSITIVE -> {
-                viewModel.saveTrack(track)
+                viewModel.saveTrack()
             }else -> {}
         }
         dismiss()
     }
 
-    fun factoryProducer(): EditTrackDialogFragmentViewModel.Factory{
-        return EditTrackDialogFragmentViewModel.Factory(requireContext(), track)
+    private fun factoryProducer(): EditTrackDialogFragmentViewModel.Factory{
+        return EditTrackDialogFragmentViewModel.Factory(requireContext(), trackId)
     }
 }
