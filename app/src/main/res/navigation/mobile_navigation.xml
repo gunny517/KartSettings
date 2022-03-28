@@ -14,7 +14,6 @@
         <action
             android:id="@+id/toPracticeDetail"
             app:destination="@id/PracticeDetailFragment"/>
-
     </fragment>
 
     <fragment
@@ -36,5 +35,4 @@
             app:argType="string"
             android:name="titleLabel"/>
     </fragment>
-
 </navigation>

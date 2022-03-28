@@ -11,7 +11,7 @@ import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.TrackListItemBinding
 import jp.ceed.kart.settings.model.entity.Track
 
-class TrackListAdapter(context: Context, private val lifecycleOwner: LifecycleOwner, val onEditClick: (Track) -> Unit)
+class TrackListAdapter(context: Context, private val lifecycleOwner: LifecycleOwner, val onEditClick: (Int) -> Unit)
     : RecyclerView.Adapter<TrackListAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: TrackListItemBinding) : RecyclerView.ViewHolder(binding.root)
@@ -30,7 +30,7 @@ class TrackListAdapter(context: Context, private val lifecycleOwner: LifecycleOw
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val track = itemList[position]
         holder.binding.track = track
-        holder.binding.editButton.setOnClickListener { onEditClick(track) }
+        holder.binding.editButton.setOnClickListener { onEditClick(track.id) }
     }
 
     override fun getItemCount(): Int {
@@ -40,6 +40,4 @@ class TrackListAdapter(context: Context, private val lifecycleOwner: LifecycleOw
     fun setItemList(_itemList: List<Track>){
         itemList = _itemList
     }
-
-
 }

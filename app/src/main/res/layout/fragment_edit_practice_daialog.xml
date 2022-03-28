@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="jp.ceed.kart.settings.ui.practice.viewModel.EditPracticeDialogFragmentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_l">
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/padding_m"
+            android:textSize="@dimen/text_size_m"
+            android:text="@string/title_create_practice"/>
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/titleTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/padding_m"
+            android:selectedItemPosition="@={viewModel.selectedItemPosition}"/>
+
+        <DatePicker
+            android:id="@+id/datePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:datePickerMode="calendar"
+            android:year="@={viewModel.year}"
+            android:month="@={viewModel.month}"
+            android:day="@={viewModel.day}"
+            app:layout_constraintTop_toBottomOf="@id/spinner"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/padding_l"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <EditText
+            android:id="@+id/descriptionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/datePicker"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/padding_m"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:lines="1"
+            android:hint="@string/hint_practice_description"
+            android:text="@={viewModel.description}"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

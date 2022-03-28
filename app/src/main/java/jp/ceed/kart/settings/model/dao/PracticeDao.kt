@@ -23,10 +23,13 @@ interface PracticeDao {
     @Query("SELECT p.id, p.startDate, p.description, t.name FROM Practice p, Track t WHERE p.trackId = t.id ORDER BY p.startDate DESC")
     fun findAll(): List<PracticeTrack>
 
-    @Query("SELECT p.id, p.startDate, p.description, t.name FROM Practice p, Track t WHERE p.trackId = t.id AND trackId = (:trackId)")
+    @Query("SELECT p.id, p.startDate, p.description, t.name FROM Practice p, Track t WHERE p.trackId = t.id AND t.id = (:trackId)")
     fun findByTrackId(trackId: Int): List<PracticeTrack>
 
     @Query("DELETE FROM Practice WHERE id = (:id)")
     fun deleteById(id: Int)
+
+    @Query("SELECT p.id, p.startDate, p.description, t.name FROM Practice p, Track t WHERE p.trackId = t.id AND p.id = (:id)")
+    fun findPracticeTrackByPracticeId(id: Int): PracticeTrack
 
 }

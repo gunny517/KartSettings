@@ -19,6 +19,14 @@ class TrackRepository(context: Context, private val dispatcher: CoroutineDispatc
         return list
     }
 
+    suspend fun findById(id: Int): Track{
+        val track: Track
+        withContext(dispatcher){
+            track = trackDao.findById(id)
+        }
+        return track
+    }
+
     suspend fun save(track: Track) {
         withContext(dispatcher){
             trackDao.save(track)
