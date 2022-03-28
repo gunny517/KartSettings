@@ -94,9 +94,7 @@ class PracticeListFragment: Fragment() {
     }
 
     private fun showEditDialog(practiceId: Int){
-        activity?.let {
-            EditPracticeDialogFragment.newInstance(practiceId).show(it.supportFragmentManager, EditPracticeDialogFragment.TAG)
-        }
+        EditPracticeDialogFragment.newInstance(practiceId).show(childFragmentManager, EditPracticeDialogFragment.TAG)
     }
 
 }

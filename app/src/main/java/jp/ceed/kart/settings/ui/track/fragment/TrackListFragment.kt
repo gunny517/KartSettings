@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentTackListBinding
-import jp.ceed.kart.settings.model.entity.Track
 import jp.ceed.kart.settings.ui.track.adapter.TrackListAdapter
 import jp.ceed.kart.settings.ui.track.viewModel.TrackListFragmentViewModel
 
@@ -66,8 +65,6 @@ class TrackListFragment: Fragment() {
     }
 
     private fun showEditDialog(trackId: Int){
-        activity?.let {
-            EditTrackDialogFragment.newInstance(trackId).show(it.supportFragmentManager, EditTrackDialogFragment.TAG)
-        }
+        EditTrackDialogFragment.newInstance(trackId).show(childFragmentManager, EditTrackDialogFragment.TAG)
     }
 }
