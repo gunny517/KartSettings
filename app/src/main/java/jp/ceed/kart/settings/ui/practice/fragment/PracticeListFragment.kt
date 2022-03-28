@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import jp.ceed.kart.settings.MainActivity
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentPracticeListBinding
 import jp.ceed.kart.settings.ui.common.fragment.DeleteConfirmDialogFragment
@@ -67,8 +68,10 @@ class PracticeListFragment: Fragment() {
             }
         }
         viewModel.editEvent.observe(viewLifecycleOwner){
-            val practiceId = it.getContentIfNotHandled() ?: 0
-            showEditDialog(practiceId)
+            val content = it.getContentIfNotHandled()
+            content?.let { practiceId ->
+                showEditDialog(practiceId ?: 0)
+            }
         }
     }
 
