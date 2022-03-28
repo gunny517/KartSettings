@@ -20,11 +20,12 @@ class EditPracticeDialogFragment: DialogFragment(), DialogInterface.OnClickListe
 
         private const val KEY_PRACTICE_ID = "KEY_PRACTICE_ID"
 
-        fun newInstance(practiceId: Int = 0): EditPracticeDialogFragment{
+        fun newInstance(practiceId: Int = 0, _onEdit: () -> Unit): EditPracticeDialogFragment{
             val fragment = EditPracticeDialogFragment()
             val args = Bundle()
             args.putInt(KEY_PRACTICE_ID, practiceId)
             fragment.arguments = args
+            fragment.onEdit = _onEdit
             return fragment
         }
     }
@@ -36,6 +37,8 @@ class EditPracticeDialogFragment: DialogFragment(), DialogInterface.OnClickListe
     private var _binding: FragmentEditPracticeDaialogBinding? = null
 
     val binding get() = _binding!!
+
+    var onEdit: () -> Unit = {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +64,7 @@ class EditPracticeDialogFragment: DialogFragment(), DialogInterface.OnClickListe
             }else -> {}
         }
         dismiss()
+        onEdit()
     }
 
     private fun init(){

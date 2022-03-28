@@ -19,11 +19,12 @@ class EditTrackDialogFragment(): DialogFragment(), DialogInterface.OnClickListen
         const val TAG = "EditTrackDialogFragment"
         const val KEY_TRACK_ID = "KEY_TRACK_ID"
 
-        fun newInstance(trackId: Int): EditTrackDialogFragment {
+        fun newInstance(trackId: Int, _onEdit: () -> Unit): EditTrackDialogFragment {
             val fragment = EditTrackDialogFragment()
             val bundle = Bundle()
             bundle.putInt(KEY_TRACK_ID, trackId)
             fragment.arguments = bundle
+            fragment.onEdit = _onEdit
             return fragment
         }
     }
@@ -33,6 +34,9 @@ class EditTrackDialogFragment(): DialogFragment(), DialogInterface.OnClickListen
     private var activity: Activity? = null
 
     private var trackId: Int = 0
+
+    var onEdit: () -> Unit = {}
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +68,7 @@ class EditTrackDialogFragment(): DialogFragment(), DialogInterface.OnClickListen
             }else -> {}
         }
         dismiss()
+        onEdit()
     }
 
     private fun factoryProducer(): EditTrackDialogFragmentViewModel.Factory{

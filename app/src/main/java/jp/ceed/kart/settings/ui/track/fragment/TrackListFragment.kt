@@ -65,6 +65,10 @@ class TrackListFragment: Fragment() {
     }
 
     private fun showEditDialog(trackId: Int){
-        EditTrackDialogFragment.newInstance(trackId).show(childFragmentManager, EditTrackDialogFragment.TAG)
+        EditTrackDialogFragment.newInstance(trackId, ::onEdit).show(childFragmentManager, EditTrackDialogFragment.TAG)
+    }
+
+    private fun onEdit(){
+        viewModel.loadTrackList()
     }
 }

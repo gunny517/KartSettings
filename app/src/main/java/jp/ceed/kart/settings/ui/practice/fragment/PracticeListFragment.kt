@@ -94,7 +94,11 @@ class PracticeListFragment: Fragment() {
     }
 
     private fun showEditDialog(practiceId: Int){
-        EditPracticeDialogFragment.newInstance(practiceId).show(childFragmentManager, EditPracticeDialogFragment.TAG)
+        EditPracticeDialogFragment.newInstance(practiceId, ::onPracticeEdit).show(childFragmentManager, EditPracticeDialogFragment.TAG)
+    }
+
+    private fun onPracticeEdit(){
+        viewModel.loadPracticeList()
     }
 
 }
