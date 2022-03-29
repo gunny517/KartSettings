@@ -27,4 +27,7 @@
     <dimen name="setting_item_text_view_height">48sp</dimen>
     <dimen name="dialog_view_vertical_margin">60dp</dimen>
     <dimen name="dialog_view_horizontal_width">500dp</dimen>
+
+    <dimen name="final_ratio_item_width">100dp</dimen>
+    <dimen name="final_ratio_item_height">40dp</dimen>
 </resources>

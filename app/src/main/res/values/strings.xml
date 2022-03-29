@@ -9,6 +9,7 @@
 
     <string name="menu_track_list">サーキット</string>
     <string name="menu_practice_list">走行日</string>
+    <string name="menu_final_ratio">ファイナルレシオ</string>
 
     <string name="ok">OK</string>
     <string name="cancel">キャンセル</string>

@@ -7,6 +7,7 @@
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/bg_control_button.xml" value="0.2585" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/bg_control_button_pressed.xml" value="0.2585" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/bg_edit_text.xml" value="0.162" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/bg_final_ratio_recycler_view.xml" value="0.176" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/bg_setting_item.xml" value="0.162" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/ic_launcher_background.xml" value="0.268" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/selector_bg_control_button.xml" value="0.2585" />
@@ -18,9 +19,11 @@
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/app_bar_main.xml" value="0.34193840579710144" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/content_main.xml" value="0.3632246376811594" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/control_item_view.xml" value="0.33" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/final_ratio_item.xml" value="0.1551155115511551" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_edit_practice_daialog.xml" value="0.15903465346534654" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_edit_practice_dialog.xml" value="0.32117920868890615" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_edit_track_dialog.xml" value="0.1" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_final_ratio.xml" value="0.22" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_practice_detail.xml" value="0.3496376811594203" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_practice_list.xml" value="0.17" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/fragment_session.xml" value="0.33695652173913043" />
