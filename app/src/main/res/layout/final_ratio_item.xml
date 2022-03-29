@@ -12,6 +12,6 @@
         android:layout_height="@dimen/final_ratio_item_height"
         android:gravity="center"
         android:background="@drawable/bg_setting_item"
-        android:textSize="@dimen/text_size_m"
+        android:textSize="@dimen/text_size_l"
         android:text="@{item}"/>
 </layout>

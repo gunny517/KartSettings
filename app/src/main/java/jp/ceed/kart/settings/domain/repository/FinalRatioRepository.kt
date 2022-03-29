@@ -23,7 +23,7 @@ class FinalRatioRepository {
             list.add(driven.toString())
             for(drive in driveList){
                 val ratio: Float = driven.toFloat() / drive.toFloat()
-                list.add(String.format("%.3f", ratio))
+                list.add(String.format("%.2f", ratio))
             }
         }
         return list
