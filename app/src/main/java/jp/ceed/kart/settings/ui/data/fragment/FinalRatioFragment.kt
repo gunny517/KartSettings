@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentFinalRatioBinding
+import jp.ceed.kart.settings.domain.repository.FinalRatioRepository
 import jp.ceed.kart.settings.ui.data.adapter.FinalRatioAdapter
 import jp.ceed.kart.settings.ui.data.viewModel.FinalRatioViewModel
 
@@ -38,7 +39,7 @@ class FinalRatioFragment: Fragment() {
         viewModel.finalRatioList.observe(viewLifecycleOwner){
             val adapter = FinalRatioAdapter(requireContext(), it)
             binding.recyclerView.adapter = adapter
-            binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 5)
+            binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), FinalRatioRepository.COL_SIZE)
             binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), GridLayoutManager.VERTICAL))
         }
     }
