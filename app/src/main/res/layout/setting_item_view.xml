@@ -23,9 +23,10 @@
             android:padding="@dimen/padding_s"
             android:inputType="@{item.inputType}"
             android:textSize="@dimen/padding_m"
-            android:textColor="@color/text_default"
+            android:textColor="@drawable/selector_text_edit_text"
             android:background="@drawable/bg_edit_text"
             android:text="@={item.value}"
+            app:textStyle='@{item.isChanged ? "bold" : "normal"}'
             android:enabled="@{item.isEditable}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

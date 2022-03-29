@@ -78,10 +78,14 @@ class PracticeDetailFragmentViewModel(
             val index = annotation.index
             val name = field.name
             val inputType = annotation.inputType
+            val ignoreValueChange = annotation.ignoreValueChange
             val list: ArrayList<PracticeSettingItemViewModel> = ArrayList()
+            var lastValue: String? = null
             for(session in sessionList){
                 val value = field.get(session) as String?
-                val factory = PracticeSettingItemViewModel.Factory(session.id, name, value, inputType)
+                val isChanged = !ignoreValueChange && lastValue != null && !lastValue.equals(value)
+                lastValue = value
+                val factory = PracticeSettingItemViewModel.Factory(session.id, name, value, inputType, isChanged)
                 val key = "${index}-${session.id}"
                 val viewModel = ViewModelProvider(viewStoreOwner, factory).get(key, PracticeSettingItemViewModel::class.java)
                 list.add(viewModel)

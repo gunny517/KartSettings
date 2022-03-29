@@ -10,6 +10,8 @@
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/bg_setting_item.xml" value="0.162" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/ic_launcher_background.xml" value="0.268" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/selector_bg_control_button.xml" value="0.2585" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/selector_text_color_control_button.xml" value="0.1835" />
+        <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/selector_text_edit_text.xml" value="0.1835" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/side_nav_bar.xml" value="0.2715" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/drawable/text_color_control_button.xml" value="0.2225" />
         <entry key="..\:/android/projects/KartSettings/app/src/main/res/layout/activity_main.xml" value="0.18" />

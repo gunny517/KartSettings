@@ -1,5 +1,7 @@
 package jp.ceed.kart.settings.ui.util
 
+import android.graphics.Typeface
+import android.widget.EditText
 import androidx.databinding.BindingAdapter
 import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
 import jp.ceed.kart.settings.ui.common.RowControlListener
@@ -18,5 +20,14 @@ object BindingAdapter {
     @JvmStatic
     fun setControlItem(view: PracticeControlRowView, controlItem: PracticeDetailAdapterItem.PracticeControlItem?){
         view.setControlItem(controlItem)
+    }
+
+    @BindingAdapter("textStyle")
+    @JvmStatic
+    fun setTypeface(view: EditText, style: String?) {
+        when (style) {
+            "bold" -> view.setTypeface(null, Typeface.BOLD)
+            else -> view.setTypeface(null, Typeface.NORMAL)
+        }
     }
 }

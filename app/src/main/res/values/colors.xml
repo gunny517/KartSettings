@@ -10,11 +10,13 @@
     <color name="white">#FFFFFFFF</color>
     <color name="text_default">#FF333333</color>
     <color name="text_disabled">#FFCCCCCC</color>
+    <color name="text_edit_text">@color/text_default</color>
+    <color name="text_edit_text_enabled">#FFFFFF</color>
     <color name="tint">#99000000</color>
-    <color name="window_back_ground">#ffffff</color>
-    <color name="dialog_background">#FFFFFF</color>
+    <color name="window_back_ground">#FFFFFFFF</color>
+    <color name="dialog_background">#FFFFFFFF</color>
     <color name="bg_edit_text">@color/window_back_ground</color>
-    <color name="bg_edit_text_enabled">#efefef</color>
+    <color name="bg_edit_text_enabled">#FF666666</color>
     <color name="divider">#cccccc</color>
     <color name="pressed">#cccccc</color>
 </resources>

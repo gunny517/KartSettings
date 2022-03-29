@@ -20,7 +20,7 @@ data class Session(
 
     val practiceId: Int,
 
-    @SettingElement(label = R.string.setting_label_start_time, index = 0, inputType = TYPE_TEXT)
+    @SettingElement(label = R.string.setting_label_start_time, index = 0, inputType = TYPE_TEXT, ignoreValueChange = true)
     val startTime: String = DEFAULT_START_TIME,
 
     @SettingElement(label = R.string.setting_label_track_condition, index = 1, inputType = TYPE_TEXT)
@@ -47,10 +47,10 @@ data class Session(
     @SettingElement(label = R.string.setting_label_carburetor, index = 8, inputType = TYPE_TEXT)
     val carburetor: String? = null,
 
-    @SettingElement(label = R.string.setting_label_low_needle, index = 9, inputType = TYPE_NUMBER)
+    @SettingElement(label = R.string.setting_label_low_needle, index = 9, inputType = TYPE_TEXT)
     val lowNeedle: String? = null,
 
-    @SettingElement(label = R.string.setting_label_high_needle, index = 10, inputType = TYPE_NUMBER)
+    @SettingElement(label = R.string.setting_label_high_needle, index = 10, inputType = TYPE_TEXT)
     val highNeedle: String? = null,
 
     @SettingElement(label = R.string.setting_label_final_ratio, index = 11, inputType = TYPE_TEXT)
@@ -83,13 +83,13 @@ data class Session(
     @SettingElement(label = R.string.setting_label_hub_stopper, index = 20, inputType = TYPE_TEXT)
     val hubStopper: String? = null,
 
-    @SettingElement(label = R.string.setting_label_max_rev, index = 21, inputType = TYPE_NUMBER)
+    @SettingElement(label = R.string.setting_label_max_rev, index = 21, inputType = TYPE_NUMBER, ignoreValueChange = true)
     val maxRev: String? = null,
 
-    @SettingElement(label = R.string.setting_label_max_speed, index = 22, inputType = TYPE_NUMBER)
+    @SettingElement(label = R.string.setting_label_max_speed, index = 22, inputType = TYPE_NUMBER, ignoreValueChange = true)
     val maxSpeed: String? = null,
 
-    @SettingElement(label = R.string.setting_label_best_time, index = 23, inputType = TYPE_NUMBER)
+    @SettingElement(label = R.string.setting_label_best_time, index = 23, inputType = TYPE_NUMBER, ignoreValueChange = true)
     val bestTime: String? = null
 ): Parcelable {
 
