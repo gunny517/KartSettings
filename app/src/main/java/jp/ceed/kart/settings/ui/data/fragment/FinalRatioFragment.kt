@@ -14,6 +14,7 @@ import jp.ceed.kart.settings.databinding.FragmentFinalRatioBinding
 import jp.ceed.kart.settings.domain.repository.FinalRatioRepository
 import jp.ceed.kart.settings.ui.data.adapter.FinalRatioAdapter
 import jp.ceed.kart.settings.ui.data.viewModel.FinalRatioViewModel
+import jp.ceed.kart.settings.ui.util.UiUtil
 
 class FinalRatioFragment: Fragment() {
 
@@ -41,6 +42,9 @@ class FinalRatioFragment: Fragment() {
             binding.recyclerView.adapter = adapter
             binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), viewModel.colSize.value ?: 0)
             binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), GridLayoutManager.VERTICAL))
+        }
+        viewModel.event.observe(viewLifecycleOwner){
+            UiUtil(requireContext()).hideKeyboard(binding.root)
         }
     }
 }
