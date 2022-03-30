@@ -39,7 +39,7 @@ class FinalRatioFragment: Fragment() {
         viewModel.finalRatioList.observe(viewLifecycleOwner){
             val adapter = FinalRatioAdapter(requireContext(), it)
             binding.recyclerView.adapter = adapter
-            binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), FinalRatioRepository.COL_SIZE)
+            binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), viewModel.colSize.value ?: 0)
             binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), GridLayoutManager.VERTICAL))
         }
     }

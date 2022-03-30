@@ -10,11 +10,30 @@ class FinalRatioViewModel: ViewModel() {
 
     val finalRatioList: MutableLiveData<List<String>> = MutableLiveData()
 
+    var driveMin: MutableLiveData<String> = MutableLiveData(FinalRatioRepository.DRIVE_MIN.toString())
+
+    var driveMax: MutableLiveData<String> = MutableLiveData(FinalRatioRepository.DRIVE_MAX.toString())
+
+    var drivenMin: MutableLiveData<String> = MutableLiveData(FinalRatioRepository.DRIVEN_MIN.toString())
+
+    var drivenMax: MutableLiveData<String> = MutableLiveData(FinalRatioRepository.DRIVEN_MAX.toString())
+
+    var colSize: MutableLiveData<Int> = MutableLiveData()
+
+
     init {
         loadFinalRatio()
     }
 
-    private fun loadFinalRatio(){
-        finalRatioList.value = finalRatioRepository.getFinalRatioData()
+    fun loadFinalRatio(){
+        val result = finalRatioRepository.getFinalRatioData(
+            driveMin.value,
+            driveMax.value,
+            drivenMin.value,
+            drivenMax.value
+        )
+        colSize.value = result.second ?: 0
+        finalRatioList.value = result.first ?: mutableListOf()
+
     }
 }

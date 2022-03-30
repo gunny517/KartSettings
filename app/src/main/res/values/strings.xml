@@ -18,6 +18,11 @@
     <string name="delete">削除</string>
     <string name="hint_track_edit_text">サーキット名</string>
     <string name="hint_practice_description">備考・イベント名など</string>
+    <string name="calculate">計算</string>
+    <string name="drive_min">ドライブ：下限</string>
+    <string name="drive_max">ドライブ：上限</string>
+    <string name="driven_min">ドリブン：下限</string>
+    <string name="driven_max">ドリブン：上限</string>
 
     <string name="setting_label_start_time">走行時刻</string>
     <string name="setting_label_track_condition">路面状態</string>
