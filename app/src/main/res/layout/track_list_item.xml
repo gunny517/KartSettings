@@ -5,8 +5,8 @@
     <data>
         <import type="android.view.View"/>
         <variable
-            name="track"
-            type="jp.ceed.kart.settings.model.entity.Track" />
+            name="viewModel"
+            type="jp.ceed.kart.settings.ui.track.viewModel.TrackListItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:textSize="@dimen/text_size_m"
-            android:text="@{track.name}"/>
+            android:text="@{viewModel.trackName}"/>
 
         <TextView
             android:id="@+id/editButton"
@@ -35,6 +35,7 @@
             android:paddingBottom="@dimen/padding_s"
             android:background="@drawable/selector_bg_control_button"
             android:textSize="@dimen/text_size_s"
-            android:text="@string/edit"/>
+            android:text="@string/edit"
+            android:onClick="@{v -> viewModel.onClickEdit()}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

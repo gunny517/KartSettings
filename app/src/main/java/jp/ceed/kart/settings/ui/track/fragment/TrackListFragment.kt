@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentTackListBinding
+import jp.ceed.kart.settings.ui.extension.getApplication
 import jp.ceed.kart.settings.ui.track.adapter.TrackListAdapter
 import jp.ceed.kart.settings.ui.track.viewModel.TrackListFragmentViewModel
 
@@ -20,9 +21,10 @@ class TrackListFragment: Fragment() {
 
     private val binding get() = _binding!!
 
-    private val viewModel: TrackListFragmentViewModel by viewModels()
+    private val viewModel: TrackListFragmentViewModel by viewModels(factoryProducer = ::factoryProvider)
 
     private lateinit var adapter: TrackListAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +49,7 @@ class TrackListFragment: Fragment() {
     }
 
     private fun init(){
-        adapter = TrackListAdapter(requireContext(), viewLifecycleOwner, ::showEditDialog)
+        adapter = TrackListAdapter(requireContext(), viewLifecycleOwner)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
@@ -64,6 +66,14 @@ class TrackListFragment: Fragment() {
         }
     }
 
+    private fun onClickItemButton(trackId: Int, eventState: TrackListFragmentViewModel.EventState){
+        when(eventState){
+            TrackListFragmentViewModel.EventState.CREATE -> {
+                showEditDialog(trackId)
+            } else -> {}
+        }
+    }
+
     private fun showEditDialog(trackId: Int){
         EditTrackDialogFragment.newInstance(trackId, ::onEdit).show(childFragmentManager, EditTrackDialogFragment.TAG)
     }
@@ -71,4 +81,9 @@ class TrackListFragment: Fragment() {
     private fun onEdit(){
         viewModel.loadTrackList()
     }
+
+    private fun factoryProvider(): TrackListFragmentViewModel.Factory {
+        return TrackListFragmentViewModel.Factory(getApplication(), this, ::onClickItemButton)
+    }
+
 }

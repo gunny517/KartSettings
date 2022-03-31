@@ -2,23 +2,22 @@ package jp.ceed.kart.settings.ui.track.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.TrackListItemBinding
-import jp.ceed.kart.settings.model.entity.Track
+import jp.ceed.kart.settings.ui.track.viewModel.TrackListItemViewModel
 
-class TrackListAdapter(context: Context, private val lifecycleOwner: LifecycleOwner, val onEditClick: (Int) -> Unit)
+class TrackListAdapter(context: Context, private val lifecycleOwner: LifecycleOwner)
     : RecyclerView.Adapter<TrackListAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: TrackListItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     private val inflater = LayoutInflater.from(context)
 
-    private var itemList: List<Track> = mutableListOf()
+    private var viewModelList: List<TrackListItemViewModel> = mutableListOf()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,16 +27,14 @@ class TrackListAdapter(context: Context, private val lifecycleOwner: LifecycleOw
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val track = itemList[position]
-        holder.binding.track = track
-        holder.binding.editButton.setOnClickListener { onEditClick(track.id) }
+        holder.binding.viewModel = viewModelList[position]
     }
 
     override fun getItemCount(): Int {
-        return itemList.size
+        return viewModelList.size
     }
 
-    fun setItemList(_itemList: List<Track>){
-        itemList = _itemList
+    fun setItemList(_viewModelList: List<TrackListItemViewModel>){
+        viewModelList = _viewModelList
     }
 }
