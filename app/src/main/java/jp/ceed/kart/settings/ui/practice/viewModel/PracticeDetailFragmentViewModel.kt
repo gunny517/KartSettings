@@ -109,8 +109,8 @@ class PracticeDetailFragmentViewModel(
         }
     }
 
-    override fun onClickControl(controlCommand: RowControlListener.RowControlCommand, sessionId: Int){
-        when(controlCommand){
+    override fun onClickControl(command: RowControlListener.RowControlCommand, sessionId: Int){
+        when(command){
             RowControlListener.RowControlCommand.SAVE -> {
                 practiceRowList.value?.let {
                     viewModelScope.launch {
