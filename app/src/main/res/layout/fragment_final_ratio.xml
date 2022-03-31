@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="jp.ceed.kart.settings.ui.data.viewModel.FinalRatioViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/recyclerView"
+            app:layout_constraintBottom_toBottomOf="@id/recyclerView"
+            app:layout_constraintEnd_toStartOf="@id/recyclerView"
+            android:background="@color/divider"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintStart_toStartOf="@id/recyclerView"
+            app:layout_constraintEnd_toEndOf="@id/recyclerView"
+            app:layout_constraintBottom_toTopOf="@id/recyclerView"
+            android:background="@color/divider"/>
+
+        <TextView
+            android:id="@+id/driveMinLabel"
+            android:layout_width="@dimen/final_ratio_item_width"
+            android:layout_height="@dimen/final_ratio_item_height"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/padding_m"
+            android:layout_marginTop="@dimen/padding_m"
+            android:gravity="center"
+            android:text="@string/drive_min"/>
+
+        <EditText
+            android:id="@+id/driveMinEditText"
+            android:layout_width="@dimen/final_ratio_item_width"
+            android:layout_height="@dimen/final_ratio_item_height"
+            app:layout_constraintTop_toTopOf="@id/driveMinLabel"
+            app:layout_constraintStart_toEndOf="@id/driveMinLabel"
+            android:layout_marginStart="@dimen/padding_m"
+            android:inputType="number"
+            android:text="@={viewModel.driveMin}"/>
+
+        <TextView
+            android:id="@+id/driveMaxLabel"
+            android:layout_width="@dimen/final_ratio_item_width"
+            android:layout_height="@dimen/final_ratio_item_height"
+            app:layout_constraintTop_toBottomOf="@id/driveMinLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/padding_m"
+            android:gravity="center"
+            android:text="@string/drive_max"/>
+
+        <EditText
+            android:id="@+id/driveMaxEditText"
+            android:layout_width="@dimen/final_ratio_item_width"
+            android:layout_height="@dimen/final_ratio_item_height"
+            app:layout_constraintTop_toTopOf="@id/driveMaxLabel"
+            app:layout_constraintStart_toEndOf="@id/driveMaxLabel"
+            android:layout_marginStart="@dimen/padding_m"
+            android:inputType="number"
+            android:text="@={viewModel.driveMax}"/>
+
+        <TextView
+            android:id="@+id/drivenMinLabel"
+            android:layout_width="@dimen/final_ratio_item_width"
+            android:layout_height="@dimen/final_ratio_item_height"
+            app:layout_constraintTop_toBottomOf="@id/driveMaxLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/padding_m"
+            android:gravity="center"
+            android:text="@string/driven_min"/>
+
+        <EditText
+            android:id="@+id/drivenMinEditText"
+            android:layout_width="@dimen/final_ratio_item_width"
+            android:layout_height="@dimen/final_ratio_item_height"
+            app:layout_constraintTop_toTopOf="@id/drivenMinLabel"
+            app:layout_constraintStart_toEndOf="@id/drivenMinLabel"
+            android:layout_marginStart="@dimen/padding_m"
+            android:inputType="number"
+            android:text="@={viewModel.drivenMin}"/>
+
+        <TextView
+            android:id="@+id/drivenMaxLabel"
+            android:layout_width="@dimen/final_ratio_item_width"
+            android:layout_height="@dimen/final_ratio_item_height"
+            app:layout_constraintTop_toBottomOf="@id/drivenMinLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/padding_m"
+            android:gravity="center"
+            android:text="@string/driven_max"/>
+
+        <EditText
+            android:id="@+id/drivenMaxEditText"
+            android:layout_width="@dimen/final_ratio_item_width"
+            android:layout_height="@dimen/final_ratio_item_height"
+            app:layout_constraintTop_toTopOf="@id/drivenMaxLabel"
+            app:layout_constraintStart_toEndOf="@id/drivenMaxLabel"
+            android:layout_marginStart="@dimen/padding_m"
+            android:inputType="number"
+            android:text="@={viewModel.drivenMax}"/>
+
+        <TextView
+            android:id="@+id/calculateButton"
+            android:layout_width="@dimen/final_ratio_item_width"
+            android:layout_height="@dimen/final_ratio_item_height"
+            app:layout_constraintStart_toStartOf="@id/driveMinEditText"
+            app:layout_constraintTop_toBottomOf="@id/drivenMaxEditText"
+            android:layout_marginTop="@dimen/padding_l"
+            android:background="@drawable/selector_bg_control_button"
+            android:gravity="center"
+            android:text="@string/calculate"
+            android:onClick="@{v -> viewModel.loadFinalRatio()}"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

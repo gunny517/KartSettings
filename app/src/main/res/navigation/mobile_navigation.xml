@@ -23,6 +23,12 @@
         tools:layout="@layout/fragment_tack_list"/>
 
     <fragment
+        android:id="@+id/nav_final_ratio"
+        android:name="jp.ceed.kart.settings.ui.data.fragment.FinalRatioFragment"
+        android:label="@string/menu_final_ratio"
+        tools:layout="@layout/fragment_final_ratio"/>
+
+    <fragment
         android:id="@+id/PracticeDetailFragment"
         android:name="jp.ceed.kart.settings.ui.practice.fragment.PracticeDetailFragment"
         android:label="{titleLabel}">

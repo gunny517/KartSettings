@@ -2,13 +2,14 @@
     <string name="app_name">KartSettings</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Setting log for racing kart.</string>
+    <string name="nav_header_title">Setting log app for racing kart.</string>
     <string name="nav_header_subtitle">www.ceed.jp</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
     <string name="menu_track_list">サーキット</string>
-    <string name="menu_practice_list">走行日</string>
+    <string name="menu_practice_list">走行データ</string>
+    <string name="menu_final_ratio">ファイナルレシオ</string>
 
     <string name="ok">OK</string>
     <string name="cancel">キャンセル</string>
@@ -17,6 +18,11 @@
     <string name="delete">削除</string>
     <string name="hint_track_edit_text">サーキット名</string>
     <string name="hint_practice_description">備考・イベント名など</string>
+    <string name="calculate">計算</string>
+    <string name="drive_min">ドライブ：下限</string>
+    <string name="drive_max">ドライブ：上限</string>
+    <string name="driven_min">ドリブン：下限</string>
+    <string name="driven_max">ドリブン：上限</string>
 
     <string name="setting_label_start_time">走行時刻</string>
     <string name="setting_label_track_condition">路面状態</string>
