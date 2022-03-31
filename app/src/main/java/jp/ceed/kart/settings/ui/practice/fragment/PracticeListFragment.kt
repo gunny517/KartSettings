@@ -11,10 +11,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import jp.ceed.kart.settings.MainActivity
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentPracticeListBinding
 import jp.ceed.kart.settings.ui.common.fragment.DeleteConfirmDialogFragment
+import jp.ceed.kart.settings.ui.extension.getApplication
 import jp.ceed.kart.settings.ui.practice.adapter.PracticeListAdapter
 import jp.ceed.kart.settings.ui.practice.viewModel.PracticeListFragmentViewModel
 
@@ -90,7 +90,7 @@ class PracticeListFragment: Fragment() {
     }
 
     private fun factoryProducer(): PracticeListFragmentViewModel.Factory {
-        return PracticeListFragmentViewModel.Factory(requireContext(), this)
+        return PracticeListFragmentViewModel.Factory(getApplication(), this)
     }
 
     private fun showEditDialog(practiceId: Int){

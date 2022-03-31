@@ -1,6 +1,6 @@
 package jp.ceed.kart.settings.ui.track.viewModel
 
-import android.content.Context
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -9,9 +9,18 @@ import jp.ceed.kart.settings.domain.repository.TrackRepository
 import jp.ceed.kart.settings.model.entity.Track
 import kotlinx.coroutines.launch
 
-class EditTrackDialogFragmentViewModel(context: Context, private val trackId: Int): ViewModel() {
+class EditTrackDialogFragmentViewModel(application: Application, private val trackId: Int): ViewModel() {
 
-    private val trackRepository = TrackRepository(context)
+    class Factory(private val application: Application, private val trackId: Int): ViewModelProvider.Factory {
+
+        @Suppress("unchecked_cast")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return EditTrackDialogFragmentViewModel(application, trackId) as T
+        }
+
+    }
+
+    private val trackRepository = TrackRepository(application.applicationContext)
 
     var trackName: MutableLiveData<String> = MutableLiveData()
 
@@ -35,14 +44,5 @@ class EditTrackDialogFragmentViewModel(context: Context, private val trackId: In
         viewModelScope.launch {
             trackRepository.save(track)
         }
-    }
-
-    class Factory(private val context: Context, private val trackId: Int): ViewModelProvider.Factory {
-
-        @Suppress("unchecked_cast")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return EditTrackDialogFragmentViewModel(context, trackId) as T
-        }
-
     }
 }

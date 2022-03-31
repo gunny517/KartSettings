@@ -1,5 +1,6 @@
 package jp.ceed.kart.settings.ui.practice.viewModel
 
+import android.app.Application
 import android.content.Context
 import android.view.View
 import androidx.lifecycle.*
@@ -15,17 +16,17 @@ import jp.ceed.kart.settings.ui.util.UiUtil
 import kotlinx.coroutines.launch
 import java.util.*
 
-class PracticeListFragmentViewModel(val context: Context, private val viewModelStoreOwner: ViewModelStoreOwner) : ViewModel() {
+class PracticeListFragmentViewModel(val application: Application, private val viewModelStoreOwner: ViewModelStoreOwner) : ViewModel() {
 
-    class Factory(private val context: Context, private val viewModelStoreOwner: ViewModelStoreOwner): ViewModelProvider.Factory {
+    class Factory(private val application: Application, private val viewModelStoreOwner: ViewModelStoreOwner): ViewModelProvider.Factory {
 
         @Suppress("unchecked_cast")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return PracticeListFragmentViewModel(context, viewModelStoreOwner) as T
+            return PracticeListFragmentViewModel(application, viewModelStoreOwner) as T
         }
     }
 
-    private val practiceRepository = PracticeRepository(context)
+    private val practiceRepository = PracticeRepository(application.applicationContext)
 
     val practiceViewModelList: MutableLiveData<List<PracticeListItemViewModel>> = MutableLiveData()
 

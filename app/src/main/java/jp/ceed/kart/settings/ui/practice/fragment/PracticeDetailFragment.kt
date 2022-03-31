@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentPracticeDetailBinding
 import jp.ceed.kart.settings.ui.common.fragment.DeleteConfirmDialogFragment
+import jp.ceed.kart.settings.ui.extension.getApplication
 import jp.ceed.kart.settings.ui.practice.adapter.PracticeDetailAdapter
 import jp.ceed.kart.settings.ui.practice.viewModel.PracticeDetailFragmentViewModel
 import jp.ceed.kart.settings.ui.util.UiUtil
@@ -31,7 +32,7 @@ class PracticeDetailFragment: Fragment() {
     private lateinit var adapter: PracticeDetailAdapter
 
     private fun factoryProducer(): PracticeDetailFragmentViewModel.Factory {
-        return PracticeDetailFragmentViewModel.Factory(this, requireContext(), args.practiceId)
+        return PracticeDetailFragmentViewModel.Factory(this, getApplication(), args.practiceId)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

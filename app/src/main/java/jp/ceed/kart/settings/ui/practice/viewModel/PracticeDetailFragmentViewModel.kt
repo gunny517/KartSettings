@@ -1,6 +1,6 @@
 package jp.ceed.kart.settings.ui.practice.viewModel
 
-import android.content.Context
+import android.app.Application
 import androidx.lifecycle.*
 import jp.ceed.kart.settings.AbsEventContent
 import jp.ceed.kart.settings.domain.repository.SessionRepository
@@ -11,17 +11,17 @@ import jp.ceed.kart.settings.ui.Event
 import jp.ceed.kart.settings.ui.common.RowControlListener
 import kotlinx.coroutines.launch
 import java.util.*
-import kotlin.collections.ArrayList
 
 class PracticeDetailFragmentViewModel(
-    private val viewStoreOwner: ViewModelStoreOwner, val context: Context, private val practiceId: Int)
-    : ViewModel(), RowControlListener {
+    private val viewStoreOwner: ViewModelStoreOwner,
+    private val application: Application,
+    private val practiceId: Int): ViewModel(), RowControlListener {
 
-    class Factory(private val viewStoreOwner: ViewModelStoreOwner, val context: Context, private val practiceId: Int): ViewModelProvider.Factory {
+    class Factory(private val viewStoreOwner: ViewModelStoreOwner, val application: Application, private val practiceId: Int): ViewModelProvider.Factory {
 
         @Suppress("unchecked_cast")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return PracticeDetailFragmentViewModel(viewStoreOwner, context, practiceId) as T
+            return PracticeDetailFragmentViewModel(viewStoreOwner, application, practiceId) as T
         }
     }
 
@@ -29,7 +29,7 @@ class PracticeDetailFragmentViewModel(
 
     class EventContent(eventType: EventType, value: Int): AbsEventContent<EventType>(eventType, value)
 
-    private val sessionRepository = SessionRepository(context)
+    private val sessionRepository = SessionRepository(application.applicationContext)
 
     var practiceRowList: MutableLiveData<List<PracticeDetailAdapterItem>> = MutableLiveData()
 
@@ -74,7 +74,7 @@ class PracticeDetailFragmentViewModel(
         for(field in fields){
             field.isAccessible = true
             val annotation = field.getAnnotation(SettingElement::class.java) ?: continue
-            val label = context.getString(annotation.label)
+            val label = application.getString(annotation.label)
             val index = annotation.index
             val name = field.name
             val inputType = annotation.inputType

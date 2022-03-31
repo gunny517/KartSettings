@@ -11,6 +11,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentEditTrackDialogBinding
+import jp.ceed.kart.settings.ui.extension.getApplication
 import jp.ceed.kart.settings.ui.track.viewModel.EditTrackDialogFragmentViewModel
 
 class EditTrackDialogFragment(): DialogFragment(), DialogInterface.OnClickListener {
@@ -72,6 +73,6 @@ class EditTrackDialogFragment(): DialogFragment(), DialogInterface.OnClickListen
     }
 
     private fun factoryProducer(): EditTrackDialogFragmentViewModel.Factory{
-        return EditTrackDialogFragmentViewModel.Factory(requireContext(), trackId)
+        return EditTrackDialogFragmentViewModel.Factory(getApplication(), trackId)
     }
 }
