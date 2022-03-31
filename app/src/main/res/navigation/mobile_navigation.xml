@@ -29,6 +29,11 @@
         tools:layout="@layout/fragment_final_ratio"/>
 
     <fragment
+        android:id="@+id/nav_settings"
+        android:name="jp.ceed.kart.settings.ui.settings.fragment.SettingsFragment"
+        android:label="@string/menu_settings"/>
+
+    <fragment
         android:id="@+id/PracticeDetailFragment"
         android:name="jp.ceed.kart.settings.ui.practice.fragment.PracticeDetailFragment"
         android:label="{titleLabel}">

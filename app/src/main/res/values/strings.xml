@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KartSettings</string>
+    <string name="app_name">KartSettingsLog</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Setting log app for racing kart.</string>
@@ -10,6 +10,7 @@
     <string name="menu_track_list">サーキット</string>
     <string name="menu_practice_list">走行データ</string>
     <string name="menu_final_ratio">ファイナルレシオ</string>
+    <string name="menu_settings">設定</string>
 
     <string name="ok">OK</string>
     <string name="cancel">キャンセル</string>
@@ -23,6 +24,7 @@
     <string name="drive_max">ドライブ：上限</string>
     <string name="driven_min">ドリブン：下限</string>
     <string name="driven_max">ドリブン：上限</string>
+    <string name="label_settings_version_name_">アプリバージョン</string>
 
     <string name="setting_label_start_time">走行時刻</string>
     <string name="setting_label_track_condition">路面状態</string>

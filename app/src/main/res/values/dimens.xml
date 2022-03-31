@@ -30,4 +30,6 @@
 
     <dimen name="final_ratio_item_width">100dp</dimen>
     <dimen name="final_ratio_item_height">40dp</dimen>
+
+    <dimen name="settings_header_width">200dp</dimen>
 </resources>

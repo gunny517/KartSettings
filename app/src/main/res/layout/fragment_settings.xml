@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="jp.ceed.kart.settings.ui.settings.viewModel.SettingsFragmentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_l">
+
+        <TextView
+            android:id="@+id/versionNameLabel"
+            android:layout_width="@dimen/settings_header_width"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="@dimen/text_size_l"
+            android:text="@string/label_settings_version_name_"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/versionNameLabel"
+            app:layout_constraintStart_toEndOf="@id/versionNameLabel"
+            android:textSize="@dimen/text_size_m"
+            android:text="@{viewModel.versionName}"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_practice, R.id.nav_track, R.id.nav_final_ratio
+                R.id.nav_practice, R.id.nav_track, R.id.nav_final_ratio, R.id.nav_settings
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
