@@ -39,4 +39,10 @@ class TrackRepository(context: Context, private val dispatcher: CoroutineDispatc
         }
     }
 
+    suspend fun deleteById(id: Int){
+        withContext(dispatcher){
+            trackDao.deleteById(id)
+        }
+    }
+
 }

@@ -4,9 +4,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-class TrackListItemViewModel(val id: Int, val name: String?, val onClick: (Int, TrackListFragmentViewModel.EventState) -> Unit): ViewModel() {
+class TrackListItemViewModel(
+    val id: Int,
+    val name: String?,
+    val onClick: (Int, TrackListFragmentViewModel.EventState) -> Unit): ViewModel() {
 
-    class Factory(val id: Int, val name: String?, val onClick: (Int, TrackListFragmentViewModel.EventState) -> Unit): ViewModelProvider.KeyedFactory() {
+    class Factory(
+        val id: Int,
+        val name: String?,
+        val onClick: (Int, TrackListFragmentViewModel.EventState) -> Unit): ViewModelProvider.KeyedFactory() {
 
         @Suppress("unchecked_cast")
         override fun <T : ViewModel> create(key: String, modelClass: Class<T>): T {

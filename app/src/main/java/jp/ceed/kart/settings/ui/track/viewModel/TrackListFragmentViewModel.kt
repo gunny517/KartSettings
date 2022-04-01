@@ -30,6 +30,10 @@ class TrackListFragmentViewModel(
 
     enum class EventState { CREATE, DELETE }
 
+    init {
+        loadTrackList()
+    }
+
     fun loadTrackList(){
         viewModelScope.launch {
             trackList.value = createViewModels(trackRepository.getTrackList())
@@ -50,5 +54,12 @@ class TrackListFragmentViewModel(
 
     fun onClickFab(){
         editEvent.value = Event(EventState.CREATE)
+    }
+
+    fun deleteById(trackId: Int){
+        viewModelScope.launch {
+            trackRepository.deleteById(trackId)
+            loadTrackList()
+        }
     }
 }

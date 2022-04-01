@@ -1,5 +1,6 @@
 package jp.ceed.kart.settings.ui.track.fragment
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentTackListBinding
+import jp.ceed.kart.settings.ui.common.fragment.DeleteConfirmDialogFragment
 import jp.ceed.kart.settings.ui.extension.getApplication
 import jp.ceed.kart.settings.ui.track.adapter.TrackListAdapter
 import jp.ceed.kart.settings.ui.track.viewModel.TrackListFragmentViewModel
@@ -43,11 +45,6 @@ class TrackListFragment: Fragment() {
         init()
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.loadTrackList()
-    }
-
     private fun init(){
         adapter = TrackListAdapter(requireContext(), viewLifecycleOwner)
         binding.recyclerView.adapter = adapter
@@ -70,6 +67,21 @@ class TrackListFragment: Fragment() {
         when(eventState){
             TrackListFragmentViewModel.EventState.CREATE -> {
                 showEditDialog(trackId)
+            }
+            TrackListFragmentViewModel.EventState.DELETE -> {
+                val dialog = DeleteConfirmDialogFragment.newInstance(R.string.msg_delete_track)
+                dialog.setOnDialogClickListener{
+                        _, button -> onClickDeleteDialogButton(trackId, button)
+                }
+                dialog.show(childFragmentManager, dialog.tag(this.javaClass))
+            }
+        }
+    }
+
+    private fun onClickDeleteDialogButton(trackId: Int, button: Int){
+        when(button){
+            DialogInterface.BUTTON_POSITIVE -> {
+                viewModel.deleteById(trackId)
             } else -> {}
         }
     }

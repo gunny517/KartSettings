@@ -36,6 +36,9 @@ class PracticeListFragmentViewModel(val application: Application, private val vi
 
     var editEvent: MutableLiveData<Event<Int>> = MutableLiveData()
 
+    init {
+        loadPracticeList()
+    }
 
     fun loadPracticeList(){
         viewModelScope.launch {

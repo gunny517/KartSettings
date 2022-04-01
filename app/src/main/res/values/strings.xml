@@ -52,5 +52,7 @@
     <string name="setting_label_best_time">ベストタイム</string>
 
     <string name="msg_delete_session">セッションを削除しますか？</string>
+    <string name="msg_delete_practice">走行日を削除しますか？</string>
+    <string name="msg_delete_track">サーキットを削除しますか？</string>
     <string name="msg_create_session">新しいセッションを作成します</string>
 </resources>

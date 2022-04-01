@@ -64,13 +64,9 @@ class PracticeDetailFragment: Fragment() {
     private fun onViewModelEvent(eventContent: PracticeDetailFragmentViewModel.EventContent){
         when(eventContent.eventType){
             PracticeDetailFragmentViewModel.EventType.CLICK_DELETE_DIALOG -> {
-                DeleteConfirmDialogFragment { _, button ->
-                    when(button){
-                        DialogInterface.BUTTON_POSITIVE -> {
-                            viewModel.deleteSession(eventContent.value)
-                        }else -> {}
-                    }
-                }.show(childFragmentManager, DeleteConfirmDialogFragment.TAG)
+                val dialog = DeleteConfirmDialogFragment.newInstance(R.string.msg_delete_session)
+                dialog.setOnDialogClickListener{ _, button -> onClickDialogButton(button, eventContent)}
+                dialog.show(childFragmentManager, dialog.tag(this.javaClass))
             }
             PracticeDetailFragmentViewModel.EventType.EDIT_MODE_COMPLETED -> {
                 UiUtil(requireContext()).hideKeyboard(binding.root)
@@ -84,6 +80,14 @@ class PracticeDetailFragment: Fragment() {
                     }
                 }.show(childFragmentManager, CreateSessionDialogFragment.TAG)
             }
+        }
+    }
+
+    private fun onClickDialogButton(button: Int, eventContent: PracticeDetailFragmentViewModel.EventContent){
+        when(button){
+            DialogInterface.BUTTON_POSITIVE -> {
+                viewModel.deleteSession(eventContent.value)
+            }else -> {}
         }
     }
 }

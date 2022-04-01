@@ -24,11 +24,27 @@
             android:text="@{viewModel.trackName}"/>
 
         <TextView
-            android:id="@+id/editButton"
+            android:id="@+id/deleteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:paddingStart="@dimen/padding_m"
+            android:paddingEnd="@dimen/padding_m"
+            android:paddingTop="@dimen/padding_s"
+            android:paddingBottom="@dimen/padding_s"
+            android:background="@drawable/selector_bg_control_button"
+            android:textSize="@dimen/text_size_s"
+            android:text="@string/delete"
+            android:onClick="@{v -> viewModel.onClickDelete()}"/>
+
+        <TextView
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/deleteButton"
+            android:layout_marginEnd="@dimen/padding_m"
             android:paddingStart="@dimen/padding_m"
             android:paddingEnd="@dimen/padding_m"
             android:paddingTop="@dimen/padding_s"

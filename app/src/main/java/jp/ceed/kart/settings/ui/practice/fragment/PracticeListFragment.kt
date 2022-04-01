@@ -38,11 +38,6 @@ class PracticeListFragment: Fragment() {
         initLayout()
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.loadPracticeList()
-    }
-
     private fun initLayout(){
         val adapter = PracticeListAdapter(requireContext())
         binding.recyclerView.adapter = adapter
@@ -62,8 +57,11 @@ class PracticeListFragment: Fragment() {
             activity?.let { activity ->
                 val content = it.getContentIfNotHandled()
                 content?.let { practiceListItemViewModel ->
-                    DeleteConfirmDialogFragment { dialog, button -> onClickDialogButton(practiceListItemViewModel.id, dialog, button)
-                    }.show(activity.supportFragmentManager, DeleteConfirmDialogFragment.TAG)
+                    val dialogFragment = DeleteConfirmDialogFragment.newInstance(R.string.msg_delete_practice)
+                    dialogFragment.setOnDialogClickListener{
+                            dialog, button -> onClickDialogButton(practiceListItemViewModel.id, dialog, button)
+                    }
+                    dialogFragment.show(activity.supportFragmentManager, dialogFragment.tag(this.javaClass))
                 }
             }
         }

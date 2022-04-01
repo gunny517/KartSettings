@@ -24,4 +24,7 @@ interface TrackDao {
             update(track)
         }
     }
+
+    @Query("DELETE FROM Track WHERE id = (:id)")
+    fun deleteById(id: Int)
 }
