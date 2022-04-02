@@ -55,27 +55,25 @@ class TrackListFragment: Fragment() {
             adapter.notifyDataSetChanged()
         }
         viewModel.editEvent.observe(viewLifecycleOwner){
-            when(it.getContentIfNotHandled()){
-                TrackListFragmentViewModel.EventState.CREATE -> {
-                    showEditDialog(0)
-                }else -> {}
+            val trackId = it.getContentIfNotHandled()
+            trackId?.let { trackId ->
+                showEditDialog(trackId)
+            }
+        }
+        viewModel.deleteEvent.observe(viewLifecycleOwner){
+            val trackId = it.getContentIfNotHandled()
+            trackId?.let { trackId ->
+                onClickItemDelete(trackId)
             }
         }
     }
 
-    private fun onClickItemButton(trackId: Int, eventState: TrackListFragmentViewModel.EventState){
-        when(eventState){
-            TrackListFragmentViewModel.EventState.CREATE -> {
-                showEditDialog(trackId)
-            }
-            TrackListFragmentViewModel.EventState.DELETE -> {
-                val dialog = DeleteConfirmDialogFragment.newInstance(R.string.msg_delete_track)
-                dialog.setOnDialogClickListener{
-                        _, button -> onClickDeleteDialogButton(trackId, button)
-                }
-                dialog.show(childFragmentManager, dialog.tag(this.javaClass))
-            }
+    private fun onClickItemDelete(trackId: Int){
+        val dialog = DeleteConfirmDialogFragment.newInstance(R.string.msg_delete_track)
+        dialog.setOnDialogClickListener{
+                _, button -> onClickDeleteDialogButton(trackId, button)
         }
+        dialog.show(childFragmentManager, dialog.tag(this.javaClass))
     }
 
     private fun onClickDeleteDialogButton(trackId: Int, button: Int){
@@ -95,7 +93,7 @@ class TrackListFragment: Fragment() {
     }
 
     private fun factoryProvider(): TrackListFragmentViewModel.Factory {
-        return TrackListFragmentViewModel.Factory(getApplication(), this, ::onClickItemButton)
+        return TrackListFragmentViewModel.Factory(getApplication(), this)
     }
 
 }

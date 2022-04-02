@@ -1,7 +1,9 @@
 package jp.ceed.kart.settings.ui.track.viewModel
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.*
+import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.domain.repository.TrackRepository
 import jp.ceed.kart.settings.model.entity.Track
 import jp.ceed.kart.settings.ui.Event
@@ -9,16 +11,14 @@ import kotlinx.coroutines.launch
 
 class TrackListFragmentViewModel(
     application: Application,
-    private val viewModelStoreOwner: ViewModelStoreOwner,
-    val onClick: (Int, EventState) -> Unit) : ViewModel() {
+    private val viewModelStoreOwner: ViewModelStoreOwner) : ViewModel() {
 
     class Factory(val application: Application,
-                  private val viewModelStoreOwner: ViewModelStoreOwner,
-                  val onClick: (Int, EventState) -> Unit): ViewModelProvider.Factory {
+                  private val viewModelStoreOwner: ViewModelStoreOwner): ViewModelProvider.Factory {
 
         @Suppress("unchecked_cast")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return TrackListFragmentViewModel(application, viewModelStoreOwner, onClick) as T
+            return TrackListFragmentViewModel(application, viewModelStoreOwner) as T
         }
     }
 
@@ -26,9 +26,9 @@ class TrackListFragmentViewModel(
 
     var trackList: MutableLiveData<List<TrackListItemViewModel>> = MutableLiveData()
 
-    val editEvent: MutableLiveData<Event<EventState>> = MutableLiveData()
+    val editEvent: MutableLiveData<Event<Int>> = MutableLiveData()
 
-    enum class EventState { CREATE, DELETE }
+    val deleteEvent: MutableLiveData<Event<Int>> = MutableLiveData()
 
     init {
         loadTrackList()
@@ -44,7 +44,7 @@ class TrackListFragmentViewModel(
         val list: ArrayList<TrackListItemViewModel> = ArrayList()
         for(entry in trackList){
             val factory = TrackListItemViewModel.Factory(entry.id, entry.name){
-                id: Int, type: EventState -> onClick(id, type)
+                id: Int, view: View -> onClickItemButton(id, view.id)
             }
             list.add(ViewModelProvider(viewModelStoreOwner, factory)
                 .get(entry.id.toString(), TrackListItemViewModel::class.java))
@@ -52,8 +52,19 @@ class TrackListFragmentViewModel(
         return list
     }
 
+    private fun onClickItemButton(trackId: Int, viewId: Int){
+        when(viewId){
+            R.id.editButton -> {
+                editEvent.value = Event(trackId)
+            }
+            R.id.deleteButton -> {
+                deleteEvent.value = Event(trackId)
+            }
+        }
+    }
+
     fun onClickFab(){
-        editEvent.value = Event(EventState.CREATE)
+        editEvent.value = Event(0)
     }
 
     fun deleteById(trackId: Int){

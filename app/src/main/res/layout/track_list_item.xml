@@ -36,7 +36,7 @@
             android:background="@drawable/selector_bg_control_button"
             android:textSize="@dimen/text_size_s"
             android:text="@string/delete"
-            android:onClick="@{v -> viewModel.onClickDelete()}"/>
+            android:onClick="@{viewModel.onClickDelete}"/>
 
         <TextView
             android:id="@+id/editButton"
@@ -52,6 +52,6 @@
             android:background="@drawable/selector_bg_control_button"
             android:textSize="@dimen/text_size_s"
             android:text="@string/edit"
-            android:onClick="@{v -> viewModel.onClickEdit()}"/>
+            android:onClick="@{viewModel.onClickEdit}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
