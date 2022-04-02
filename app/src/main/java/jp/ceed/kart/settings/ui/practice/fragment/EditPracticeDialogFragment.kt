@@ -64,7 +64,6 @@ class EditPracticeDialogFragment: DialogFragment(), DialogInterface.OnClickListe
             }else -> {}
         }
         dismiss()
-        onEdit()
     }
 
     private fun init(){
@@ -72,6 +71,9 @@ class EditPracticeDialogFragment: DialogFragment(), DialogInterface.OnClickListe
             val spinnerAdapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, it ?: mutableListOf())
             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinner.adapter = spinnerAdapter
+        }
+        viewModel.savedEvent.observe(this){
+            onEdit()
         }
     }
 

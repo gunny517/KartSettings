@@ -46,8 +46,9 @@ class TrackListFragmentViewModel(
             val factory = TrackListItemViewModel.Factory(entry.id, entry.name){
                 id: Int, view: View -> onClickItemButton(id, view.id)
             }
+            val key = entry.id.toString() + System.currentTimeMillis().toString()
             list.add(ViewModelProvider(viewModelStoreOwner, factory)
-                .get(entry.id.toString(), TrackListItemViewModel::class.java))
+                .get(key, TrackListItemViewModel::class.java))
         }
         return list
     }

@@ -10,6 +10,7 @@ import jp.ceed.kart.settings.domain.repository.TrackRepository
 import jp.ceed.kart.settings.model.entity.Practice
 import jp.ceed.kart.settings.model.entity.PracticeTrack
 import jp.ceed.kart.settings.model.entity.Track
+import jp.ceed.kart.settings.ui.Event
 import jp.ceed.kart.settings.ui.util.UiUtil
 import kotlinx.coroutines.launch
 import java.util.*
@@ -47,6 +48,8 @@ class EditPracticeDialogFragmentViewModel(context: Context, val practiceId: Int 
     var labelList: MutableLiveData<List<String?>> = MutableLiveData()
 
     var trackList: List<Track> = mutableListOf()
+
+    var savedEvent: MutableLiveData<Event<Int>> = MutableLiveData()
 
 
     init {
@@ -113,6 +116,7 @@ class EditPracticeDialogFragmentViewModel(context: Context, val practiceId: Int 
         val startDate = uiUtil.toYmdString(calendar.time)
         viewModelScope.launch {
             practiceRepository.save(Practice(practiceId, track.id, startDate, description.value))
+            savedEvent.value = Event(0)
         }
     }
 

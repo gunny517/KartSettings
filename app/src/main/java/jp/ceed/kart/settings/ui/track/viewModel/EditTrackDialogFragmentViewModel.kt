@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import jp.ceed.kart.settings.domain.repository.TrackRepository
 import jp.ceed.kart.settings.model.entity.Track
+import jp.ceed.kart.settings.ui.Event
 import kotlinx.coroutines.launch
 
 class EditTrackDialogFragmentViewModel(application: Application, private val trackId: Int): ViewModel() {
@@ -26,6 +27,8 @@ class EditTrackDialogFragmentViewModel(application: Application, private val tra
 
     var track: Track = Track(0)
 
+    var savedEvent: MutableLiveData<Event<Int>> = MutableLiveData()
+
     init{
         if(trackId != 0){
             loadTrack()
@@ -43,6 +46,7 @@ class EditTrackDialogFragmentViewModel(application: Application, private val tra
         track.name = trackName.value
         viewModelScope.launch {
             trackRepository.save(track)
+            savedEvent.value = Event(0)
         }
     }
 }

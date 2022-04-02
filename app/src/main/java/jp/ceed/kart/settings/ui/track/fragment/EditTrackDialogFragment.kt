@@ -55,6 +55,7 @@ class EditTrackDialogFragment(): DialogFragment(), DialogInterface.OnClickListen
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_edit_track_dialog, null, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        initEvent()
         return AlertDialog.Builder(requireContext())
             .setView(binding.root)
             .setPositiveButton(R.string.ok, this)
@@ -69,7 +70,12 @@ class EditTrackDialogFragment(): DialogFragment(), DialogInterface.OnClickListen
             }else -> {}
         }
         dismiss()
-        onEdit()
+    }
+
+    private fun initEvent(){
+        viewModel.savedEvent.observe(this){
+            onEdit()
+        }
     }
 
     private fun factoryProducer(): EditTrackDialogFragmentViewModel.Factory{
