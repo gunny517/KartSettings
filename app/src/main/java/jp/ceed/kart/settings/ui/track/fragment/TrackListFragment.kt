@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ceed.kart.settings.R
@@ -93,7 +94,7 @@ class TrackListFragment: Fragment() {
     }
 
     private fun factoryProvider(): TrackListFragmentViewModel.Factory {
-        return TrackListFragmentViewModel.Factory(getApplication(), this)
+        return TrackListFragmentViewModel.Factory(getApplication(), activity as ViewModelStoreOwner)
     }
 
 }
