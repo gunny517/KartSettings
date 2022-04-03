@@ -11,12 +11,13 @@
     <color name="text_default">#FFFFFFFF</color>
     <color name="text_disabled">#FF999999</color>
     <color name="text_edit_text">@color/text_default</color>
-    <color name="text_edit_text_enabled">#000000</color>
+    <color name="text_edit_text_enabled">@color/text_default</color>
+    <color name="text_setting_value_changed">#9BFB9B</color>
     <color name="tint">#99000000</color>
     <color name="window_back_ground">#FF282828</color>
     <color name="dialog_background">#FF484848</color>
     <color name="bg_edit_text">@color/window_back_ground</color>
-    <color name="bg_edit_text_enabled">#FF999999</color>
+    <color name="bg_edit_text_enabled">#FF383838</color>
     <color name="divider">#333333</color>
     <color name="pressed">#333333</color>
 </resources>
