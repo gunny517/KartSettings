@@ -4,7 +4,6 @@ import android.graphics.Typeface
 import android.widget.EditText
 import androidx.databinding.BindingAdapter
 import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
-import jp.ceed.kart.settings.ui.common.RowControlListener
 import jp.ceed.kart.settings.ui.practice.view.PracticeControlRowView
 import jp.ceed.kart.settings.ui.practice.view.PracticeSettingRowView
 
@@ -24,10 +23,11 @@ object BindingAdapter {
 
     @BindingAdapter("textStyle")
     @JvmStatic
-    fun setTypeface(view: EditText, style: String?) {
-        when (style) {
-            "accent" -> view.setTypeface(null, Typeface.BOLD_ITALIC)
-            else -> view.setTypeface(null, Typeface.NORMAL)
+    fun textStyle(view: EditText, isChanged: Boolean) {
+        if(isChanged){
+            view.setTypeface(null, Typeface.BOLD)
+        }else{
+            view.setTypeface(null, Typeface.NORMAL)
         }
     }
 }

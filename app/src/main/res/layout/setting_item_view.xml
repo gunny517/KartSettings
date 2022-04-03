@@ -23,10 +23,10 @@
             android:padding="@dimen/padding_s"
             android:inputType="@{item.inputType}"
             android:textSize="@dimen/padding_m"
-            android:textColor="@drawable/selector_text_edit_text"
+            android:textColor="@{item.textColor(context)}"
             android:background="@drawable/bg_edit_text"
             android:text="@={item.value}"
-            app:textStyle='@{item.isChanged ? "accent" : "normal"}'
-            android:enabled="@{item.isEditable}"/>
+            android:enabled="@{item.isEditable}"
+            app:textStyle='@{item.isChanged}'/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
