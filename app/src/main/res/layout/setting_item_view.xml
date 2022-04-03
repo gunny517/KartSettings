@@ -26,7 +26,7 @@
             android:textColor="@drawable/selector_text_edit_text"
             android:background="@drawable/bg_edit_text"
             android:text="@={item.value}"
-            app:textStyle='@{item.isChanged ? "bold" : "normal"}'
+            app:textStyle='@{item.isChanged ? "accent" : "normal"}'
             android:enabled="@{item.isEditable}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -13,4 +13,8 @@ class CommonUtil {
         val hh: String = cal.get(Calendar.HOUR_OF_DAY).toString()
         return "${hh}:${minutes}"
     }
+
+    fun createRandomKey(): String {
+        return Random().nextInt().toString()
+    }
 }

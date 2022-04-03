@@ -26,7 +26,7 @@ object BindingAdapter {
     @JvmStatic
     fun setTypeface(view: EditText, style: String?) {
         when (style) {
-            "bold" -> view.setTypeface(null, Typeface.BOLD)
+            "accent" -> view.setTypeface(null, Typeface.BOLD_ITALIC)
             else -> view.setTypeface(null, Typeface.NORMAL)
         }
     }

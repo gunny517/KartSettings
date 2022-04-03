@@ -9,6 +9,7 @@ import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
 import jp.ceed.kart.settings.model.entity.Session
 import jp.ceed.kart.settings.ui.Event
 import jp.ceed.kart.settings.ui.common.RowControlListener
+import jp.ceed.kart.settings.ui.util.CommonUtil
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -86,7 +87,7 @@ class PracticeDetailFragmentViewModel(
                 val isChanged = !ignoreValueChange && lastValue != null && !lastValue.equals(value)
                 lastValue = value
                 val factory = PracticeSettingItemViewModel.Factory(session.id, name, value, inputType, isChanged)
-                val key = "${index}-${session.id}"
+                val key = CommonUtil().createRandomKey()
                 val viewModel = ViewModelProvider(viewStoreOwner, factory).get(key, PracticeSettingItemViewModel::class.java)
                 list.add(viewModel)
             }
@@ -115,6 +116,7 @@ class PracticeDetailFragmentViewModel(
                 practiceRowList.value?.let {
                     viewModelScope.launch {
                         sessionRepository.saveSession(it, sessionId, practiceId)
+                        loadPracticeRowList()
                         changeEditState(sessionId)
                     }
                 }

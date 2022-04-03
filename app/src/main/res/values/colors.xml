@@ -13,7 +13,7 @@
     <color name="text_edit_text">@color/text_default</color>
     <color name="text_edit_text_enabled">#FFFFFF</color>
     <color name="tint">#99000000</color>
-    <color name="window_back_ground">#FFFFFFFF</color>
+    <color name="window_back_ground">#FFE0E0E0</color>
     <color name="dialog_background">#FFFFFFFF</color>
     <color name="bg_edit_text">@color/window_back_ground</color>
     <color name="bg_edit_text_enabled">#FF666666</color>

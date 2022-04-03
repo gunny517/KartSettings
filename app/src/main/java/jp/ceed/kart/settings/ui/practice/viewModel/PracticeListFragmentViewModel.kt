@@ -12,6 +12,7 @@ import jp.ceed.kart.settings.model.entity.PracticeTrack
 import jp.ceed.kart.settings.model.entity.Track
 import jp.ceed.kart.settings.ui.Event
 import jp.ceed.kart.settings.ui.practice.fragment.PracticeListFragmentDirections
+import jp.ceed.kart.settings.ui.util.CommonUtil
 import jp.ceed.kart.settings.ui.util.UiUtil
 import kotlinx.coroutines.launch
 import java.util.*
@@ -51,7 +52,7 @@ class PracticeListFragmentViewModel(val application: Application, private val vi
         val list: ArrayList<PracticeListItemViewModel> = ArrayList()
         for(entry in practiceList){
             val factory = PracticeListItemViewModel.Factory(entry, ::onClick)
-            val key = Random().nextInt().toString() // 同じキーにならないように乱数をキーにする（他に良いやり方検討したい）
+            val key = CommonUtil().createRandomKey() // 同じキーにならないように乱数をキーにする（他に良いやり方検討したい）
             list.add(ViewModelProvider(viewModelStoreOwner, factory).get(key, PracticeListItemViewModel::class.java))
         }
         return list
