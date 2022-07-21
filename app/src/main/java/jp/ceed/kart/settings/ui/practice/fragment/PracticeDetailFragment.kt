@@ -8,32 +8,26 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentPracticeDetailBinding
 import jp.ceed.kart.settings.ui.common.fragment.DeleteConfirmDialogFragment
-import jp.ceed.kart.settings.ui.extension.getApplication
 import jp.ceed.kart.settings.ui.practice.adapter.PracticeDetailAdapter
 import jp.ceed.kart.settings.ui.practice.viewModel.PracticeDetailFragmentViewModel
 import jp.ceed.kart.settings.ui.util.UiUtil
 
+@AndroidEntryPoint
 class PracticeDetailFragment: Fragment() {
 
-    private val args: PracticeDetailFragmentArgs by navArgs()
-
-    private val viewModel: PracticeDetailFragmentViewModel by viewModels(factoryProducer = ::factoryProducer)
+    private val viewModel: PracticeDetailFragmentViewModel by viewModels()
 
     private var _binding: FragmentPracticeDetailBinding? = null
 
     private val binding get() = _binding!!
 
     private lateinit var adapter: PracticeDetailAdapter
-
-    private fun factoryProducer(): PracticeDetailFragmentViewModel.Factory {
-        return PracticeDetailFragmentViewModel.Factory(this, getApplication(), args.practiceId)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_practice_detail, container, false)

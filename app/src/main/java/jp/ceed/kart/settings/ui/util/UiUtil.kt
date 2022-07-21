@@ -3,10 +3,14 @@ package jp.ceed.kart.settings.ui.util
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class UiUtil(val context: Context) {
+class UiUtil @Inject constructor (
+    @ApplicationContext val context: Context
+) {
 
     fun hideKeyboard(root: View) {
         val manager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

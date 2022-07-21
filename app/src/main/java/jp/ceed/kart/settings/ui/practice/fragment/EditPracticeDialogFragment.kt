@@ -8,10 +8,12 @@ import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentEditPracticeDaialogBinding
 import jp.ceed.kart.settings.ui.practice.viewModel.EditPracticeDialogFragmentViewModel
 
+@AndroidEntryPoint
 class EditPracticeDialogFragment: DialogFragment(), DialogInterface.OnClickListener {
 
     companion object {
@@ -30,7 +32,7 @@ class EditPracticeDialogFragment: DialogFragment(), DialogInterface.OnClickListe
         }
     }
 
-    private val viewModel: EditPracticeDialogFragmentViewModel by viewModels(factoryProducer = ::factoryProducer)
+    private val viewModel: EditPracticeDialogFragmentViewModel by viewModels()
 
     private var practiceId: Int = 0
 
@@ -75,9 +77,5 @@ class EditPracticeDialogFragment: DialogFragment(), DialogInterface.OnClickListe
         viewModel.savedEvent.observe(this){
             onEdit()
         }
-    }
-
-    private fun factoryProducer(): EditPracticeDialogFragmentViewModel.Factory{
-        return EditPracticeDialogFragmentViewModel.Factory(requireContext(), practiceId)
     }
 }

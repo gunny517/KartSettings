@@ -8,24 +8,24 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentPracticeListBinding
 import jp.ceed.kart.settings.ui.common.fragment.DeleteConfirmDialogFragment
-import jp.ceed.kart.settings.ui.extension.getApplication
 import jp.ceed.kart.settings.ui.practice.adapter.PracticeListAdapter
 import jp.ceed.kart.settings.ui.practice.viewModel.PracticeListFragmentViewModel
 
+@AndroidEntryPoint
 class PracticeListFragment: Fragment() {
 
     private var _binding: FragmentPracticeListBinding? = null
 
     val binding get() = _binding!!
 
-    val viewModel: PracticeListFragmentViewModel by viewModels(factoryProducer = ::factoryProducer)
+    val viewModel: PracticeListFragmentViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_practice_list, container, false)
@@ -86,10 +86,6 @@ class PracticeListFragment: Fragment() {
     private fun onClickPractice(practiceId: Int, titleLabel: String){
         findNavController().navigate(
             PracticeListFragmentDirections.toPracticeDetail(practiceId, titleLabel))
-    }
-
-    private fun factoryProducer(): PracticeListFragmentViewModel.Factory {
-        return PracticeListFragmentViewModel.Factory(getApplication(), activity as ViewModelStoreOwner)
     }
 
     private fun showEditDialog(practiceId: Int){

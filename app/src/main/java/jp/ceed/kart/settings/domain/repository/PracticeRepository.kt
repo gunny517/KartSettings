@@ -1,14 +1,20 @@
 package jp.ceed.kart.settings.domain.repository
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
+import jp.ceed.kart.settings.di.IoDispatcher
 import jp.ceed.kart.settings.model.database.AppDatabase
 import jp.ceed.kart.settings.model.entity.Practice
 import jp.ceed.kart.settings.model.entity.PracticeTrack
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class PracticeRepository(context: Context, private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
+class PracticeRepository @Inject constructor (
+    @ApplicationContext context: Context,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+) {
 
     private val practiceDao = AppDatabase.getInstance(context).practiceDao()
 

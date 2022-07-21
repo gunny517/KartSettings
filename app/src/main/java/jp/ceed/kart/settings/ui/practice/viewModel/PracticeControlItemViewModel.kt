@@ -6,8 +6,10 @@ import jp.ceed.kart.settings.ui.common.RowControlListener
 
 class PracticeControlItemViewModel(
     val sessionId: Int,
-    val rowControlListener: RowControlListener,
-    var isEditable: Boolean = false): ViewModel() {
+    private val rowControlListener: RowControlListener,
+): ViewModel() {
+
+    var isEditable: Boolean = false
 
     fun onClickEdit(){
         rowControlListener.onClickControl(RowControlListener.RowControlCommand.EDIT, sessionId)
