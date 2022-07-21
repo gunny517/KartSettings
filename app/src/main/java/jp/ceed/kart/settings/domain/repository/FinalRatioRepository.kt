@@ -3,8 +3,11 @@ package jp.ceed.kart.settings.domain.repository
 import android.content.Context
 import android.content.SharedPreferences
 import jp.ceed.kart.settings.model.dto.FinalRatioDto
+import javax.inject.Inject
 
-class FinalRatioRepository(val context: Context) {
+class FinalRatioRepository @Inject constructor (
+    val context: Context
+) {
 
     companion object {
         const val DRIVE_MIN = 10

@@ -1,8 +1,9 @@
 package jp.ceed.kart.settings.ui.practice.viewModel
 
-import android.app.Application
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.kart.settings.AbsEventContent
+import jp.ceed.kart.settings.domain.repository.ResourceRepository
 import jp.ceed.kart.settings.domain.repository.SessionRepository
 import jp.ceed.kart.settings.model.SettingElement
 import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
@@ -12,30 +13,29 @@ import jp.ceed.kart.settings.ui.common.RowControlListener
 import jp.ceed.kart.settings.ui.util.CommonUtil
 import kotlinx.coroutines.launch
 import java.util.*
+import javax.inject.Inject
 
-class PracticeDetailFragmentViewModel(
-    private val viewStoreOwner: ViewModelStoreOwner,
-    private val application: Application,
-    private val practiceId: Int): ViewModel(), RowControlListener {
+@HiltViewModel
+class PracticeDetailFragmentViewModel @Inject constructor (
+    savedStateHandle: SavedStateHandle,
+    private val sessionRepository: SessionRepository,
+    private val resourceRepository: ResourceRepository,
+): ViewModel(), RowControlListener {
 
-    class Factory(private val viewStoreOwner: ViewModelStoreOwner, val application: Application, private val practiceId: Int): ViewModelProvider.Factory {
-
-        @Suppress("unchecked_cast")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return PracticeDetailFragmentViewModel(viewStoreOwner, application, practiceId) as T
-        }
+    enum class EventType{
+        CLICK_DELETE_DIALOG,
+        CLICK_CREATE_DIALOG,
+        EDIT_MODE_COMPLETED,
     }
 
-    enum class EventType{ CLICK_DELETE_DIALOG, CLICK_CREATE_DIALOG, EDIT_MODE_COMPLETED,  }
-
     class EventContent(eventType: EventType, value: Int): AbsEventContent<EventType>(eventType, value)
-
-    private val sessionRepository = SessionRepository(application.applicationContext)
 
     var practiceRowList: MutableLiveData<List<PracticeDetailAdapterItem>> = MutableLiveData()
 
     var event: MutableLiveData<Event<EventContent>> = MutableLiveData()
 
+    private val practiceId: Int = savedStateHandle.get<Int>("practiceId")
+        ?: throw IllegalArgumentException("Should have practice id.")
 
     init {
         loadPracticeRowList()
@@ -62,7 +62,8 @@ class PracticeDetailFragmentViewModel(
         val list: ArrayList<PracticeControlItemViewModel> = ArrayList()
         for(session in sessionList){
             val factory = PracticeControlItemViewModel.Factory(session.id, this)
-            val viewModel = ViewModelProvider(viewStoreOwner, factory).get(session.id.toString(), PracticeControlItemViewModel::class.java)
+            val viewModel = ViewModelProvider(ViewModelStore(), factory)
+                .get(session.id.toString(), PracticeControlItemViewModel::class.java)
             list.add(viewModel)
         }
         return PracticeDetailAdapterItem.PracticeControlItem(list)
@@ -75,7 +76,7 @@ class PracticeDetailFragmentViewModel(
         for(field in fields){
             field.isAccessible = true
             val annotation = field.getAnnotation(SettingElement::class.java) ?: continue
-            val label = application.getString(annotation.label)
+            val label = resourceRepository.getString(annotation.label)
             val index = annotation.index
             val name = field.name
             val inputType = annotation.inputType
@@ -88,7 +89,8 @@ class PracticeDetailFragmentViewModel(
                 lastValue = value
                 val factory = PracticeSettingItemViewModel.Factory(session.id, name, value, inputType, isChanged)
                 val key = CommonUtil().createRandomKey()
-                val viewModel = ViewModelProvider(viewStoreOwner, factory).get(key, PracticeSettingItemViewModel::class.java)
+                val viewModel = ViewModelProvider(ViewModelStore(), factory)
+                    .get(key, PracticeSettingItemViewModel::class.java)
                 list.add(viewModel)
             }
             resultList.add(PracticeDetailAdapterItem.PracticeRowItem(index, label, list))

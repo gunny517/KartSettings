@@ -19,12 +19,13 @@ import javax.inject.Inject
 @HiltViewModel
 class EditPracticeDialogFragmentViewModel @Inject constructor (
     savedStateHandle: SavedStateHandle,
-    val practiceRepository: PracticeRepository,
-    val trackRepository: TrackRepository,
-    val uiUtil: UiUtil,
+    private val practiceRepository: PracticeRepository,
+    private val trackRepository: TrackRepository,
+    private val uiUtil: UiUtil,
 ): ViewModel() {
 
-    val practiceId: Int = savedStateHandle.get<Int>("practiceId") ?: throw IllegalStateException("Should have practice id.")
+    val practiceId: Int = savedStateHandle.get<Int>("practiceId")
+        ?: throw IllegalStateException("Should have practice id.")
 
     private var practiceTrack: PracticeTrack? = null
 

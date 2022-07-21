@@ -1,15 +1,20 @@
 package jp.ceed.kart.settings.domain.repository
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
+import jp.ceed.kart.settings.di.IoDispatcher
 import jp.ceed.kart.settings.model.database.AppDatabase
 import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
 import jp.ceed.kart.settings.model.entity.Session
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.*
+import javax.inject.Inject
 
-class SessionRepository(val context: Context, private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
+class SessionRepository @Inject constructor (
+    @ApplicationContext val context: Context,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+) {
 
     private val sessionsDao = AppDatabase.getInstance(context).sessionDao()
 

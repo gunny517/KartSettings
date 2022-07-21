@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PracticeListFragmentViewModel @Inject constructor (
-    val practiceRepository: PracticeRepository
+    private val practiceRepository: PracticeRepository
 ) : ViewModel() {
 
     val practiceViewModelList: MutableLiveData<List<PracticeListItemViewModel>> = MutableLiveData()
