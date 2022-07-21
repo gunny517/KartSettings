@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:textSize="@dimen/text_size_l"
-            android:text="@string/label_settings_version_name_"/>
+            android:text="@string/label_settings_version_name"/>
 
         <TextView
             android:layout_width="0dp"
