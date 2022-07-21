@@ -4,8 +4,10 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.kart.settings.R
 
+@AndroidEntryPoint
 class CreateSessionDialogFragment(val onClick: (Int) -> Unit): DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

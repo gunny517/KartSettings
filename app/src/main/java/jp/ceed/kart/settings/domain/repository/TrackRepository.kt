@@ -1,13 +1,19 @@
 package jp.ceed.kart.settings.domain.repository
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
+import jp.ceed.kart.settings.di.IoDispatcher
 import jp.ceed.kart.settings.model.database.AppDatabase
 import jp.ceed.kart.settings.model.entity.Track
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class TrackRepository(context: Context, private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
+class TrackRepository @Inject constructor (
+    @ApplicationContext context: Context,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+) {
 
     private val trackDao = AppDatabase.getInstance(context).trackDao()
 

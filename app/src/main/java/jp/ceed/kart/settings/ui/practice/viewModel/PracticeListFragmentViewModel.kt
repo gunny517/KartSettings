@@ -1,33 +1,19 @@
 package jp.ceed.kart.settings.ui.practice.viewModel
 
-import android.app.Application
-import android.content.Context
-import android.view.View
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.domain.repository.PracticeRepository
-import jp.ceed.kart.settings.domain.repository.TrackRepository
-import jp.ceed.kart.settings.model.entity.Practice
 import jp.ceed.kart.settings.model.entity.PracticeTrack
-import jp.ceed.kart.settings.model.entity.Track
 import jp.ceed.kart.settings.ui.Event
-import jp.ceed.kart.settings.ui.practice.fragment.PracticeListFragmentDirections
 import jp.ceed.kart.settings.ui.util.CommonUtil
-import jp.ceed.kart.settings.ui.util.UiUtil
 import kotlinx.coroutines.launch
-import java.util.*
+import javax.inject.Inject
 
-class PracticeListFragmentViewModel(val application: Application, private val viewModelStoreOwner: ViewModelStoreOwner) : ViewModel() {
-
-    class Factory(private val application: Application, private val viewModelStoreOwner: ViewModelStoreOwner): ViewModelProvider.Factory {
-
-        @Suppress("unchecked_cast")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return PracticeListFragmentViewModel(application, viewModelStoreOwner) as T
-        }
-    }
-
-    private val practiceRepository = PracticeRepository(application.applicationContext)
+@HiltViewModel
+class PracticeListFragmentViewModel @Inject constructor (
+    val practiceRepository: PracticeRepository
+) : ViewModel() {
 
     val practiceViewModelList: MutableLiveData<List<PracticeListItemViewModel>> = MutableLiveData()
 
@@ -53,7 +39,7 @@ class PracticeListFragmentViewModel(val application: Application, private val vi
         for(entry in practiceList){
             val factory = PracticeListItemViewModel.Factory(entry, ::onClick)
             val key = CommonUtil().createRandomKey() // 同じキーにならないように乱数をキーにする（他に良いやり方検討したい）
-            list.add(ViewModelProvider(viewModelStoreOwner, factory).get(key, PracticeListItemViewModel::class.java))
+            list.add(ViewModelProvider(ViewModelStore() , factory).get(key, PracticeListItemViewModel::class.java))
         }
         return list
     }

@@ -1,10 +1,10 @@
 package jp.ceed.kart.settings.ui.practice.viewModel
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.kart.settings.domain.repository.PracticeRepository
 import jp.ceed.kart.settings.domain.repository.TrackRepository
 import jp.ceed.kart.settings.model.entity.Practice
@@ -14,20 +14,17 @@ import jp.ceed.kart.settings.ui.Event
 import jp.ceed.kart.settings.ui.util.UiUtil
 import kotlinx.coroutines.launch
 import java.util.*
+import javax.inject.Inject
 
-class EditPracticeDialogFragmentViewModel(context: Context, val practiceId: Int = 0): ViewModel() {
+@HiltViewModel
+class EditPracticeDialogFragmentViewModel @Inject constructor (
+    savedStateHandle: SavedStateHandle,
+    val practiceRepository: PracticeRepository,
+    val trackRepository: TrackRepository,
+    val uiUtil: UiUtil,
+): ViewModel() {
 
-    class Factory(private val context: Context, private val practiceId: Int = 0): ViewModelProvider.Factory {
-
-        @Suppress("unchecked_cast")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return EditPracticeDialogFragmentViewModel(context, practiceId) as T
-        }
-    }
-
-    private val practiceRepository = PracticeRepository(context)
-
-    private val trackRepository = TrackRepository(context)
+    val practiceId: Int = savedStateHandle.get<Int>("practiceId") ?: throw IllegalStateException("Should have practice id.")
 
     private var practiceTrack: PracticeTrack? = null
 
@@ -42,8 +39,6 @@ class EditPracticeDialogFragmentViewModel(context: Context, val practiceId: Int 
     var description: MutableLiveData<String> = MutableLiveData()
 
     var selectedItemPosition: MutableLiveData<Int> = MutableLiveData(0)
-
-    private val uiUtil = UiUtil(context)
 
     var labelList: MutableLiveData<List<String?>> = MutableLiveData()
 

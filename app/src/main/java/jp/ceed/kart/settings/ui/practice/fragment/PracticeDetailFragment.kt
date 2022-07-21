@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentPracticeDetailBinding
 import jp.ceed.kart.settings.ui.common.fragment.DeleteConfirmDialogFragment
@@ -19,6 +20,7 @@ import jp.ceed.kart.settings.ui.practice.adapter.PracticeDetailAdapter
 import jp.ceed.kart.settings.ui.practice.viewModel.PracticeDetailFragmentViewModel
 import jp.ceed.kart.settings.ui.util.UiUtil
 
+@AndroidEntryPoint
 class PracticeDetailFragment: Fragment() {
 
     private val args: PracticeDetailFragmentArgs by navArgs()
