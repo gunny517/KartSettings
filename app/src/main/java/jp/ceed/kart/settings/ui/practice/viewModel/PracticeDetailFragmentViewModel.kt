@@ -1,5 +1,6 @@
 package jp.ceed.kart.settings.ui.practice.viewModel
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.kart.settings.AbsEventContent
@@ -34,7 +35,8 @@ class PracticeDetailFragmentViewModel @Inject constructor (
 
     var event: MutableLiveData<Event<EventContent>> = MutableLiveData()
 
-    private val practiceId: Int = savedStateHandle.get<Int>("practiceId")
+    @VisibleForTesting
+    val practiceId: Int = savedStateHandle.get<Int>("practiceId")
         ?: throw IllegalArgumentException("Should have practice id.")
 
     private val viewModelStore = ViewModelStore()
@@ -134,7 +136,8 @@ class PracticeDetailFragmentViewModel @Inject constructor (
         }
     }
 
-    private fun changeEditState(sessionId: Int){
+    @VisibleForTesting
+    fun changeEditState(sessionId: Int){
         practiceRowList.value?.let {
             var isEditMode: Boolean = true
             val copyList = it.toList()
