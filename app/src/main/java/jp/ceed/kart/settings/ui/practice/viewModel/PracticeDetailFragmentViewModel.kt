@@ -37,6 +37,8 @@ class PracticeDetailFragmentViewModel @Inject constructor (
     private val practiceId: Int = savedStateHandle.get<Int>("practiceId")
         ?: throw IllegalArgumentException("Should have practice id.")
 
+    private val viewModelStore = ViewModelStore()
+
     init {
         loadPracticeRowList()
     }
@@ -62,7 +64,7 @@ class PracticeDetailFragmentViewModel @Inject constructor (
         val list: ArrayList<PracticeControlItemViewModel> = ArrayList()
         for(session in sessionList){
             val factory = PracticeControlItemViewModel.Factory(session.id, this)
-            val viewModel = ViewModelProvider(ViewModelStore(), factory)
+            val viewModel = ViewModelProvider(viewModelStore, factory)
                 .get(session.id.toString(), PracticeControlItemViewModel::class.java)
             list.add(viewModel)
         }
@@ -89,7 +91,7 @@ class PracticeDetailFragmentViewModel @Inject constructor (
                 lastValue = value
                 val factory = PracticeSettingItemViewModel.Factory(session.id, name, value, inputType, isChanged)
                 val key = CommonUtil().createRandomKey()
-                val viewModel = ViewModelProvider(ViewModelStore(), factory)
+                val viewModel = ViewModelProvider(viewModelStore, factory)
                     .get(key, PracticeSettingItemViewModel::class.java)
                 list.add(viewModel)
             }

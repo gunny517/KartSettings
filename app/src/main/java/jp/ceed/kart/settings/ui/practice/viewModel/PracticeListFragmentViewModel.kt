@@ -1,5 +1,6 @@
 package jp.ceed.kart.settings.ui.practice.viewModel
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.kart.settings.R
@@ -23,6 +24,8 @@ class PracticeListFragmentViewModel @Inject constructor (
 
     var editEvent: MutableLiveData<Event<Int>> = MutableLiveData()
 
+    private val viewModelStore = ViewModelStore()
+
     init {
         loadPracticeList()
     }
@@ -39,12 +42,13 @@ class PracticeListFragmentViewModel @Inject constructor (
         for(entry in practiceList){
             val factory = PracticeListItemViewModel.Factory(entry, ::onClick)
             val key = CommonUtil().createRandomKey() // 同じキーにならないように乱数をキーにする（他に良いやり方検討したい）
-            list.add(ViewModelProvider(ViewModelStore() , factory).get(key, PracticeListItemViewModel::class.java))
+            list.add(ViewModelProvider(viewModelStore , factory).get(key, PracticeListItemViewModel::class.java))
         }
         return list
     }
 
-    private fun onClick(viewId: Int, practiceListItemViewModel: PracticeListItemViewModel){
+    @VisibleForTesting
+    fun onClick(viewId: Int, practiceListItemViewModel: PracticeListItemViewModel){
         when(viewId){
             R.id.editButton -> {
                 editEvent.value = Event(practiceListItemViewModel.id)
@@ -61,7 +65,6 @@ class PracticeListFragmentViewModel @Inject constructor (
     fun onClickFab(){
         editEvent.value = Event(0)
     }
-
 
     fun deletePractice(practiceId: Int){
         viewModelScope.launch {
