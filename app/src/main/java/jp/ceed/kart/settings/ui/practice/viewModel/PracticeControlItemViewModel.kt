@@ -23,10 +23,10 @@ class PracticeControlItemViewModel(
         rowControlListener.onClickControl(RowControlListener.RowControlCommand.DELETE, sessionId)
     }
 
-    class Factory(private val sessionId: Int, val rowControlListener: RowControlListener): ViewModelProvider.KeyedFactory() {
+    class Factory(private val sessionId: Int, private val rowControlListener: RowControlListener): ViewModelProvider.AndroidViewModelFactory() {
 
         @Suppress("unchecked_cast")
-        override fun <T : ViewModel> create(key:String, modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return PracticeControlItemViewModel(sessionId, rowControlListener) as T
         }
 

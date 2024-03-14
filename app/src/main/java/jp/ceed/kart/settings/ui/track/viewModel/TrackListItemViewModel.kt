@@ -13,10 +13,10 @@ class TrackListItemViewModel(
     class Factory(
         val id: Int,
         val name: String?,
-        val onClick: (Int, View) -> Unit): ViewModelProvider.KeyedFactory() {
+        val onClick: (Int, View) -> Unit): ViewModelProvider.AndroidViewModelFactory() {
 
         @Suppress("unchecked_cast")
-        override fun <T : ViewModel> create(key: String, modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return TrackListItemViewModel(id, name, onClick) as T
         }
     }

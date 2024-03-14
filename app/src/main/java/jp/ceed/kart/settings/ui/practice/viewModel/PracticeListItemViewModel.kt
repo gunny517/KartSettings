@@ -4,7 +4,6 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import jp.ceed.kart.settings.model.entity.PracticeTrack
-import jp.ceed.kart.settings.model.entity.Track
 
 class PracticeListItemViewModel(
     val id: Int,
@@ -28,10 +27,10 @@ class PracticeListItemViewModel(
     class Factory(
         private val practiceTrack: PracticeTrack,
         private val onClickListener: (Int, PracticeListItemViewModel) -> Unit)
-        : ViewModelProvider.KeyedFactory() {
+        : ViewModelProvider.AndroidViewModelFactory() {
 
         @Suppress("unchecked_cast")
-        override fun <T : ViewModel> create(key: String, modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return PracticeListItemViewModel(practiceTrack, onClickListener) as T
         }
     }

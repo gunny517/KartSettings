@@ -23,7 +23,7 @@ import androidx.lifecycle.Observer
  */
 open class Event<out T>(private val content: T) {
 
-	var hasBeenHandled = false
+	private var hasBeenHandled = false
 		private set // Allow external read but not write
 
 	/**
@@ -51,9 +51,9 @@ open class Event<out T>(private val content: T) {
  * [onEventUnhandledContent] is *only* called if the [Event]'s contents has not been handled.
  */
 class EventObserver<T>(private val onEventUnhandledContent: (T) -> Unit) : Observer<Event<T>> {
-	override fun onChanged(event: Event<T>?) {
-		event?.getContentIfNotHandled()?.let { value ->
-			onEventUnhandledContent(value)
+	override fun onChanged(value: Event<T>) {
+		value.getContentIfNotHandled()?.let {
+			onEventUnhandledContent(it)
 		}
 	}
 }

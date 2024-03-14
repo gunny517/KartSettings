@@ -25,10 +25,10 @@ data class PracticeSettingItemViewModel(
         var value: String?,
         private val inputType: Int,
         private val isChanged: Boolean
-        ): ViewModelProvider.KeyedFactory() {
+        ): ViewModelProvider.AndroidViewModelFactory() {
 
         @Suppress("unchecked_cast")
-        override fun <T : ViewModel> create(key: String, modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return PracticeSettingItemViewModel(sessionId, fieldName, value, inputType, isChanged) as T
         }
     }
