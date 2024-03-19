@@ -9,13 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentFinalRatioBinding
-import jp.ceed.kart.settings.domain.repository.FinalRatioRepository
 import jp.ceed.kart.settings.ui.data.adapter.FinalRatioAdapter
 import jp.ceed.kart.settings.ui.data.viewModel.FinalRatioViewModel
 import jp.ceed.kart.settings.ui.util.UiUtil
 
+@AndroidEntryPoint
 class FinalRatioFragment: Fragment() {
 
     private var _binding: FragmentFinalRatioBinding? = null

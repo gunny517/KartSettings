@@ -22,15 +22,15 @@ class PracticeSettingRowView(context: Context, attr: AttributeSet): LinearLayout
     private var lifecycleOwner: LifecycleOwner? = null
 
 
-    fun setPracticeRowItem(_practiceRowItem: PracticeDetailAdapterItem.PracticeRowItem?){
-        _practiceRowItem?.let {
-            practiceRowItem.value = it
+    fun setPracticeRowItem(practiceRowItem: PracticeDetailAdapterItem.PracticeRowItem?){
+        practiceRowItem?.let {
+            this.practiceRowItem.value = it
             resetView()
         }
     }
 
-    fun setLifecycleOwner(_lifecycleOwner: LifecycleOwner){
-        lifecycleOwner = _lifecycleOwner
+    fun setLifecycleOwner(lifecycleOwner: LifecycleOwner){
+        this.lifecycleOwner = lifecycleOwner
     }
 
     fun toggleEditable(sessionId: Int){

@@ -2,11 +2,12 @@ package jp.ceed.kart.settings.domain.repository
 
 import android.content.Context
 import android.content.SharedPreferences
+import dagger.hilt.android.qualifiers.ApplicationContext
 import jp.ceed.kart.settings.model.dto.FinalRatioDto
 import javax.inject.Inject
 
 class FinalRatioRepository @Inject constructor (
-    val context: Context
+    @ApplicationContext var context: Context
 ) {
 
     companion object {
@@ -20,11 +21,16 @@ class FinalRatioRepository @Inject constructor (
         const val KEY_DRIVEN_MAX = "DRIVEN_MAX"
     }
 
-    fun getFinalRatioData(_driveMin: String?, _driveMax: String?, _drivenMin: String?, _drivenMax: String?): Pair<List<String>, Int> {
-        val driveMin: Int = _driveMin?.toInt() ?: DRIVE_MIN
-        val driveMax: Int = _driveMax?.toInt() ?: DRIVE_MAX
-        val drivenMin: Int = _drivenMin?.toInt() ?: DRIVEN_MIN
-        val drivenMax: Int = _drivenMax?.toInt() ?: DRIVEN_MAX
+    fun getFinalRatioData(
+        paramDriveMin: String?,
+        paramDriveMax: String?,
+        paramDrivenMin: String?,
+        paramDrivenMax: String?
+    ): Pair<List<String>, Int> {
+        val driveMin: Int = paramDriveMin?.toInt() ?: DRIVE_MIN
+        val driveMax: Int = paramDriveMax?.toInt() ?: DRIVE_MAX
+        val drivenMin: Int = paramDrivenMin?.toInt() ?: DRIVEN_MIN
+        val drivenMax: Int = paramDrivenMax?.toInt() ?: DRIVEN_MAX
 
         val driveList: ArrayList<Int> = ArrayList()
         for(i in driveMin..driveMax){

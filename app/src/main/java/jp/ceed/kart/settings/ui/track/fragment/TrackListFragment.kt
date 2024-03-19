@@ -34,7 +34,7 @@ class TrackListFragment: Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tack_list, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -68,9 +68,8 @@ class TrackListFragment: Fragment() {
             }
         }
         viewModel.deleteEvent.observe(viewLifecycleOwner){
-            val trackId = it.getContentIfNotHandled()
-            trackId?.let {
-                onClickItemDelete(it)
+            it.getContentIfNotHandled()?.let {trackId ->
+                onClickItemDelete(trackId)
             }
         }
     }

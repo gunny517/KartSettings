@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EditTrackDialogFragmentViewModel @Inject constructor(
-    var trackRepository: TrackRepository,
+    private var trackRepository: TrackRepository,
 ): ViewModel() {
 
     var trackName: MutableLiveData<String> = MutableLiveData()

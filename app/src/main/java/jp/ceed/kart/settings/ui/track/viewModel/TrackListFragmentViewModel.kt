@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TrackListFragmentViewModel @Inject constructor(
-    var trackRepository: TrackRepository
+    private var trackRepository: TrackRepository
 ) : ViewModel() {
 
     var trackList: MutableLiveData<List<TrackListItemViewModel>> = MutableLiveData()

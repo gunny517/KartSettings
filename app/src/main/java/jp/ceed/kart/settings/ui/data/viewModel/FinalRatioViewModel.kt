@@ -1,19 +1,18 @@
 package jp.ceed.kart.settings.ui.data.viewModel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.kart.settings.domain.repository.FinalRatioRepository
 import jp.ceed.kart.settings.ui.Event
-import jp.ceed.kart.settings.ui.track.viewModel.TrackListFragmentViewModel
+import javax.inject.Inject
 
-class FinalRatioViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class FinalRatioViewModel @Inject constructor(
+    private var finalRatioRepository: FinalRatioRepository
+) : ViewModel() {
 
     enum class EventState { CALCULATE }
-
-    private val finalRatioRepository = FinalRatioRepository(application.applicationContext)
 
     val finalRatioList: MutableLiveData<List<String>> = MutableLiveData()
 
@@ -50,8 +49,8 @@ class FinalRatioViewModel(application: Application) : AndroidViewModel(applicati
             drivenMin.value,
             drivenMax.value
         )
-        colSize.value = result.second ?: 0
-        finalRatioList.value = result.first ?: mutableListOf()
+        colSize.value = result.second
+        finalRatioList.value = result.first
         event.value = Event(EventState.CALCULATE)
     }
 }
