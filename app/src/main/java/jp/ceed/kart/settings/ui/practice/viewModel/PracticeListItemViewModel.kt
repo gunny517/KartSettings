@@ -27,7 +27,7 @@ class PracticeListItemViewModel(
     class Factory(
         private val practiceTrack: PracticeTrack,
         private val onClickListener: (Int, PracticeListItemViewModel) -> Unit)
-        : ViewModelProvider.AndroidViewModelFactory() {
+        : ViewModelProvider.NewInstanceFactory() {
 
         @Suppress("unchecked_cast")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

@@ -1,0 +1,248 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "094dc8b641075ef62950c030b23466c0",
+    "entities": [
+      {
+        "tableName": "Track",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Practice",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `trackId` INTEGER NOT NULL, `startDate` TEXT NOT NULL, `description` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "trackId",
+            "columnName": "trackId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startDate",
+            "columnName": "startDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Session",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `practiceId` INTEGER NOT NULL, `startTime` TEXT NOT NULL, `trackCondition` TEXT, `temperature` TEXT, `humidity` TEXT, `pressure` TEXT, `trackTemperature` TEXT, `engine` TEXT, `btdc` TEXT, `carburetor` TEXT, `lowNeedle` TEXT, `highNeedle` TEXT, `finalRatio` TEXT, `exJoint` TEXT, `tirePressureF` TEXT, `tirePressureR` TEXT, `treadF` TEXT, `treadR` TEXT, `stabilizerF` TEXT, `axleShaft` TEXT, `axleBearing` TEXT, `hubStopper` TEXT, `maxRev` TEXT, `maxSpeed` TEXT, `bestTime` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "practiceId",
+            "columnName": "practiceId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startTime",
+            "columnName": "startTime",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "trackCondition",
+            "columnName": "trackCondition",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "temperature",
+            "columnName": "temperature",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "humidity",
+            "columnName": "humidity",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "pressure",
+            "columnName": "pressure",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "trackTemperature",
+            "columnName": "trackTemperature",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "engine",
+            "columnName": "engine",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "btdc",
+            "columnName": "btdc",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "carburetor",
+            "columnName": "carburetor",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lowNeedle",
+            "columnName": "lowNeedle",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "highNeedle",
+            "columnName": "highNeedle",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "finalRatio",
+            "columnName": "finalRatio",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "exJoint",
+            "columnName": "exJoint",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "tirePressureF",
+            "columnName": "tirePressureF",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "tirePressureR",
+            "columnName": "tirePressureR",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "treadF",
+            "columnName": "treadF",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "treadR",
+            "columnName": "treadR",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stabilizerF",
+            "columnName": "stabilizerF",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "axleShaft",
+            "columnName": "axleShaft",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "axleBearing",
+            "columnName": "axleBearing",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "hubStopper",
+            "columnName": "hubStopper",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "maxRev",
+            "columnName": "maxRev",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "maxSpeed",
+            "columnName": "maxSpeed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "bestTime",
+            "columnName": "bestTime",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '094dc8b641075ef62950c030b23466c0')"
+    ]
+  }
+}
