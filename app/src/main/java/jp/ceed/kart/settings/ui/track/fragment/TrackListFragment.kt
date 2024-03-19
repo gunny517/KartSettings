@@ -47,6 +47,7 @@ class TrackListFragment: Fragment() {
     }
 
     private fun init(){
+        viewModel.loadTrackList()
         adapter = TrackListAdapter(requireContext(), viewLifecycleOwner)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -57,14 +58,14 @@ class TrackListFragment: Fragment() {
         }
         viewModel.editEvent.observe(viewLifecycleOwner){
             val trackId = it.getContentIfNotHandled()
-            trackId?.let { trackId ->
-                showEditDialog(trackId)
+            trackId?.let {
+                showEditDialog(it)
             }
         }
         viewModel.deleteEvent.observe(viewLifecycleOwner){
             val trackId = it.getContentIfNotHandled()
-            trackId?.let { trackId ->
-                onClickItemDelete(trackId)
+            trackId?.let {
+                onClickItemDelete(it)
             }
         }
     }

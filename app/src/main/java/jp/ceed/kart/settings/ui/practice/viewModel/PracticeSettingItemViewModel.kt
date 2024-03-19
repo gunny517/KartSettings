@@ -10,14 +10,30 @@ import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
-data class PracticeSettingItemViewModel(
-    val sessionId: Int,
-    val fieldName: String,
-    var value: String?,
-    var inputType: Int,
-    var isChanged: Boolean,
+class PracticeSettingItemViewModel(): ViewModel(), Parcelable {
+
+    constructor(
+        sessionId: Int,
+        fieldName: String,
+        value: String?,
+        inputType: Int,
+        isChanged: Boolean,
+        isEditable: Boolean = false
+    ): this() {
+        this.sessionId = sessionId
+        this.fieldName = fieldName
+        this.value = value
+        this.inputType = inputType
+        this.isChanged = isChanged
+        this.isEditable = isEditable
+    }
+
+    var sessionId: Int = 0
+    var fieldName: String = ""
+    var value: String? = null
+    var inputType: Int = 0
+    var isChanged: Boolean = false
     var isEditable: Boolean = false
-): ViewModel(), Parcelable {
 
     class Factory(
         private val sessionId: Int,
@@ -25,10 +41,10 @@ data class PracticeSettingItemViewModel(
         var value: String?,
         private val inputType: Int,
         private val isChanged: Boolean
-        ): ViewModelProvider.KeyedFactory() {
+        ): ViewModelProvider.NewInstanceFactory() {
 
         @Suppress("unchecked_cast")
-        override fun <T : ViewModel> create(key: String, modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return PracticeSettingItemViewModel(sessionId, fieldName, value, inputType, isChanged) as T
         }
     }

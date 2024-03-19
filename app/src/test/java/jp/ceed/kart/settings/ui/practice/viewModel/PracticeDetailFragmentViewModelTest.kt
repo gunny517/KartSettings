@@ -9,7 +9,6 @@ import jp.ceed.kart.settings.domain.repository.SessionRepository
 import jp.ceed.kart.settings.initMainLooper
 import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
 import jp.ceed.kart.settings.model.entity.Session
-import jp.ceed.kart.settings.ui.common.RowControlListener
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 import org.spekframework.spek2.Spek
