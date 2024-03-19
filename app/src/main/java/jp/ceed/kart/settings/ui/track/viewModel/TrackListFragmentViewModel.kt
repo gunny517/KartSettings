@@ -1,51 +1,31 @@
 package jp.ceed.kart.settings.ui.track.viewModel
 
-import android.app.Application
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.domain.repository.TrackRepository
 import jp.ceed.kart.settings.model.entity.Track
 import jp.ceed.kart.settings.ui.Event
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TrackListFragmentViewModel() : ViewModel() {
-
-    private lateinit var application: Application
-
-    private lateinit var viewModelStoreOwner: ViewModelStoreOwner
-
-    private lateinit var trackRepository: TrackRepository
-
-    constructor(
-        application: Application,
-        viewModelStoreOwner: ViewModelStoreOwner
-    ): this() {
-        this.application = application
-        this.viewModelStoreOwner = viewModelStoreOwner
-        this.trackRepository = TrackRepository(application.applicationContext)
-    }
-
-    class Factory(
-        private val application: Application,
-        private val viewModelStoreOwner: ViewModelStoreOwner
-    ): ViewModelProvider.Factory {
-
-        @Suppress("unchecked_cast")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return TrackListFragmentViewModel(application, viewModelStoreOwner) as T
-        }
-    }
+@HiltViewModel
+class TrackListFragmentViewModel @Inject constructor(
+    var trackRepository: TrackRepository
+) : ViewModel() {
 
     var trackList: MutableLiveData<List<TrackListItemViewModel>> = MutableLiveData()
 
     val editEvent: MutableLiveData<Event<Int>> = MutableLiveData()
 
     val deleteEvent: MutableLiveData<Event<Int>> = MutableLiveData()
+
+    lateinit var viewModelStoreOwner: ViewModelStoreOwner
 
     fun loadTrackList(){
         viewModelScope.launch {

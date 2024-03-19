@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 class TrackListItemViewModel(): ViewModel() {
 
     var id: Int = 0
-    var name: String? = "AAA"
+    var name: String? = null
     var onClick: ((Int, View) -> Unit) = { _, _ -> }
     constructor(
         id: Int,
@@ -18,6 +18,7 @@ class TrackListItemViewModel(): ViewModel() {
         this.id = id
         this.name = name
         this.onClick = onClick
+        this.trackName.value = name
     }
 
     class Factory(

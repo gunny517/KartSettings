@@ -8,23 +8,23 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentTackListBinding
 import jp.ceed.kart.settings.ui.common.fragment.DeleteConfirmDialogFragment
-import jp.ceed.kart.settings.ui.extension.getApplication
 import jp.ceed.kart.settings.ui.track.adapter.TrackListAdapter
 import jp.ceed.kart.settings.ui.track.viewModel.TrackListFragmentViewModel
 
+@AndroidEntryPoint
 class TrackListFragment: Fragment() {
 
     private var _binding: FragmentTackListBinding? = null
 
     private val binding get() = _binding!!
 
-    private val viewModel: TrackListFragmentViewModel by viewModels(factoryProducer = ::factoryProvider)
+    private val viewModel: TrackListFragmentViewModel by viewModels()
 
     private lateinit var adapter: TrackListAdapter
 
@@ -43,11 +43,16 @@ class TrackListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.viewModelStoreOwner = this
         init()
     }
 
-    private fun init(){
+    override fun onResume() {
+        super.onResume()
         viewModel.loadTrackList()
+    }
+
+    private fun init(){
         adapter = TrackListAdapter(requireContext(), viewLifecycleOwner)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -87,15 +92,8 @@ class TrackListFragment: Fragment() {
     }
 
     private fun showEditDialog(trackId: Int){
-        EditTrackDialogFragment.newInstance(trackId, ::onEdit).show(childFragmentManager, EditTrackDialogFragment.TAG)
-    }
-
-    private fun onEdit(){
-        viewModel.loadTrackList()
-    }
-
-    private fun factoryProvider(): TrackListFragmentViewModel.Factory {
-        return TrackListFragmentViewModel.Factory(getApplication(), activity as ViewModelStoreOwner)
+        EditTrackDialogFragment.newInstance(trackId)
+            .show(childFragmentManager, EditTrackDialogFragment.TAG)
     }
 
 }

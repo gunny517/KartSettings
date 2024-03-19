@@ -34,7 +34,7 @@ class TrackListAdapter(context: Context, private val lifecycleOwner: LifecycleOw
         return viewModelList.size
     }
 
-    fun setItemList(_viewModelList: List<TrackListItemViewModel>){
-        viewModelList = _viewModelList
+    fun setItemList(viewModelList: List<TrackListItemViewModel>){
+        this.viewModelList = viewModelList
     }
 }
