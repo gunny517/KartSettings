@@ -17,6 +17,7 @@ import jp.ceed.kart.settings.model.dto.PracticeDetailAdapterItem
 import jp.ceed.kart.settings.model.entity.Session
 import jp.ceed.kart.settings.ui.Event
 import jp.ceed.kart.settings.ui.common.RowControlCommand
+import jp.ceed.kart.settings.ui.navigation.AppNavArgs
 import kotlinx.coroutines.launch
 import java.lang.reflect.Field
 import java.util.Collections
@@ -42,7 +43,7 @@ class PracticeDetailFragmentViewModel @Inject constructor (
     var event: MutableLiveData<Event<EventContent>> = MutableLiveData()
 
     @VisibleForTesting
-    val practiceId: Int = savedStateHandle.get<Int>("practiceId")
+    val practiceId: Int = savedStateHandle.get<Int>(AppNavArgs.PRACTICE_ID.name)
         ?: throw IllegalArgumentException("Should have practice id.")
 
     private val viewModelStore = ViewModelStore()

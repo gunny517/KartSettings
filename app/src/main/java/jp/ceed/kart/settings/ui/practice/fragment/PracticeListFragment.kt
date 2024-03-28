@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentPracticeListBinding
 import jp.ceed.kart.settings.ui.common.fragment.DeleteConfirmDialogFragment
+import jp.ceed.kart.settings.ui.navigation.AppNavArgs
 import jp.ceed.kart.settings.ui.practice.adapter.PracticeListAdapter
 import jp.ceed.kart.settings.ui.practice.viewModel.PracticeListFragmentViewModel
 
@@ -85,7 +86,12 @@ class PracticeListFragment: Fragment() {
 
     private fun onClickPractice(practiceId: Int, titleLabel: String){
         findNavController().navigate(
-            PracticeListFragmentDirections.toPracticeDetail(practiceId, titleLabel))
+            R.id.toPracticeDetail,
+            Bundle().apply {
+                putInt(AppNavArgs.PRACTICE_ID.name, practiceId)
+                putString(AppNavArgs.TITLE_LABEL.name, titleLabel)
+            }
+        )
     }
 
     private fun showEditDialog(practiceId: Int){
