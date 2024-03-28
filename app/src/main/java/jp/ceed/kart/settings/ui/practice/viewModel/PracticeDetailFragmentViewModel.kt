@@ -1,5 +1,6 @@
 package jp.ceed.kart.settings.ui.practice.viewModel
 
+import android.util.Log
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -17,6 +18,7 @@ import jp.ceed.kart.settings.model.entity.Session
 import jp.ceed.kart.settings.ui.Event
 import jp.ceed.kart.settings.ui.common.RowControlCommand
 import kotlinx.coroutines.launch
+import java.lang.reflect.Field
 import java.util.Collections
 import javax.inject.Inject
 
@@ -96,14 +98,19 @@ class PracticeDetailFragmentViewModel @Inject constructor (
                 val isChanged = !ignoreValueChange && lastValue != null && !lastValue.equals(value)
                 lastValue = value
                 val factory = PracticeSettingItemViewModel.Factory(session.id, name, value, inputType, isChanged)
+                val key = createViewModelKey(session.id, field)
                 val viewModel = ViewModelProvider(viewModelStore, factory)
-                    .get(session.id.toString(), PracticeSettingItemViewModel::class.java)
+                    .get(key, PracticeSettingItemViewModel::class.java)
                 list.add(viewModel)
             }
             resultList.add(PracticeDetailAdapterItem.PracticeRowItem(index, label, list))
         }
         Collections.sort(resultList, SessionRepository.PracticeRowComparator())
         return resultList
+    }
+
+    private fun createViewModelKey(sessionId: Int, field: Field): String {
+        return field.name + sessionId.toString()
     }
 
 
@@ -135,6 +142,7 @@ class PracticeDetailFragmentViewModel @Inject constructor (
             }
             RowControlCommand.EDIT -> {
                 changeEditState(sessionId)
+
             }
         }
     }
@@ -142,14 +150,15 @@ class PracticeDetailFragmentViewModel @Inject constructor (
     @VisibleForTesting
     fun changeEditState(sessionId: Int){
         practiceRowList.value?.let {
-            var isEditMode: Boolean = true
-            val copyList = it.toList()
+            var isEditMode = true
+            val copyList: List<PracticeDetailAdapterItem> = it.toList()
             for(entry in copyList){
                 when(entry){
                     is PracticeDetailAdapterItem.PracticeRowItem -> {
                         for(session in entry.values){
                             if(sessionId == session.sessionId){
                                 session.isEditable = session.isEditable.not()
+                                Log.d("<SurfLog>", "${session.fieldName} = ${session.isEditable}")
                             }
                         }
                     }

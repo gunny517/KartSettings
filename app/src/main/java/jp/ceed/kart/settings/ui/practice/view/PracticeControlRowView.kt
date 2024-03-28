@@ -17,8 +17,8 @@ class PracticeControlRowView(context: Context, attr: AttributeSet): LinearLayout
 
     private var controlItem: PracticeDetailAdapterItem.PracticeControlItem? = null
 
-    fun setControlItem(_controlItem: PracticeDetailAdapterItem.PracticeControlItem?){
-        controlItem = _controlItem
+    fun setControlItem(controlItem: PracticeDetailAdapterItem.PracticeControlItem?){
+        this.controlItem = controlItem
         resetView()
     }
 
