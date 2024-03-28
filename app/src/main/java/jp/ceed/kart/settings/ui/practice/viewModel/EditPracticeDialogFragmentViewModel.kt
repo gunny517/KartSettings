@@ -11,6 +11,7 @@ import jp.ceed.kart.settings.model.entity.Practice
 import jp.ceed.kart.settings.model.entity.PracticeTrack
 import jp.ceed.kart.settings.model.entity.Track
 import jp.ceed.kart.settings.ui.Event
+import jp.ceed.kart.settings.ui.navigation.AppNavArgs
 import jp.ceed.kart.settings.ui.util.UiUtil
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -24,7 +25,7 @@ class EditPracticeDialogFragmentViewModel @Inject constructor (
     private val uiUtil: UiUtil,
 ): ViewModel() {
 
-    val practiceId: Int = savedStateHandle.get<Int>("practiceId") ?: 0
+    val practiceId: Int = savedStateHandle.get<Int>(AppNavArgs.PRACTICE_ID.name) ?: 0
 
     private var practiceTrack: PracticeTrack? = null
 

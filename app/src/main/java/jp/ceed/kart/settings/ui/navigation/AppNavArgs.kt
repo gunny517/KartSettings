@@ -7,5 +7,5 @@ package jp.ceed.kart.settings.ui.navigation
  */
 enum class AppNavArgs {
     PRACTICE_ID,
-    TITLE_LABEL,
+    TITLE_LABEL;
 }

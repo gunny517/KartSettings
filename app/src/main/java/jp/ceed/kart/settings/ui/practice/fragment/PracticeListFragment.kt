@@ -28,7 +28,7 @@ class PracticeListFragment: Fragment() {
 
     val viewModel: PracticeListFragmentViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_practice_list, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -70,7 +70,7 @@ class PracticeListFragment: Fragment() {
         viewModel.editEvent.observe(viewLifecycleOwner){
             val content = it.getContentIfNotHandled()
             content?.let { practiceId ->
-                showEditDialog(practiceId ?: 0)
+                showEditDialog(practiceId)
             }
         }
     }

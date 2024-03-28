@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentEditPracticeDaialogBinding
+import jp.ceed.kart.settings.ui.navigation.AppNavArgs
 import jp.ceed.kart.settings.ui.practice.viewModel.EditPracticeDialogFragmentViewModel
 
 @AndroidEntryPoint
@@ -20,14 +21,12 @@ class EditPracticeDialogFragment: DialogFragment(), DialogInterface.OnClickListe
 
         const val TAG = "EditPracticeDialogFragment"
 
-        private const val KEY_PRACTICE_ID = "KEY_PRACTICE_ID"
-
-        fun newInstance(practiceId: Int = 0, _onEdit: () -> Unit): EditPracticeDialogFragment{
+        fun newInstance(practiceId: Int = 0, onEdit: () -> Unit): EditPracticeDialogFragment{
             val fragment = EditPracticeDialogFragment()
             val args = Bundle()
-            args.putInt(KEY_PRACTICE_ID, practiceId)
+            args.putInt(AppNavArgs.PRACTICE_ID.name, practiceId)
             fragment.arguments = args
-            fragment.onEdit = _onEdit
+            fragment.onEdit = onEdit
             return fragment
         }
     }
@@ -44,7 +43,7 @@ class EditPracticeDialogFragment: DialogFragment(), DialogInterface.OnClickListe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        practiceId = arguments?.getInt(KEY_PRACTICE_ID, 0) ?: 0
+        practiceId = arguments?.getInt(AppNavArgs.PRACTICE_ID.name, 0) ?: 0
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

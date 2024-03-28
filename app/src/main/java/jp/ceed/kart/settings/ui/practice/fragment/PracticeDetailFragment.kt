@@ -29,7 +29,7 @@ class PracticeDetailFragment: Fragment() {
 
     private lateinit var adapter: PracticeDetailAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_practice_detail, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
