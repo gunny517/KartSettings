@@ -2,6 +2,7 @@ package jp.ceed.kart.settings.ui.practice.viewModel
 
 import android.content.Context
 import android.os.Parcelable
+import android.text.InputType
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -12,13 +13,18 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class PracticeSettingItemViewModel(): ViewModel(), Parcelable {
 
+    companion object {
+        const val START_TIME_FORMAT = "%02d:%02d"
+    }
+
     constructor(
         sessionId: Int,
         fieldName: String,
         value: String?,
         inputType: Int,
+        isEditable: Boolean = false,
         isChanged: Boolean,
-        isEditable: Boolean = false
+        onTimeFieldFocus: (String, Int) -> Unit,
     ): this() {
         this.sessionId = sessionId
         this.fieldName = fieldName
@@ -26,6 +32,7 @@ class PracticeSettingItemViewModel(): ViewModel(), Parcelable {
         this.inputType = inputType
         this.isChanged = isChanged
         this.isEditable = isEditable
+        this.onTimeFieldFocus = onTimeFieldFocus
     }
 
     var sessionId: Int = 0
@@ -34,18 +41,31 @@ class PracticeSettingItemViewModel(): ViewModel(), Parcelable {
     var inputType: Int = 0
     var isChanged: Boolean = false
     var isEditable: Boolean = false
+    var onTimeFieldFocus: (String, Int) -> Unit = { _, _ -> {} }
 
     class Factory(
         private val sessionId: Int,
         private val fieldName: String,
         var value: String?,
         private val inputType: Int,
-        private val isChanged: Boolean
-        ): ViewModelProvider.NewInstanceFactory() {
+        private val isEditable: Boolean,
+        private val isChanged: Boolean,
+        private val onTimeFieldFocus: (String, Int) -> Unit,
+    ): ViewModelProvider.NewInstanceFactory() {
 
-        @Suppress("unchecked_cast")
+        @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return PracticeSettingItemViewModel(sessionId, fieldName, value, inputType, isChanged) as T
+            return PracticeSettingItemViewModel(sessionId, fieldName, value, inputType, isEditable, isChanged, onTimeFieldFocus) as T
+        }
+    }
+
+    fun setValueAStartTime(hour: Int, minutes: Int) {
+        value = START_TIME_FORMAT.format(hour, minutes)
+    }
+
+    fun onFocus(tag: String) {
+        if (InputType.TYPE_DATETIME_VARIATION_TIME == inputType) {
+            onTimeFieldFocus(tag, sessionId)
         }
     }
 

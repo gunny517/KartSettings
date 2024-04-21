@@ -14,6 +14,8 @@
         android:background="@drawable/bg_setting_item">
 
         <EditText
+            android:id="@+id/editText"
+            android:tag="@{item.fieldName}"
             android:layout_width="@dimen/setting_item_edit_text_width"
             android:layout_height="@dimen/setting_item_edit_text_height"
             app:layout_constraintTop_toTopOf="parent"

@@ -34,13 +34,19 @@ class PracticeDetailFragmentViewModel @Inject constructor (
         CLICK_DELETE_DIALOG,
         CLICK_CREATE_DIALOG,
         EDIT_MODE_COMPLETED,
+        FOCUS_TIME_FIELD,
     }
 
-    class EventContent(eventType: EventType, value: Int): AbsEventContent<EventType>(eventType, value)
+    class EventContent(
+        eventType: EventType,
+        value: Int
+    ): AbsEventContent<EventType>(eventType, value)
 
     var practiceRowList: MutableLiveData<List<PracticeDetailAdapterItem>> = MutableLiveData()
 
     var event: MutableLiveData<Event<EventContent>> = MutableLiveData()
+
+    private var editingFieldName: String? = null
 
     @VisibleForTesting
     val practiceId: Int = savedStateHandle.get<Int>(AppNavArgs.PRACTICE_ID.name)
@@ -50,6 +56,17 @@ class PracticeDetailFragmentViewModel @Inject constructor (
 
     init {
         loadPracticeRowList()
+    }
+
+    fun resetStartTime(sessionId: Int, hour: Int, minutes: Int) {
+        practiceRowList.value?.forEach { item ->
+            (item as PracticeDetailAdapterItem.PracticeRowItem).values.forEach { model ->
+                if (model.sessionId == sessionId && model.fieldName == editingFieldName) {
+                    model.setValueAStartTime(hour, minutes)
+                    return
+                }
+            }
+        }
     }
 
     private fun loadPracticeRowList(){
@@ -96,9 +113,17 @@ class PracticeDetailFragmentViewModel @Inject constructor (
             var lastValue: String? = null
             for(session in sessionList){
                 val value = field.get(session) as String?
-                val isChanged = !ignoreValueChange && lastValue != null && !lastValue.equals(value)
+                val isChanged = !ignoreValueChange && lastValue != null && lastValue != value
                 lastValue = value
-                val factory = PracticeSettingItemViewModel.Factory(session.id, name, value, inputType, isChanged)
+                val factory = PracticeSettingItemViewModel.Factory(
+                    session.id,
+                    name,
+                    value,
+                    inputType,
+                    false,
+                    isChanged,
+                    ::onTimeItemFocus
+                )
                 val key = createViewModelKey(session.id, field)
                 val viewModel = ViewModelProvider(viewModelStore, factory)
                     .get(key, PracticeSettingItemViewModel::class.java)
@@ -114,6 +139,10 @@ class PracticeDetailFragmentViewModel @Inject constructor (
         return field.name + sessionId.toString()
     }
 
+    private fun onTimeItemFocus(fieldName: String, sessionId: Int) {
+        editingFieldName = fieldName
+        event.value = Event(EventContent(EventType.FOCUS_TIME_FIELD, sessionId))
+    }
 
     fun onClickFab() {
         event.value = Event(EventContent(EventType.CLICK_CREATE_DIALOG, 0))

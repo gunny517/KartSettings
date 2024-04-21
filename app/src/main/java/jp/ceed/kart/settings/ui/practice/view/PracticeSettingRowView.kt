@@ -21,7 +21,6 @@ class PracticeSettingRowView(context: Context, attr: AttributeSet): LinearLayout
 
     private var lifecycleOwner: LifecycleOwner? = null
 
-
     fun setPracticeRowItem(practiceRowItem: PracticeDetailAdapterItem.PracticeRowItem?){
         practiceRowItem?.let {
             this.practiceRowItem.value = it
@@ -66,7 +65,7 @@ class PracticeSettingRowView(context: Context, attr: AttributeSet): LinearLayout
     private fun addValueView(item: PracticeSettingItemViewModel){
         val binding: SettingItemViewBinding = DataBindingUtil.inflate(inflater, R.layout.setting_item_view, this, true)
         binding.lifecycleOwner = lifecycleOwner
+        binding.editText.setOnFocusChangeListener { view, hasFocus -> if (hasFocus) item.onFocus(view.tag as String) }
         binding.item = item
     }
-
 }

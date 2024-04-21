@@ -2,6 +2,7 @@ package jp.ceed.kart.settings.model.entity
 
 import android.os.Parcelable
 import android.text.InputType
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import jp.ceed.kart.settings.R
@@ -20,7 +21,8 @@ data class Session(
 
     val practiceId: Int,
 
-    @SettingElement(label = R.string.setting_label_start_time, index = 0, inputType = TYPE_TEXT, ignoreValueChange = true)
+    @SettingElement(label = R.string.setting_label_start_time, index = 0, inputType = InputType.TYPE_DATETIME_VARIATION_TIME, ignoreValueChange = true)
+    @ColumnInfo(name = COLUMN_NAME_START_TIME)
     val startTime: String = DEFAULT_START_TIME,
 
     @SettingElement(label = R.string.setting_label_track_condition, index = 1, inputType = TYPE_TEXT)
@@ -100,6 +102,8 @@ data class Session(
         const val TYPE_NUMBER: Int = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
 
         const val TYPE_TEXT: Int = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_NORMAL
+
+        const val COLUMN_NAME_START_TIME = "startTime"
 
         fun fromPracticeRowItemList(rowItemList: List<PracticeDetailAdapterItem>, sessionId: Int, practiceId: Int): Session{
             val map = HashMap<String,String?>()

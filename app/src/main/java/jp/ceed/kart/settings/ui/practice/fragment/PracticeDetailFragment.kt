@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.kart.settings.R
 import jp.ceed.kart.settings.databinding.FragmentPracticeDetailBinding
 import jp.ceed.kart.settings.ui.common.fragment.DeleteConfirmDialogFragment
+import jp.ceed.kart.settings.ui.common.fragment.TimePickerDialogFragment
 import jp.ceed.kart.settings.ui.practice.adapter.PracticeDetailAdapter
 import jp.ceed.kart.settings.ui.practice.viewModel.PracticeDetailFragmentViewModel
 import jp.ceed.kart.settings.ui.util.UiUtil
@@ -74,7 +75,23 @@ class PracticeDetailFragment: Fragment() {
                     }
                 }.show(childFragmentManager, CreateSessionDialogFragment.TAG)
             }
+            PracticeDetailFragmentViewModel.EventType.FOCUS_TIME_FIELD -> {
+                val timePickerFragment = TimePickerDialogFragment().apply {
+                    setOnTimeSetListener { _, hourOfDay, minute ->
+                        onTimeSelect(
+                            eventContent.value,
+                            hourOfDay,
+                            minute
+                        )
+                    }
+                }
+                timePickerFragment.show(childFragmentManager, TimePickerDialogFragment.TAG)
+            }
         }
+    }
+
+    private fun onTimeSelect(sessionId: Int, hour: Int, minute: Int) {
+        viewModel.resetStartTime(sessionId, hour, minute)
     }
 
     private fun onClickDialogButton(button: Int, eventContent: PracticeDetailFragmentViewModel.EventContent){
